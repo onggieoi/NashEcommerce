@@ -19,9 +19,13 @@ namespace backend
 
         public void ConfigureServices(IServiceCollection services)
         {
-
-            services.AddControllers();
+            services.AddContext(Configuration);
             services.AddSwagger();
+
+            services.AddControllers()
+                .AddNewtonsoftJson(options =>
+                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
