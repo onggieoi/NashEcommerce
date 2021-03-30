@@ -10,5 +10,6 @@ namespace backend.Models
 
         [DefaultValue(false)]
         public bool IsDelete { get; set; }
+        public virtual List<Product> Products { get; set; }
     }
 }

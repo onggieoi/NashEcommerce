@@ -1,17 +1,12 @@
-using System.ComponentModel;
-
-namespace backend.Models
+namespace backend.ViewModels
 {
-    public class Product
+    public class ProductRespone
     {
         public int ProductId { get; set; }
         public string Name { get; set; }
         public int Price { get; set; }
         public string Image { get; set; }
-
-        [DefaultValue(false)]
-        public bool IsDelete { get; set; }
         public int CategoryId { get; set; }
-        public virtual Category Category { get; set; }
+        public string CategoryName { get; set; }
     }
 }
