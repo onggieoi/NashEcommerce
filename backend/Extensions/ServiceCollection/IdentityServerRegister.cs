@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using backend.Configs;
+using IdentityServerHost.Quickstart.UI;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -20,6 +21,7 @@ namespace backend.Extensions.ServiceCollection
             .AddInMemoryIdentityResources(IdentityServerConfig.Ids)
             .AddInMemoryApiResources(IdentityServerConfig.Apis)
             .AddInMemoryClients(IdentityServerConfig.Clients(clientUrls))
+            .AddTestUsers(TestUsers.Users)
             .AddDeveloperSigningCredential();
         }
     }

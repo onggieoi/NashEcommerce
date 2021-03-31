@@ -37,7 +37,7 @@ namespace backend
 
             services.AddSwagger();
 
-            services.AddControllers()
+            services.AddControllersWithViews()
                 .AddNewtonsoftJson(options =>
                     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );
@@ -50,9 +50,10 @@ namespace backend
                 app.UseDeveloperExceptionPage();
                 app.ConfigureSwagger();
             }
-
+            app.UseStaticFiles();
             app.UseHttpsRedirection();
             app.UseCors(AllowOrigins.OriginPolicy);
+
             app.UseRouting();
 
             app.UseIdentityServer();
@@ -60,7 +61,7 @@ namespace backend
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapDefaultControllerRoute();
             });
         }
     }
