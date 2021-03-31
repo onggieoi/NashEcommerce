@@ -41,7 +41,7 @@ namespace backend
                 app.ConfigureSwagger(); ;
             }
 
-            // app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
 
             app.UseRouting();
 
