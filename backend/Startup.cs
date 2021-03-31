@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Collections.Generic;
+using backend.Configs;
 
 namespace backend
 {
@@ -32,6 +33,8 @@ namespace backend
 
             services.AddIdentityServerCustom(clientUrls);
 
+            services.AddCorsOrigins(clientUrls);
+
             services.AddSwagger();
 
             services.AddControllers()
@@ -49,7 +52,7 @@ namespace backend
             }
 
             app.UseHttpsRedirection();
-
+            app.UseCors(AllowOrigins.OriginPolicy);
             app.UseRouting();
 
             app.UseIdentityServer();
