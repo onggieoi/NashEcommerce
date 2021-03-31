@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using AutoMapper;
+using System.Collections.Generic;
 
 namespace backend
 {
@@ -21,9 +21,16 @@ namespace backend
 
         public void ConfigureServices(IServiceCollection services)
         {
+            var clientUrls = new Dictionary<string, string>
+            {
+                ["Mvc"] = Configuration["ClientUrl:Mvc"]
+            };
+
             services.AddContext(Configuration);
 
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
+            services.AddIdentityServerCustom(clientUrls);
 
             services.AddSwagger();
 
@@ -38,13 +45,14 @@ namespace backend
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.ConfigureSwagger(); ;
+                app.ConfigureSwagger();
             }
 
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
+            app.UseIdentityServer();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
