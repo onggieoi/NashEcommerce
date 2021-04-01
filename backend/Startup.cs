@@ -103,7 +103,7 @@ namespace backend
 
                 }
 
-                if (!context.ApiScopes.Any())
+                if (!context.ApiResources.Any())
                 {
                     foreach (var resource in IdentityServerConfig.Apis)
                     {
