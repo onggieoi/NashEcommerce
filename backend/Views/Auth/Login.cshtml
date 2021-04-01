@@ -1,0 +1,53 @@
+@model LoginAuthModel
+
+<div class="login-page">
+    <div class="lead">
+        <h1>Login</h1>
+    </div>
+
+    <partial name="_ValidationSummary" />
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Account</h2>
+                </div>
+
+                <div class="card-body">
+                    <form asp-route="Login">
+
+                        @if (ViewBag.Error != null)
+                        {
+                            <p class="text-danger">@ViewBag.Error</p>
+                        }
+
+                        <input type="hidden" asp-for="ReturnUrl" />
+
+                        <div class="form-group">
+                            <label asp-for="Username"></label>
+                            <input class="form-control" placeholder="Username" asp-for="Username" autofocus>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Password"></label>
+                            <input type="password" class="form-control" placeholder="Password" asp-for="Password"
+                                autocomplete="off">
+                        </div>
+                        <button class="btn btn-primary" name="button" value="login">Login</button>
+                        <button class="btn btn-secondary" name="button" value="cancel">
+                            Cancel
+                        </button>
+                    </form>
+
+                    <div class="d-flex mt-3">
+                        <a class="btn btn-primary" asp-controller="Auth" asp-action="Register"
+                            asp-route-returnUrl="@Model.ReturnUrl">
+                            Register
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
