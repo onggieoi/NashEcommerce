@@ -1,16 +1,45 @@
+using System.Reflection;
 using System.Collections.Generic;
-using backend.Configs;
-using IdentityServerHost.Quickstart.UI;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+
+using backend.DbContexts;
 
 namespace backend.Extensions.ServiceCollection
 {
     public static class IdentityServerRegister
     {
         public static void AddIdentityServerCustom(this IServiceCollection services,
-            Dictionary<string, string> clientUrls)
+            IConfiguration configuration)
         {
+            var clientUrls = new Dictionary<string, string>
+            {
+                ["Mvc"] = configuration["ClientUrl:Mvc"]
+            };
+
+            var connectionString = configuration.GetConnectionString("ApplicationConnection");
+
+            var assembly = typeof(Startup).Assembly.GetName().Name;
+
+            services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            {
+                options.Password.RequireDigit = false;
+                options.Password.RequiredLength = 6;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+            })
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
+
+            services.ConfigureApplicationCookie(config =>
+            {
+                // config.Cookie.Name = "server";
+                config.LoginPath = "/Auth/Login";
+                config.LogoutPath = "/Auth/Logout";
+            });
+
             services.AddIdentityServer(options =>
             {
                 options.Events.RaiseErrorEvents = true;
@@ -18,11 +47,23 @@ namespace backend.Extensions.ServiceCollection
                 options.Events.RaiseFailureEvents = true;
                 options.Events.RaiseSuccessEvents = true;
             })
-            .AddInMemoryIdentityResources(IdentityServerConfig.Ids)
-            .AddInMemoryApiResources(IdentityServerConfig.Apis)
-            .AddInMemoryClients(IdentityServerConfig.Clients(clientUrls))
-            .AddTestUsers(TestUsers.Users)
-            .AddDeveloperSigningCredential();
+                .AddAspNetIdentity<IdentityUser>()
+                .AddConfigurationStore(options =>
+                {
+                    options.ConfigureDbContext = b => b.UseSqlServer(connectionString,
+                        sql => sql.MigrationsAssembly(assembly));
+                })
+                .AddOperationalStore(options =>
+                {
+                    options.ConfigureDbContext = b =>
+                        b.UseSqlServer(connectionString, sql =>
+                            sql.MigrationsAssembly(assembly));
+                })
+                .AddDeveloperSigningCredential();
+            // .AddInMemoryIdentityResources(IdentityServerConfig.Ids)
+            // .AddInMemoryApiResources(IdentityServerConfig.Apis)
+            // .AddInMemoryClients(IdentityServerConfig.Clients(clientUrls))
+            // .AddTestUsers(TestUsers.Users)
         }
     }
 }

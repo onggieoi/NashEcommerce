@@ -10,7 +10,14 @@ namespace backend.Configs
             new IdentityResource[]
             {
                 new IdentityResources.OpenId(),
-                new IdentityResources.Profile()
+                new IdentityResources.Profile(),
+                new IdentityResource
+                {
+                    Name = "testScope",
+                    UserClaims = {
+                        "testScope"
+                    }
+                }
             };
 
         public static IEnumerable<ApiResource> Apis =>
@@ -36,20 +43,20 @@ namespace backend.Configs
                     ClientSecrets = { new Secret("secret".Sha256()) },
 
                     AllowedGrantTypes = GrantTypes.Code,
-                    RequireConsent = false,
                     RequirePkce = true,
+                    RequireConsent = false,
                     AllowOfflineAccess = true,
+                    AlwaysIncludeUserClaimsInIdToken = true,
 
                     RedirectUris = { $"{clientUrls["Mvc"]}/signin-oidc" },
                     PostLogoutRedirectUris = { $"{clientUrls["Mvc"]}/signout-callback-oidc" },
-
                     AllowedScopes = new List<string>
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
                         IdentityServerConstants.StandardScopes.OfflineAccess,
-                        "api"
-                    }
+                        "api", "testScope"
+                    },
                 }
             };
     }
