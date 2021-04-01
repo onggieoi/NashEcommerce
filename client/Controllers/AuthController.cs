@@ -1,3 +1,5 @@
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,11 +14,10 @@ namespace client.Controllers
             return SignOut("Cookies", "oidc");
         }
 
-        [Authorize]
         [HttpGet("/login")]
-        public IActionResult login()
+        public async Task login()
         {
-            return RedirectToAction("Index", "Home");
+            await HttpContext.ChallengeAsync(new AuthenticationProperties { RedirectUri = "/" });
         }
     }
 }

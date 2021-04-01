@@ -48,10 +48,14 @@ namespace client.Extensions
 
                             return Task.CompletedTask;
                         },
+                        OnAuthorizationCodeReceived = context =>
+                        {
+                            return Task.CompletedTask;
+                        },
                         OnTicketReceived = context =>
                         {
                             return Task.CompletedTask;
-                        }
+                        },
                     };
 
                 });
