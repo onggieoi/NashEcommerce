@@ -1,0 +1,25 @@
+@model string
+
+@if (User.Identity.IsAuthenticated)
+{
+    <div class="d-sm-inline-flex justify-content-between">
+    <ul class="navbar-nav ">
+        <li class="nav-item">
+            <a class="nav-link text-dark">Hi @Model</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" href="/logout">Logout</a>
+        </li>
+    </ul>
+</div>
+}
+else
+{
+    <div class="d-sm-inline-flex justify-content-between">
+    <ul class="navbar-nav ">
+        <li class="nav-item">
+            <a class="nav-link text-dark" href="/login">Login</a>
+        </li>
+    </ul>
+</div>
+}

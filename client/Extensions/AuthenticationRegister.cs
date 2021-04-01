@@ -1,7 +1,9 @@
-using System.IdentityModel.Tokens.Jwt;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
 
 namespace client.Extensions
 {
@@ -11,17 +13,12 @@ namespace client.Extensions
         {
             var backendUrl = config.GetValue<string>("BackEndUrl");
 
-            JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
-
             services.AddAuthentication(options =>
                 {
                     options.DefaultScheme = "Cookies";
                     options.DefaultChallengeScheme = "oidc";
                 })
-                .AddCookie("Cookies", options =>
-                {
-                    options.Cookie.Name = "MVC";
-                })
+                .AddCookie("Cookies")
                 .AddOpenIdConnect("oidc", options =>
                 {
                     options.Authority = backendUrl;
@@ -29,13 +26,34 @@ namespace client.Extensions
                     options.ClientSecret = "secret";
                     options.ResponseType = "code";
 
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuer = true
-                    };
+                    // options.TokenValidationParameters = new TokenValidationParameters
+                    // {
+                    //     ValidateIssuer = true
+                    // };
 
                     options.SaveTokens = true;
                     options.GetClaimsFromUserInfoEndpoint = true;
+
+                    options.Scope.Add("testScope");
+                    options.Scope.Add("offline_access");
+
+                    options.ClaimActions.MapUniqueJsonKey("TestedScope", "testScope");
+
+                    options.Events = new OpenIdConnectEvents
+                    {
+                        OnRemoteFailure = context =>
+                        {
+                            context.Response.Redirect("/");
+                            context.HandleResponse();
+
+                            return Task.CompletedTask;
+                        },
+                        OnTicketReceived = context =>
+                        {
+                            return Task.CompletedTask;
+                        }
+                    };
+
                 });
         }
     }
