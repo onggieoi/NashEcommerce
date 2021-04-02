@@ -1,15 +1,12 @@
-using System.Linq;
-using System;
 using System.Threading.Tasks;
 using AutoMapper;
 using backend.DbContexts;
 using backend.Models;
-using backend.ViewModels;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
+using ViewModelShare.Product;
 
 namespace backend.Controllers
 {

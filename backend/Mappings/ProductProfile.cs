@@ -1,6 +1,6 @@
 using AutoMapper;
 using backend.Models;
-using backend.ViewModels;
+using ViewModelShare.Product;
 
 namespace backend.Mappings
 {
@@ -10,8 +10,6 @@ namespace backend.Mappings
         {
             CreateMap<ProductRequest, Product>().ReverseMap();
             CreateMap<ProductRespone, Product>()
-                // .ForMember(p => p.Category.Name, opts =>
-                //     opts.MapFrom(pr => pr.CategoryName))
                 .AfterMap((pr, p) => pr.CategoryName = p.Category.Name)
                 .ReverseMap();
         }
