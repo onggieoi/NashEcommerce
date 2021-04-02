@@ -1,0 +1,55 @@
+@model HeaderViewModel
+
+<!-- #nav-menu-container -->
+<header id="header">
+    <div class="container d-flex">
+        <div id="logo" class="pull-left">
+            <h1><a href="~/#">Reve<span>al</span></a></h1>
+        </div>
+
+        <!-- #nav-menu-container -->
+        <nav id="nav-menu-container">
+            <ul class="nav-menu">
+                <li class="menu-active"><a href="~/#">Home</a></li>
+                <li><a href="~/#about">About Us</a></li>
+                <li><a href="~/#services">Services</a></li>
+                <li><a href="~/#portfolio">Portfolio</a></li>
+                <li><a href="~/#team">Team</a></li>
+                <li class="menu-has-children"><a href="">Categories</a>
+                    <ul>
+                        @foreach (var category in Model.Categories)
+                        {
+                            <li>
+                                <a href="#">@category.Name</a>
+                            </li>
+                        }
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <!-- #nav-menu-container -->
+
+        <!-- #Auth -->
+        <div class="ml-auto">
+            <ul class="nav-menu">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li class="menu-active">
+                        <a href="/">@Model.UserName</a>
+                    </li>
+                    <li>
+                        <a href="/logout">Logout</a>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <a href="/login">Login</a>
+                    </li>
+                }
+            </ul>
+        </div>
+        <!-- #Auth -->
+
+    </div>
+</header>
