@@ -49,7 +49,7 @@
 
     <!-- ======= Header ======= -->
     <header id="header">
-        <div class="container">
+        <div class="container d-flex">
             <div id="logo" class="pull-left">
                 <h1><a href="#">Reve<span>al</span></a></h1>
             </div>
@@ -71,6 +71,9 @@
                     </li>
                 </ul>
             </nav><!-- #nav-menu-container -->
+
+            @await Component.InvokeAsync("Auth")
+
         </div>
     </header>
     <!-- End Header -->
