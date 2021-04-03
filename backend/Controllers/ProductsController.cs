@@ -1,12 +1,11 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using backend.DbContexts;
-using backend.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using ViewModelShare.Product;
+using backend.Repositories.ProductRepo;
 
 namespace backend.Controllers
 {
@@ -17,70 +16,62 @@ namespace backend.Controllers
         private ILogger<ProductsController> _logger;
         private ApplicationDbContext _context;
         private IMapper _mapper;
+        private IProductRepository _productRepository;
 
         public ProductsController(
             ILogger<ProductsController> logger,
             IMapper mapper,
-            ApplicationDbContext context)
+            ApplicationDbContext context,
+            IProductRepository productRepository)
         {
             _logger = logger;
             _context = context;
             _mapper = mapper;
+            _productRepository = productRepository;
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<ProductRespone>> GetProducts(int id)
+        {
+            var result = await _productRepository.GetProduct(id);
+            return Ok(result);
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetProducts()
+        public async Task<ActionResult<IEnumerable<ProductRespone>>> GetProducts(int? categoryId)
         {
-            var products = await _context.Products
-                .Include(products => products.Category)
-                .AsNoTracking()
-                .ToListAsync();
+            if (categoryId is null)
+            {
+                var products = await _productRepository.GetProducts();
 
-            var productsRes = _mapper.Map<List<ProductRespone>>(products);
+                return Ok(products);
+            }
 
-            return Ok(productsRes);
+            var productsByCategory = await _productRepository.GetProductsByCategory(categoryId.Value);
+
+            return Ok(productsByCategory);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateProduct([FromBody] ProductRequest productReq)
+        public async Task<ActionResult<ProductRespone>> CreateProduct([FromBody] ProductRequest productReq)
         {
-            var product = _mapper.Map<Product>(productReq);
+            var product = await _productRepository.CreateProduct(productReq);
 
-            await _context.Products.AddAsync(product);
-            await _context.SaveChangesAsync();
-
-            var productRes = _mapper.Map<ProductRespone>(product);
-
-            return Ok(productRes);
+            return Ok(product);
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> RemoveProduct(int id)
+        public async Task<ActionResult<ProductRespone>> RemoveProduct(int id)
         {
-            var product = await _context.Products.FindAsync(id);
-
-            if (product == null) return NotFound(new { message = $"Product id {id} not found" });
-
-            product.IsDelete = true;
-            await _context.SaveChangesAsync();
-
-            var productRes = _mapper.Map<ProductRespone>(product);
+            var productRes = await _productRepository.DeleteProduct(id);
 
             return Ok(productRes);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateProduct(int id, ProductRequest productReq)
+        public async Task<ActionResult<ProductRespone>> UpdateProduct(int id, ProductRequest productReq)
         {
-            var existProduct = await _context.Products.FindAsync(id);
-
-            if (existProduct == null) return NotFound(new { message = $"Product id {id} not found" });
-
-            _context.Entry<Product>(existProduct).CurrentValues.SetValues(productReq);
-
-            await _context.SaveChangesAsync();
-
-            var productRes = _mapper.Map<ProductRespone>(existProduct);
+            var productRes = await _productRepository.UpdateProduct(id, productReq);
 
             return Ok(productRes);
         }

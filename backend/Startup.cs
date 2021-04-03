@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using System.Linq;
 using System.Reflection;
 using backend.Extensions;
@@ -14,9 +13,6 @@ using Microsoft.EntityFrameworkCore;
 using IdentityServer4.EntityFramework.DbContexts;
 using IdentityServer4.EntityFramework.Mappers;
 using backend.Middlewares;
-using backend.Repositories.Product;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Diagnostics;
 
 namespace backend
 {
@@ -32,17 +28,12 @@ namespace backend
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddContext(Configuration);
-
             services.AddCorsOrigins(Configuration);
-
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
-
             services.AddIdentityServerCustom(Configuration);
-
-            services.AddTransient<IProductRepository, ProductRepository>();
+            services.AddRepositories();
 
             services.AddSwagger();
-
             services.AddControllersWithViews()
                 .AddNewtonsoftJson(options =>
                     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
@@ -61,14 +52,10 @@ namespace backend
             app.UseStaticFiles();
             app.UseHttpsRedirection();
             app.UseCors(AllowOrigins.OriginPolicy);
-
             app.UseMiddleware<ErrorHandler>();
-
             app.UseRouting();
-
             app.UseIdentityServer();
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapDefaultControllerRoute();
