@@ -21,6 +21,27 @@ namespace backend.DbContexts
         {
         }
 
+        public override async Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess,
+            CancellationToken cancellationToken = default(CancellationToken))
+        {
+            var modifiedEntries = ChangeTracker.Entries()
+                    .Where(x => (x.State == EntityState.Added || x.State == EntityState.Modified));
+
+            foreach (var entry in modifiedEntries)
+            {
+                var entity = entry.Entity as Autiable;
+
+                if (entry.State == EntityState.Added)
+                {
+                    entity.CreatedAt = DateTime.Now;
+                }
+
+                entity.UpdatedAt = DateTime.Now;
+            }
+
+            return (await base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken));
+        }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
