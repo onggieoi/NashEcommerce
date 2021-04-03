@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<CategoryRespone>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -50,43 +52,19 @@
             </div>
 
             <div class="row">
-
-                <div class="col-lg-6">
-                    <div class="box wow fadeInLeft">
-                        <div class="icon"><i class="fa fa-bar-chart"></i></div>
-                        <h4 class="title"><a href="">Lorem Ipsum</a></h4>
-                        <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias
-                            excepturi sint occaecati cupiditate non provident etiro rabeta lingo.</p>
+                @foreach (var category in Model)
+                {
+                    <div class="col-lg-6">
+                        <div class="box wow fadeInRight">
+                            <div class="icon"><i class="fa fa-picture-o"></i></div>
+                            <h4 class="title">
+                                <a href="~/product/?category=@category.CategoryId">@category.Name</a>
+                            </h4>
+                            <p class="description">Minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                                aliquip ex ea commodo consequat tarad limino ata nodera clas.</p>
+                        </div>
                     </div>
-                </div>
-
-                <div class="col-lg-6">
-                    <div class="box wow fadeInRight">
-                        <div class="icon"><i class="fa fa-picture-o"></i></div>
-                        <h4 class="title"><a href="">Dolor Sitema</a></h4>
-                        <p class="description">Minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                            aliquip ex ea commodo consequat tarad limino ata nodera clas.</p>
-                    </div>
-                </div>
-
-                <div class="col-lg-6">
-                    <div class="box wow fadeInLeft" data-wow-delay="0.2s">
-                        <div class="icon"><i class="fa fa-shopping-bag"></i></div>
-                        <h4 class="title"><a href="">Sed ut perspiciatis</a></h4>
-                        <p class="description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-                            dolore eu fugiat nulla pariatur trinige zareta lobur trade.</p>
-                    </div>
-                </div>
-
-                <div class="col-lg-6">
-                    <div class="box wow fadeInRight" data-wow-delay="0.2s">
-                        <div class="icon"><i class="fa fa-map"></i></div>
-                        <h4 class="title"><a href="">Magni Dolores</a></h4>
-                        <p class="description">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-                            officia deserunt mollit anim id est laborum rideta zanox satirente madera</p>
-                    </div>
-                </div>
-
+                }
             </div>
 
         </div>
@@ -126,127 +104,43 @@
                     nulla ipsum velit export irure minim illum fore</p>
             </div>
 
+            @* <a href="/" class="btn-gestart">Get Started</a> *@
+
             <div class="row">
                 <div class="col-lg-12 d-flex justify-content-center">
                     <ul id="portfolio-flters">
                         <li data-filter="*" class="filter-active">All</li>
-                        <li data-filter=".filter-app">App</li>
-                        <li data-filter=".filter-card">Card</li>
-                        <li data-filter=".filter-web">Web</li>
+                        @foreach (var categories in Model)
+                        {
+                            <li data-filter=".@categories.CategoryId">@categories.Name</li>
+                        }
+                        <li>
+                            <a href="~/product" style="color: #000;">Discovery more</a>
+                        </li>
                     </ul>
                 </div>
             </div>
 
             <div class="row portfolio-container">
-
-                <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-                    <img src="~/assets/img/portfolio/portfolio-1.jpg" class="img-fluid" alt="">
-                    <div class="portfolio-info">
-                        <h4>App 1</h4>
-                        <p>App</p>
-                        <a href="~/assets/img/portfolio/portfolio-1.jpg" data-gall="portfolioGallery"
-                            class="venobox preview-link" title="App 1"><i class="bx bx-plus"></i></a>
-                        <a href="portfolio-details.html" class="details-link" title="More Details"><i
-                                class="bx bx-link"></i></a>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-                    <img src="~/assets/img/portfolio/portfolio-2.jpg" class="img-fluid" alt="">
-                    <div class="portfolio-info">
-                        <h4>Web 3</h4>
-                        <p>Web</p>
-                        <a href="~/assets/img/portfolio/portfolio-2.jpg" data-gall="portfolioGallery"
-                            class="venobox preview-link" title="Web 3"><i class="bx bx-plus"></i></a>
-                        <a href="portfolio-details.html" class="details-link" title="More Details"><i
-                                class="bx bx-link"></i></a>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-                    <img src="~/assets/img/portfolio/portfolio-3.jpg" class="img-fluid" alt="">
-                    <div class="portfolio-info">
-                        <h4>App 2</h4>
-                        <p>App</p>
-                        <a href="~/assets/img/portfolio/portfolio-3.jpg" data-gall="portfolioGallery"
-                            class="venobox preview-link" title="App 2"><i class="bx bx-plus"></i></a>
-                        <a href="portfolio-details.html" class="details-link" title="More Details"><i
-                                class="bx bx-link"></i></a>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-                    <img src="~/assets/img/portfolio/portfolio-4.jpg" class="img-fluid" alt="">
-                    <div class="portfolio-info">
-                        <h4>Card 2</h4>
-                        <p>Card</p>
-                        <a href="~/assets/img/portfolio/portfolio-4.jpg" data-gall="portfolioGallery"
-                            class="venobox preview-link" title="Card 2"><i class="bx bx-plus"></i></a>
-                        <a href="portfolio-details.html" class="details-link" title="More Details"><i
-                                class="bx bx-link"></i></a>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-                    <img src="~/assets/img/portfolio/portfolio-5.jpg" class="img-fluid" alt="">
-                    <div class="portfolio-info">
-                        <h4>Web 2</h4>
-                        <p>Web</p>
-                        <a href="~/assets/img/portfolio/portfolio-5.jpg" data-gall="portfolioGallery"
-                            class="venobox preview-link" title="Web 2"><i class="bx bx-plus"></i></a>
-                        <a href="portfolio-details.html" class="details-link" title="More Details"><i
-                                class="bx bx-link"></i></a>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-                    <img src="~/assets/img/portfolio/portfolio-6.jpg" class="img-fluid" alt="">
-                    <div class="portfolio-info">
-                        <h4>App 3</h4>
-                        <p>App</p>
-                        <a href="~/assets/img/portfolio/portfolio-6.jpg" data-gall="portfolioGallery"
-                            class="venobox preview-link" title="App 3"><i class="bx bx-plus"></i></a>
-                        <a href="portfolio-details.html" class="details-link" title="More Details"><i
-                                class="bx bx-link"></i></a>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-                    <img src="~/assets/img/portfolio/portfolio-7.jpg" class="img-fluid" alt="">
-                    <div class="portfolio-info">
-                        <h4>Card 1</h4>
-                        <p>Card</p>
-                        <a href="~/assets/img/portfolio/portfolio-7.jpg" data-gall="portfolioGallery"
-                            class="venobox preview-link" title="Card 1"><i class="bx bx-plus"></i></a>
-                        <a href="portfolio-details.html" class="details-link" title="More Details"><i
-                                class="bx bx-link"></i></a>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-                    <img src="~/assets/img/portfolio/portfolio-8.jpg" class="img-fluid" alt="">
-                    <div class="portfolio-info">
-                        <h4>Card 3</h4>
-                        <p>Card</p>
-                        <a href="~/assets/img/portfolio/portfolio-8.jpg" data-gall="portfolioGallery"
-                            class="venobox preview-link" title="Card 3"><i class="bx bx-plus"></i></a>
-                        <a href="portfolio-details.html" class="details-link" title="More Details"><i
-                                class="bx bx-link"></i></a>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-                    <img src="~/assets/img/portfolio/portfolio-9.jpg" class="img-fluid" alt="">
-                    <div class="portfolio-info">
-                        <h4>Web 3</h4>
-                        <p>Web</p>
-                        <a href="~/assets/img/portfolio/portfolio-9.jpg" data-gall="portfolioGallery"
-                            class="venobox preview-link" title="Web 3"><i class="bx bx-plus"></i></a>
-                        <a href="portfolio-details.html" class="details-link" title="More Details"><i
-                                class="bx bx-link"></i></a>
-                    </div>
-                </div>
-
+                @foreach (var category in Model)
+                {
+                    foreach (var product in category.Products)
+                    {
+                        <div class="col-lg-4 col-md-6 portfolio-item @category.CategoryId">
+                            <a href="/Product/@product.ProductId">
+                                <img src="@product.Image" class="img-fluid" alt="">
+                            </a>
+                            <div class="portfolio-info">
+                                <h4>@product.Name</h4>
+                                <p>@product.Price</p>
+                                <a href="@product.Image" data-gall="portfolioGallery" class="venobox preview-link"
+                                    title="@product.Name">
+                                    <i class="bx bx-plus"></i>
+                                </a>
+                            </div>
+                        </div>
+                    }
+                }
             </div>
 
         </div>
@@ -427,5 +321,4 @@
         </div>
     </section>
     <!-- End Team Section -->
-
 </main>

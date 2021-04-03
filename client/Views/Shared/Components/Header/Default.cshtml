@@ -15,12 +15,13 @@
                 <li><a href="~/#services">Services</a></li>
                 <li><a href="~/#portfolio">Portfolio</a></li>
                 <li><a href="~/#team">Team</a></li>
-                <li class="menu-has-children"><a href="">Categories</a>
+                <li class="menu-has-children">
+                    <a href="~/products">Categories</a>
                     <ul>
                         @foreach (var category in Model.Categories)
                         {
                             <li>
-                                <a href="#">@category.Name</a>
+                                <a href="~/product/?categoryId=@category.CategoryId">@category.Name</a>
                             </li>
                         }
                     </ul>
