@@ -1,0 +1,50 @@
+@model ProductRespone
+
+<!-- ======= Breadcrumbs Section ======= -->
+<section class="breadcrumbs">
+    <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+            <h2>Product Details</h2>
+            <ol>
+                <li>
+                    <a href="~/#">Home</a>
+                </li>
+                <li>
+                    <a href="~/product/?categoryId=@Model.CategoryId">@Model.CategoryName</a>
+                </li>
+                <li>@Model.Name</li>
+            </ol>
+        </div>
+
+    </div>
+</section><!-- Breadcrumbs Section -->
+
+<!-- ======= Portfolio Details Section ======= -->
+<section class="portfolio-details">
+    <div class="container">
+
+        <div class="portfolio-details-container">
+
+            <div class="owl-carousel portfolio-details-carousel">
+                <img src="@Model.Image" class="img-fluid" alt="@Model.Name">
+            </div>
+
+            <div class="portfolio-info">
+                <h3>Product information</h3>
+                <ul>
+                    <li><strong>Category</strong>: @Model.CategoryName</li>
+                    <li><strong>Price</strong>: @Model.Price</li>
+                    <li><strong>Rated</strong>: @Model.Rated</li>
+                    <li><strong>Project URL</strong>: <a href="#">www.example.com</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="portfolio-description">
+            <h2>This is an example of portfolio detail</h2>
+            <p>@Model.Description</p>
+        </div>
+    </div>
+</section><!-- End Portfolio Details Section -->
