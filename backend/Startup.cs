@@ -13,6 +13,10 @@ using backend.Configs;
 using Microsoft.EntityFrameworkCore;
 using IdentityServer4.EntityFramework.DbContexts;
 using IdentityServer4.EntityFramework.Mappers;
+using backend.Middlewares;
+using backend.Repositories.Product;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Diagnostics;
 
 namespace backend
 {
@@ -29,11 +33,13 @@ namespace backend
         {
             services.AddContext(Configuration);
 
+            services.AddCorsOrigins(Configuration);
+
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
             services.AddIdentityServerCustom(Configuration);
 
-            services.AddCorsOrigins(Configuration);
+            services.AddTransient<IProductRepository, ProductRepository>();
 
             services.AddSwagger();
 
@@ -55,6 +61,8 @@ namespace backend
             app.UseStaticFiles();
             app.UseHttpsRedirection();
             app.UseCors(AllowOrigins.OriginPolicy);
+
+            app.UseMiddleware<ErrorHandler>();
 
             app.UseRouting();
 
