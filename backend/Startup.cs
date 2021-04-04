@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using IdentityServer4.EntityFramework.DbContexts;
 using IdentityServer4.EntityFramework.Mappers;
 using backend.Middlewares;
+using backend.Exceptions.ServiceCollection;
 
 namespace backend
 {
@@ -32,7 +33,7 @@ namespace backend
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddIdentityServerCustom(Configuration);
             services.AddRepositories();
-
+            services.AddAuthenAuthor();
             services.AddSwagger();
             services.AddControllersWithViews()
                 .AddNewtonsoftJson(options =>
