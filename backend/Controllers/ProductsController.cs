@@ -1,6 +1,5 @@
 using System.Threading.Tasks;
 using AutoMapper;
-using backend.DbContexts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
@@ -14,18 +13,15 @@ namespace backend.Controllers
     public class ProductsController : ControllerBase
     {
         private ILogger<ProductsController> _logger;
-        private ApplicationDbContext _context;
         private IMapper _mapper;
         private IProductRepository _productRepository;
 
         public ProductsController(
             ILogger<ProductsController> logger,
             IMapper mapper,
-            ApplicationDbContext context,
             IProductRepository productRepository)
         {
             _logger = logger;
-            _context = context;
             _mapper = mapper;
             _productRepository = productRepository;
         }
