@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace backend.Models
 {
-    public class CartDetail
+    public class CartDetail : Autiable
     {
         public int Id { get; set; }
 

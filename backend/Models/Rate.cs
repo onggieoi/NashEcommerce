@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace backend.Models
 {
-    public class Rate
+    public class Rate : Autiable
     {
         public int Id { get; set; }
 
