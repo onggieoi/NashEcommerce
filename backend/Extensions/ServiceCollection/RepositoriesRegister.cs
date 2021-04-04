@@ -1,6 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using backend.Repositories.ProductRepo;
 using backend.Repositories.CategoryRepo;
+using backend.Repositories.RatingRepo;
 
 namespace backend.Extensions.ServiceCollection
 {
@@ -10,6 +11,7 @@ namespace backend.Extensions.ServiceCollection
         {
             services.AddTransient<IProductRepository, ProductRepository>();
             services.AddTransient<ICategoryRepository, CategoryRepository>();
+            services.AddTransient<IRatingRepository, RatingRepository>();
         }
     }
 }
