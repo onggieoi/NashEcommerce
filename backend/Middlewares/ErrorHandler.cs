@@ -28,16 +28,18 @@ namespace backend.Middlewares
                 var response = context.Response;
                 response.ContentType = "application/json";
 
-                var errMessage = error.Message ?? "Something go wrong";
+                string errMessage;
 
                 switch (error)
                 {
                     case NotFoundException e:
                         response.StatusCode = (int)HttpStatusCode.NotFound;
+                        errMessage = error.Message;
                         break;
 
                     default:
                         response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                        errMessage = "Something go wrong";
                         break;
                 }
 
