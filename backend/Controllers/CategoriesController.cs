@@ -10,19 +10,16 @@ namespace backend.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class CategoriesController : Controller
+    public class CategoriesController : ControllerBase
     {
         private ILogger<CategoriesController> _logger;
-        private IMapper _mapper;
         private ICategoryRepository _categoryRepository;
 
         public CategoriesController(
             ILogger<CategoriesController> logger,
-            IMapper mapper,
             ICategoryRepository categoryRepository)
         {
             _logger = logger;
-            _mapper = mapper;
             _categoryRepository = categoryRepository;
         }
 

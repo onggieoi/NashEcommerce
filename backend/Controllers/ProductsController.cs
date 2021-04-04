@@ -13,16 +13,13 @@ namespace backend.Controllers
     public class ProductsController : ControllerBase
     {
         private ILogger<ProductsController> _logger;
-        private IMapper _mapper;
         private IProductRepository _productRepository;
 
         public ProductsController(
             ILogger<ProductsController> logger,
-            IMapper mapper,
             IProductRepository productRepository)
         {
             _logger = logger;
-            _mapper = mapper;
             _productRepository = productRepository;
         }
 
