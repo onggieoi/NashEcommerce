@@ -26,16 +26,17 @@ namespace client.Extensions
                     options.ClientSecret = "secret";
                     options.ResponseType = "code";
 
-                    // options.TokenValidationParameters = new TokenValidationParameters
-                    // {
-                    //     ValidateIssuer = true
-                    // };
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true
+                    };
 
                     options.SaveTokens = true;
                     options.GetClaimsFromUserInfoEndpoint = true;
 
                     options.Scope.Add("testScope");
                     options.Scope.Add("offline_access");
+                    options.Scope.Add("api");
 
                     options.ClaimActions.MapUniqueJsonKey("TestedScope", "testScope");
 
