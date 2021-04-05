@@ -1,7 +1,6 @@
-using System.Collections.Generic;
 using ViewModelShare.Product;
 
-namespace CartOrder
+namespace ViewModelShare.CartOrder
 {
     public class CartOrderRespone
     {

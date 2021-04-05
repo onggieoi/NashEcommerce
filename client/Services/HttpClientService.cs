@@ -92,5 +92,26 @@ namespace client.Services
 
             return result;
         }
+        public async Task<IEnumerable<CartOrderRespone>> Order(int productId, int quantity)
+        {
+            List<CartOrderRequest> cartOrdersRequest = new List<CartOrderRequest> {
+                new CartOrderRequest
+                {
+                    ProductId = productId,
+                    Quantity = quantity
+                }
+            };
+
+            var json = JsonConvert.SerializeObject(cartOrdersRequest);
+            var data = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var res = await _client.PostAsync(EndPoints.Order, data);
+
+            res.EnsureSuccessStatusCode();
+
+            var result = await res.Content.ReadAsAsync<IEnumerable<CartOrderRespone>>();
+
+            return result;
+        }
     }
 }

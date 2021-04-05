@@ -5,6 +5,7 @@ namespace client.Constants
         public const string Category = "api/categories";
         public const string Product = "api/products";
         public const string Rate = "api/rates";
+        public const string Order = "api/orders";
         public static string GetProductById(int id) => $"{Product}/{id}";
         public static string GetProductByCategory(int categoryId) => $"{Product}/?categoryId={categoryId}";
     }

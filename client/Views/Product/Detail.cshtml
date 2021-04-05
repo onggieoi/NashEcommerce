@@ -73,6 +73,30 @@
                                 star</label>
                         </ul>
                     </form>
+
+                    <form action="~/Order/@Model.ProductId" method="POST">
+                        @* <input type="hidden" name="productId" value="@Model.ProductId" /> *@
+
+                        <div class="number-input md-number-input">
+                            <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
+                                class="btn btn-primary" type="button">
+                                -
+                            </button>
+
+                            <input class="quantity" min="0" name="quantity" value="1" type="number">
+
+                            <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                                class="btn btn-primary" type="button">
+                                +
+                            </button>
+                        </div>
+
+                        <div class="d-flex mt-3">
+                            <button type="submit" class="btn btn-outline-primary mx-auto">
+                                Buy Now
+                            </button>
+                        </div>
+                    </form>
                 </ul>
             </div>
 

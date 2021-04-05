@@ -1,4 +1,4 @@
-namespace CartOrder
+namespace ViewModelShare.CartOrder
 {
     public class CartOrderRequest
     {
