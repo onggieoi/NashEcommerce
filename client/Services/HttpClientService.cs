@@ -1,12 +1,16 @@
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using client.Constants;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using ViewModelShare.CartOrder;
 using ViewModelShare.Category;
 using ViewModelShare.Product;
+using ViewModelShare.Rate;
 
 namespace client.Services
 {
@@ -67,6 +71,26 @@ namespace client.Services
             var products = await res.Content.ReadAsAsync<IEnumerable<ProductRespone>>();
 
             return products;
+        }
+
+        public async Task<bool> Voting(int productId, int voting)
+        {
+            var rateRequest = new RateRequest
+            {
+                ProductId = productId,
+                Value = voting
+            };
+
+            var json = JsonConvert.SerializeObject(rateRequest);
+            var data = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var res = await _client.PostAsync(EndPoints.Rate, data);
+
+            res.EnsureSuccessStatusCode();
+
+            var result = await res.Content.ReadAsAsync<bool>();
+
+            return result;
         }
     }
 }

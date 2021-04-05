@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using ViewModelShare.CartOrder;
 using ViewModelShare.Category;
 using ViewModelShare.Product;
 
@@ -12,5 +13,7 @@ namespace client.Services
         Task<IEnumerable<ProductRespone>> GetProductsByCategory(int categoryId);
 
         Task<ProductRespone> GetProductById(int id);
+
+        Task<bool> Voting(int productId, int voting);
     }
 }

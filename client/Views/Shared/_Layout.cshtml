@@ -11,7 +11,7 @@
     <title>@ViewData["Title"] - Client</title>
 
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    @* <link rel="stylesheet" href="~/css/site.css" /> *@
+    <link rel="stylesheet" href="~/css/site.css" />
     <!-- Google Fonts -->
     <link
         href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Raleway:300,400,500,700,800|Montserrat:300,400,700"
@@ -50,25 +50,7 @@
     <!-- ======= Header ======= -->
     @await Component.InvokeAsync("Header")
 
-    <!-- ======= Intro Section ======= -->
-    <section id="intro">
-        <div class="intro-content">
-            <h2>Making <span>your ideas</span><br>happen!</h2>
-            <div>
-                <a href="~/#about" class="btn-get-started scrollto">Get Started</a>
-                <a href="~/#portfolio" class="btn-projects scrollto">Our Projects</a>
-            </div>
-        </div>
 
-        <div id="intro-carousel" class="owl-carousel">
-            <div class="item" style="background-image: url('assets/img/intro-carousel/1.jpg');"></div>
-            <div class="item" style="background-image: url('assets/img/intro-carousel/2.jpg');"></div>
-            <div class="item" style="background-image: url('assets/img/intro-carousel/3.jpg');"></div>
-            <div class="item" style="background-image: url('assets/img/intro-carousel/4.jpg');"></div>
-            <div class="item" style="background-image: url('assets/img/intro-carousel/5.jpg');"></div>
-        </div>
-    </section>
-    <!-- End Intro Section -->
 
     @RenderBody()
 
@@ -77,18 +59,16 @@
         <div class="container">
             <div class="copyright">&copy; Copyright <strong>ONGGIEOI</strong>. All Rights Reserved
             </div>
-            <div class="credits">
-                Designed by <a href="~/">BootstrapMade</a>
-            </div>
         </div>
     </footer>
     <!-- End Footer -->
 
     <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
-
+    <a href="~/order" class="cart"><i class="fa fa-shopping-cart"></i></a>
 
     <!-- ======= Scripts ======= -->
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -101,6 +81,7 @@
     <script src="~/assets/vendor/superfish/superfish.min.js"></script>
     <script src="~/assets/vendor/hoverIntent/hoverIntent.js"></script>
     <script src="~/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+
 
     <!-- Template Main JS File -->
     <script src="~/assets/js/main.js"></script>

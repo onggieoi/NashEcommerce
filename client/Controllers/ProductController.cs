@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using client.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ViewModelShare.Product;
 
@@ -34,6 +35,20 @@ namespace client.Controllers
             var products = await _client.GetProductsByCategory(categoryId.Value);
 
             return View(products);
+        }
+
+        [Authorize]
+        [HttpPost("[controller]/{id}")]
+        public async Task<IActionResult> Voting(int id, int rating)
+        {
+            var result = await _client.Voting(id, rating);
+
+            if (result is false)
+            {
+                return Content("false");
+            }
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }
