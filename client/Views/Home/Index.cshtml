@@ -5,6 +5,26 @@
 }
 
 <main id="main">
+    <!-- ======= Intro Section ======= -->
+    <section id="intro">
+        <div class="intro-content">
+            <h2>Making <span>your ideas</span><br>happen!</h2>
+            <div>
+                <a href="~/#about" class="btn-get-started scrollto">Get Started</a>
+                <a href="~/#portfolio" class="btn-projects scrollto">Our Projects</a>
+            </div>
+        </div>
+
+        <div id="intro-carousel" class="owl-carousel">
+            <div class="item" style="background-image: url('/assets/img/intro-carousel/1.jpg');"></div>
+            <div class="item" style="background-image: url('/assets/img/intro-carousel/2.jpg');"></div>
+            <div class="item" style="background-image: url('/assets/img/intro-carousel/3.jpg');"></div>
+            <div class="item" style="background-image: url('/assets/img/intro-carousel/4.jpg');"></div>
+            <div class="item" style="background-image: url('/assets/img/intro-carousel/5.jpg');"></div>
+        </div>
+    </section>
+    <!-- End Intro Section -->
+
     <!-- ======= About Section ======= -->
     <section id="about" class="wow fadeInUp">
         <div class="container">
@@ -121,17 +141,7 @@
                     foreach (var product in category.Products)
                     {
                         <div class="col-lg-4 col-md-6 portfolio-item @category.CategoryId">
-                            <a href="/Product/@product.ProductId">
-                                <img src="@product.Image" class="img-fluid" alt="">
-                            </a>
-                            <div class="portfolio-info">
-                                <h4>@product.Name</h4>
-                                <p>@product.Price</p>
-                                <a href="@product.Image" data-gall="portfolioGallery" class="venobox preview-link"
-                                    title="@product.Name">
-                                    <i class="bx bx-plus"></i>
-                                </a>
-                            </div>
+                            @await Component.InvokeAsync("Product", product)
                         </div>
                     }
                 }

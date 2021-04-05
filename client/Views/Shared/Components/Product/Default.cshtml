@@ -1,0 +1,25 @@
+@model ProductRespone
+
+<a href="~/product/@Model.ProductId">
+    <img src="@Model.Image" class="img-fluid" alt="">
+</a>
+<div class="portfolio-info">
+    <h4>@Model.Name</h4>
+    <p>$ @Model.Price</p>
+    <div class="rating">
+        @for (int i = 5; i >= 1; i--)
+        {
+            if (i <= Model.Rated)
+            {
+                <span class="fa fa-star checked" data-value="@i" data-id="@Model.ProductId"></span>
+            }
+            else
+            {
+                <span class="fa fa-star" data-value="@i" data-id="@Model.ProductId"></span>
+            }
+        }
+    </div>
+    <a href="@Model.Image" data-gall="portfolioGallery" class="venobox preview-link" title="@Model.Name">
+        <i class="bx bx-plus"></i>
+    </a>
+</div>
