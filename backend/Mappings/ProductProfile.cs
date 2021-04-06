@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using AutoMapper;
 using backend.Models;
 using ViewModelShare.Product;

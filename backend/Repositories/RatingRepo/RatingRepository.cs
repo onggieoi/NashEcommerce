@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -28,9 +29,19 @@ namespace backend.Repositories.RatingRepo
 
             var userId = _httpContextAccessor.HttpContext.User.FindFirstValue("sub");
 
-            rate.UserId = userId;
+            rate.UserId = "433602c9-0e9a-42e9-a98d-136a9f3ed573";
 
             await _context.AddAsync(rate);
+            await _context.SaveChangesAsync();
+
+            var product = await _context.Products.FindAsync(rateRequest.ProductId);
+
+            var rates = await Task.FromResult((int)_context.Rates
+                .Where(rate => rate.ProductId.Equals(rateRequest.ProductId))
+                .Select(rate => rate.Value)
+                .Average());
+
+            product.Rated = rates;
             await _context.SaveChangesAsync();
 
             return true;
