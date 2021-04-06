@@ -856,6 +856,15 @@ section {
   font-weight: 600;
   margin-bottom: 0;
 }
+#portfolio .portfolio-item .portfolio-info input#add-to-cart {
+  color: #fff;
+}
+
+#portfolio .portfolio-item .portfolio-info input#add-to-cart:hover {
+  color: #50d8af;
+  font-weight: 800px;
+  background: #fff
+}
 
 #portfolio .portfolio-item .portfolio-info .preview-link, #portfolio .portfolio-item .portfolio-info .details-link {
   position: absolute;
