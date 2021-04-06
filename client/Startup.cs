@@ -30,6 +30,8 @@ namespace client
 
             services.AddAuthenticationCustom(Configuration);
 
+            services.AddServices();
+
             services.AddControllersWithViews();
         }
 
