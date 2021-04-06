@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using client.Constants;
+using client.Services.Cart;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -16,14 +17,17 @@ namespace client.Services
 {
     public class HttpClientService : IHttpClientService
     {
+        private readonly ICartService _cartService;
         private HttpClient _client;
         private IMemoryCache _memoryCache;
         private ILogger _logger;
 
         public HttpClientService(HttpClient client,
             ILogger<HttpClientService> logger,
+            ICartService cartService,
             IMemoryCache memoryCache)
         {
+            _cartService = cartService;
             _client = client;
             _memoryCache = memoryCache;
             _logger = logger;
@@ -92,17 +96,22 @@ namespace client.Services
 
             return result;
         }
-        public async Task<IEnumerable<CartOrderRespone>> Order(int productId, int quantity)
+        public async Task<IEnumerable<CartOrderRespone>> Order()
         {
-            List<CartOrderRequest> cartOrdersRequest = new List<CartOrderRequest> {
-                new CartOrderRequest
-                {
-                    ProductId = productId,
-                    Quantity = quantity
-                }
-            };
+            var request = new List<CartOrderRequest>();
 
-            var json = JsonConvert.SerializeObject(cartOrdersRequest);
+            var orders = _cartService.GetCartViewModel().Orders as List<CartOrderRespone>;
+
+            orders.ForEach(order =>
+            {
+                request.Add(new CartOrderRequest
+                {
+                    ProductId = order.Product.ProductId,
+                    Quantity = order.Quantity,
+                });
+            });
+
+            var json = JsonConvert.SerializeObject(request);
             var data = new StringContent(json, Encoding.UTF8, "application/json");
 
             var res = await _client.PostAsync(EndPoints.Order, data);

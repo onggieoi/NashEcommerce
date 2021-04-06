@@ -15,6 +15,6 @@ namespace client.Services
         Task<ProductRespone> GetProductById(int id);
 
         Task<bool> Voting(int productId, int voting);
-        Task<IEnumerable<CartOrderRespone>> Order(int productId, int quantity);
+        Task<IEnumerable<CartOrderRespone>> Order();
     }
 }
