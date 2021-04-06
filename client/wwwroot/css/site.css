@@ -1,67 +1,86 @@
-﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-for details on configuring this project to bundle and minify static web assets. */
-
-a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+﻿.rate-area {
+  float: left;
+  border-style: none;
 }
 
-/* Provide sufficient contrast against white background */
-a {
-  color: #0366d6;
-}
-
-.btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
-}
-
-.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
-}
-
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-  font-size: 14px;
-}
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.border-top {
-  border-top: 1px solid #e5e5e5;
-}
-.border-bottom {
-  border-bottom: 1px solid #e5e5e5;
-}
-
-.box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
-}
-
-button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
-}
-
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-  position: relative;
-  min-height: 100%;
-}
-
-.footer {
+.rate-area:not(:checked) > input[type=submit] {
   position: absolute;
-  bottom: 0;
-  width: 100%;
+  top: -9999px;
+  clip: rect(0,0,0,0);
+}
+
+.rate-area:not(:checked) > label {
+  float: right;
+  width: 1em;
+  padding: 0 .1em;
+  overflow: hidden;
   white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
+  cursor: pointer;
+  font-size: 400%;
+  line-height: 1.2;
+  color: lightgrey;
+  text-shadow: 1px 1px #bbb;
+}
+
+.rate-area:not(:checked) > label:before { content: '★ '; }
+
+.rate-area > input[type=submit]:checked ~ label {
+  color: gold;
+  text-shadow: 1px 1px #c60;
+  font-size: 450% !important;
+}
+
+.rate-area:not(:checked) > label:hover, .rate-area:not(:checked) > label:hover ~ label { color: gold; }
+
+.rate-area > input[type=submit]:checked + label:hover, .rate-area > input[type=submit]:checked + label:hover ~ label, .rate-area > input[type=submit]:checked ~ label:hover, .rate-area > input[type=submit]:checked ~ label:hover ~ label, .rate-area > label:hover ~ input[type=submit]:checked ~ label {
+  color: gold;
+  text-shadow: 1px 1px goldenrod;
+}
+
+.rate-area > label:active {
+  position: relative;
+  top: 2px;
+  left: 2px;
+}
+
+.cart {
+  position: fixed;
+  background: #50d8af;
+  color: #fff;
+  padding: 6px 12px 9px 12px;
+  font-size: 16px;
+  border-radius: 2px;
+  right: 15px;
+  top: 180px;
+  transition: all 0.5s ease-in-out;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.cart:focus {
+  background: #50d8af;
+  color: #fff;
+  outline: none;
+}
+
+.cart:hover {
+  background: #0c2e8a;
+  color: #fff;
+}
+
+.cart span {
+  color: red;
+  display: none;
+}
+
+.cart:hover span {
+  display: contents;
+}
+
+@media (max-width: 768px) {
+  .cart {
+    bottom: 15px;
+  }
 }

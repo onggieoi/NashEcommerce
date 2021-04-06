@@ -1,0 +1,11 @@
+@model CartViewModel
+
+<a href="~/order" class="cart">
+    <div id="cart_total" class="mr-1">
+        @if (!Model.Count.Equals(0))
+        {
+            <div>@Model.Count<span> - @Model.Total $</span></div>
+        }
+    </div>
+    <i class="fa fa-shopping-cart pt-1"></i>
+</a>

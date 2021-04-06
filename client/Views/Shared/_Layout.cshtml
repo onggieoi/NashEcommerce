@@ -50,8 +50,6 @@
     <!-- ======= Header ======= -->
     @await Component.InvokeAsync("Header")
 
-
-
     @RenderBody()
 
     <!-- ======= Footer ======= -->
@@ -64,7 +62,7 @@
     <!-- End Footer -->
 
     <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
-    <a href="~/order" class="cart"><i class="fa fa-shopping-cart"></i></a>
+    @await Component.InvokeAsync("Cart")
 
     <!-- ======= Scripts ======= -->
 
