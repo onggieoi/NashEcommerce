@@ -74,15 +74,20 @@
                         </ul>
                     </form>
 
-                    <form action="~/Order/@Model.ProductId" method="POST">
-                        @* <input type="hidden" name="productId" value="@Model.ProductId" /> *@
+                    <form id="buy" method="POST">
+                        <input type="hidden" name="productId" value="@Model.ProductId" />
+                        <input type="hidden" name="name" value="@Model.Name" />
+                        <input type="hidden" name="price" value="@Model.Price" />
+                        <input type="hidden" name="image" value="@Model.Image" />
+                        <input type="hidden" name="description" value="@Model.Description" />
+                        <input type="hidden" name="rated" value="@Model.Rated" />
+                        <input type="hidden" name="categoryname" value="@Model.CategoryName" />
 
                         <div class="number-input md-number-input">
                             <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
                                 class="btn btn-primary" type="button">
                                 -
                             </button>
-
                             <input class="quantity" min="0" name="quantity" value="1" type="number">
 
                             <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
@@ -93,7 +98,7 @@
 
                         <div class="d-flex mt-3">
                             <button type="submit" class="btn btn-outline-primary mx-auto">
-                                Buy Now
+                                Add to Cart
                             </button>
                         </div>
                     </form>

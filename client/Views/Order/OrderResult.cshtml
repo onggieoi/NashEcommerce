@@ -1,0 +1,16 @@
+@model bool
+
+@{
+    ViewData["Title"] = "Order";
+}
+
+<div class="container text-center mt-5" style="min-height: 80vh;">
+    @if (Model)
+    {
+        <h1 class="text-success">Your Order Successful</h1>
+    }
+    else
+    {
+        <h1 class="text-danger">Your Order Was Failed Please Try again or comeback again</h1>
+    }
+</div>

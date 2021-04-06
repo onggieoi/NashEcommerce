@@ -12,6 +12,7 @@ body {
   background: #fff;
   color: #444;
   font-family: "Open Sans", sans-serif;
+  min-height: 100vh;
 }
 
 a {
@@ -37,6 +38,12 @@ h1, h2, h3, h4, h5, h6 {
   padding: 0;
 }
 
+.number-input input[type=number] {
+  text-align: center;
+  height: 100%;
+  font-size: 16px;
+}
+
 /* Back to top button */
 .back-to-top {
   position: fixed;
@@ -56,6 +63,21 @@ h1, h2, h3, h4, h5, h6 {
     bottom: 15px;
   }
 }
+
+.checked {
+  color: yellow;
+}
+
+.rating {
+  unicode-bidi: bidi-override;
+  direction: rtl;
+}
+.rating > span {
+  display: inline-block;
+  position: relative;
+  width: 1.1em;
+}
+
 
 .back-to-top:focus {
   background: #50d8af;
@@ -825,11 +847,13 @@ section {
   font-size: 18px;
   color: #fff;
   font-weight: 600;
+  margin-bottom: 0;
 }
 
 #portfolio .portfolio-item .portfolio-info p {
   color: #fff;
   font-size: 14px;
+  font-weight: 600;
   margin-bottom: 0;
 }
 

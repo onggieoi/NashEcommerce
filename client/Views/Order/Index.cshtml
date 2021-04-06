@@ -1,0 +1,79 @@
+@model CartViewModel
+
+@{
+    ViewData["Title"] = "Cart";
+}
+
+<section class="container" style="min-height: 80vh;">
+    @if (Model.Count.Equals(0))
+    {
+        <div>Your Cart is empty</div>
+    }
+    else
+    {
+        <!--Grid row-->
+        <div class="row">
+
+            <!--Grid column-->
+            <div class="col-lg-8">
+
+                <div class="card wish-list mb-3">
+                    <div class="card-body">
+
+                        <h5 class="mb-4">Cart (<span>@Model.Count</span> items)</h5>
+
+                        @foreach (var order in Model.Orders)
+                        {
+                            @await Component.InvokeAsync("CartItem", order)
+                        }
+
+                    </div>
+                </div>
+                <!-- Card -->
+
+            </div>
+            <!--Grid column-->
+
+            <!--Grid column-->
+            <div class="col-lg-4">
+                <!-- Card -->
+                <div class="mb-3">
+                    <div class="pt-4">
+
+                        <h5 class="mb-3">The total amount</h5>
+
+                        <ul class="list-group list-group-flush">
+                            <li
+                                class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                                Temporary amount
+                                <span>$@Model.Total</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                Shipping
+                                <span>FREE</span>
+                            </li>
+                            <li
+                                class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                                <div>
+                                    <strong>The total amount of</strong>
+                                    <strong>
+                                        <p class="mb-0">(including VAT)</p>
+                                    </strong>
+                                </div>
+                                <span><strong>$@Model.Total</strong></span>
+                            </li>
+                        </ul>
+
+                        <form action="~/order" method="POST">
+                            <button type="submit" class="btn btn-primary btn-block">Checkout!</button>
+                        </form>
+
+                    </div>
+                </div>
+                <!-- Card -->
+            </div>
+            <!--Grid column-->
+        </div>
+        <!-- Grid row -->
+    }
+</section>
