@@ -6,9 +6,7 @@
 <div class="portfolio-info">
     <h4>@Model.Name</h4>
     <p>$ @Model.Price</p>
-    <div>
 
-    </div>
     <div class="rating">
         @for (int i = 5; i >= 1; i--)
         {
@@ -25,7 +23,7 @@
     <a href="@Model.Image" data-gall="portfolioGallery" class="venobox preview-link" title="@Model.Name">
         <i class="bx bx-plus"></i>
     </a>
-    <form class="d-flex">
+    <form class="d-flex number-input">
         <input type="hidden" name="productId" value="@Model.ProductId" />
         <input type="hidden" name="name" value="@Model.Name" />
         <input type="hidden" name="price" value="@Model.Price" />
@@ -33,7 +31,17 @@
         <input type="hidden" name="description" value="@Model.Description" />
         <input type="hidden" name="rated" value="@Model.Rated" />
         <input type="hidden" name="categoryname" value="@Model.CategoryName" />
-        <input class="quantity" min="0" name="quantity" value="1" type="hidden">
+
+        <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="btn btn-cart"
+            type="button">
+            <i class="bx bx-minus"></i>
+        </button>
+        <input class="quantity text-center" min="0" name="quantity" value="1" type="number">
+
+        <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="btn btn-cart"
+            type="button">
+            <i class="bx bx-plus"></i>
+        </button>
 
         <input id="add-to-cart" class="btn mx-auto addtocart" type="submit" Value="Add to Cart" />
     </form>

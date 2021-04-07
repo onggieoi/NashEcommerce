@@ -84,3 +84,12 @@
     bottom: 15px;
   }
 }
+
+button.btn.btn-cart {
+  color: #fff;
+}
+
+button.btn.btn-cart:hover {
+  background: #fff;
+  color: #50d8af;
+}

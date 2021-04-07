@@ -40,8 +40,8 @@ h1, h2, h3, h4, h5, h6 {
 
 .number-input input[type=number] {
   text-align: center;
-  height: 100%;
-  font-size: 16px;
+  margin: 0 5px;
+  width: 3rem;
 }
 
 /* Back to top button */
@@ -870,7 +870,7 @@ section {
   position: absolute;
   right: 50px;
   font-size: 24px;
-  top: calc(50% - 18px);
+  top: calc(50% - 30px);
   color: rgba(255, 255, 255, 0.6);
   transition: ease-in-out 0.3s;
 }
