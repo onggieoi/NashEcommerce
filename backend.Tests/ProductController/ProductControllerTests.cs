@@ -1,12 +1,7 @@
 using System.Threading.Tasks;
-using AutoMapper;
 using backend.Controllers;
-using backend.Models;
 using backend.Repositories.ProductRepo;
-using backend.Tests;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Moq;
 using ViewModelShare.Product;
 using Xunit;
 
@@ -23,7 +18,7 @@ namespace backend.Tests.ProductController
         }
 
         [Fact]
-        public async Task PostProduct_Success()
+        public async Task CreateProduct_Success()
         {
             // Arrange
             var loggerController = Loggers.ProductControllerLogger();
@@ -48,12 +43,15 @@ namespace backend.Tests.ProductController
             var result = await productController.CreateProduct(productRequest);
 
             // Assert
-            var createdAtActionResult = Assert.IsType<OkObjectResult>(result.Result);
-            var returnValue = Assert.IsType<ProductRespone>(createdAtActionResult.Value);
+            var createdResult = Assert.IsType<CreatedResult>(result.Result);
+            var returnValue = Assert.IsType<ProductRespone>(createdResult.Value);
 
-            Assert.Equal("Test", returnValue.Name);
-            Assert.Equal(100, returnValue.Price);
-            Assert.Equal("Description", returnValue.Description);
+            Assert.Equal(productRequest.Name, returnValue.Name);
+            Assert.Equal(productRequest.Price, returnValue.Price);
+            Assert.Equal(productRequest.Description, returnValue.Description);
+            Assert.Equal(productRequest.Image, returnValue.Image);
+            Assert.Equal(category.CategoryId, returnValue.CategoryId);
+            Assert.Equal(category.Name, returnValue.CategoryName);
         }
     }
 }
