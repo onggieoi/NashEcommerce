@@ -8,7 +8,7 @@ namespace client.Services.Cart
     {
         CartViewModel GetCartViewModel();
         IEnumerable<CartOrderRespone> AddOrder(CartOrderRespone cartOrder);
-
+        void Remove(int productId);
         void Clear();
     }
 }

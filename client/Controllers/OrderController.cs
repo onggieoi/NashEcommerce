@@ -43,6 +43,13 @@ namespace client.Controllers
             return Ok(orders);
         }
 
+        public ActionResult<IEnumerable<CartOrderRequest>> Remove(int productId)
+        {
+            _cartService.Remove(productId);
+
+            return RedirectToAction("Index");
+        }
+
         [Authorize]
         [HttpPost("[controller]")]
         public async Task<IActionResult> CreateOrder()

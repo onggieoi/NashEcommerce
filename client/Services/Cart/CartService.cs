@@ -39,6 +39,19 @@ namespace client.Services.Cart
             return orders;
         }
 
+        public void Remove(int productId)
+        {
+            var orders = GetCart() as List<CartOrderRespone>;
+
+            var index = orders.FindIndex(order => order.Product.ProductId.Equals(productId));
+
+            orders.RemoveAt(index);
+
+            SetCart(orders);
+
+            // return GetCartViewModel();
+        }
+
         public CartViewModel GetCartViewModel()
         {
             var orders = GetCart() as List<CartOrderRespone>;
