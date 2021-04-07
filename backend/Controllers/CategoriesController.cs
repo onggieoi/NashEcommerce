@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using AutoMapper;
+using backend.Constans;
 using backend.Repositories.CategoryRepo;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -35,7 +35,7 @@ namespace backend.Controllers
         {
             var createdCategory = await _categoryRepository.Create(request);
 
-            return Ok(createdCategory);
+            return Created(Endpoints.Category, createdCategory);
         }
 
         [HttpDelete("{id}")]

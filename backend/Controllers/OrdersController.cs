@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using backend.Constans;
 using backend.Repositories.OrderCartRepo;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -26,7 +27,7 @@ namespace backend.Controllers
 
             var cartOrderRespones = await _orderCart.GetOrders(cart.Id);
 
-            return Ok(cartOrderRespones);
+            return Created(Endpoints.Order, cartOrderRespones);
         }
 
         [Authorize("Bearer")]

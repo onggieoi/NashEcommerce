@@ -1,10 +1,10 @@
 using System.Threading.Tasks;
-using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using ViewModelShare.Product;
 using backend.Repositories.ProductRepo;
+using backend.Constans;
 
 namespace backend.Controllers
 {
@@ -50,7 +50,7 @@ namespace backend.Controllers
         {
             var product = await _productRepository.CreateProduct(productReq);
 
-            return Ok(product);
+            return Created(Endpoints.Product, product);
         }
 
         [HttpDelete("{id}")]

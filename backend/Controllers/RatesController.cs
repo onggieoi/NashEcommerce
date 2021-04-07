@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
+using backend.Constans;
 using backend.Repositories.RatingRepo;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ViewModelShare.Rate;
 
@@ -23,7 +23,7 @@ namespace backend.Controllers
         {
             var result = await _ratingRepository.Create(rateRequest);
 
-            return Ok(result);
+            return Created(Endpoints.Rate, result);
         }
     }
 }
