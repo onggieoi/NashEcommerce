@@ -100,7 +100,8 @@ namespace client.Services
         {
             var request = new List<CartOrderRequest>();
 
-            var orders = _cartService.GetCartViewModel().Orders as List<CartOrderRespone>;
+            var cartVM = await _cartService.GetCartViewModel();
+            var orders = cartVM.Orders as List<CartOrderRespone>;
 
             orders.ForEach(order =>
             {

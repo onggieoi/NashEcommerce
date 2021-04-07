@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using client.Constants;
 using client.Models;
@@ -15,9 +16,9 @@ namespace client.Services.Cart
         {
             _httpContext = httpContext;
         }
-        public IEnumerable<CartOrderRespone> AddOrder(CartOrderRespone cartOrder)
+        public async Task<IEnumerable<CartOrderRespone>> AddOrder(CartOrderRespone cartOrder)
         {
-            var orders = GetCart() as List<CartOrderRespone>;
+            var orders = await GetCart() as List<CartOrderRespone>;
 
             if (orders is null)
             {
@@ -34,27 +35,27 @@ namespace client.Services.Cart
 
             orders.Add(cartOrder);
 
-            SetCart(orders);
+            await SetCart(orders);
 
             return orders;
         }
 
-        public void Remove(int productId)
+        public async Task Remove(int productId)
         {
-            var orders = GetCart() as List<CartOrderRespone>;
+            var orders = await GetCart() as List<CartOrderRespone>;
 
             var index = orders.FindIndex(order => order.Product.ProductId.Equals(productId));
 
             orders.RemoveAt(index);
 
-            SetCart(orders);
+            await SetCart(orders);
 
-            // return GetCartViewModel();
+            await Task.CompletedTask;
         }
 
-        public CartViewModel GetCartViewModel()
+        public async Task<CartViewModel> GetCartViewModel()
         {
-            var orders = GetCart() as List<CartOrderRespone>;
+            var orders = await GetCart() as List<CartOrderRespone>;
 
             var count = 0;
             var total = 0;
@@ -73,15 +74,19 @@ namespace client.Services.Cart
             };
         }
 
-        public void Clear()
+        public async Task Clear()
         {
             _httpContext.HttpContext.Session.Remove(SessionKeys.Cart);
+            await Task.CompletedTask;
         }
 
-        private IEnumerable<CartOrderRespone> GetCart() =>
-            _httpContext.HttpContext.Session.GetObject<IEnumerable<CartOrderRespone>>(SessionKeys.Cart);
+        private async Task<IEnumerable<CartOrderRespone>> GetCart() =>
+            await Task.FromResult(_httpContext.HttpContext.Session.GetObject<IEnumerable<CartOrderRespone>>(SessionKeys.Cart));
 
-        private void SetCart(IEnumerable<CartOrderRespone> orders) =>
+        private async Task SetCart(IEnumerable<CartOrderRespone> orders)
+        {
             _httpContext.HttpContext.Session.SetObject<IEnumerable<CartOrderRespone>>(SessionKeys.Cart, orders);
+            await Task.CompletedTask;
+        }
     }
 }
