@@ -18,8 +18,7 @@ namespace client.ViewComponents
         }
         public async Task<IViewComponentResult> InvokeAsync(ProductRespone product)
         {
-            await Task.CompletedTask;
-            return View("Default", product);
+            return await Task.FromResult(View("Default", product));
         }
     }
 }

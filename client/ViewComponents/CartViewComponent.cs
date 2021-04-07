@@ -15,9 +15,8 @@ namespace client.ViewComponents
         }
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var cartVM = _cartService.GetCartViewModel();
+            var cartVM = await _cartService.GetCartViewModel();
 
-            await Task.CompletedTask;
             return View("Default", cartVM);
         }
     }

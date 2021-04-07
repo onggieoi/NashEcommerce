@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using client.Constants;
+using client.Models;
 using client.Services;
 using client.Services.Cart;
 using Microsoft.AspNetCore.Authorization;
@@ -22,15 +23,16 @@ namespace client.Controllers
             _client = client;
         }
 
-        public IActionResult Index()
+        public async Task<ActionResult<CartViewModel>> Index()
         {
-            var cartVM = _cartService.GetCartViewModel();
+            var cartVM = await _cartService.GetCartViewModel();
 
             return View(cartVM);
         }
 
         [HttpPost("[controller]/{productId}")]
-        public ActionResult<IEnumerable<CartOrderRequest>> AddProduct(int productId, int quantity, ProductRespone product)
+        public async Task<ActionResult<IEnumerable<CartOrderRequest>>> AddProduct(
+            int productId, int quantity, ProductRespone product)
         {
             var cartOrder = new CartOrderRespone
             {
@@ -38,14 +40,14 @@ namespace client.Controllers
                 Quantity = quantity
             };
 
-            var orders = _cartService.AddOrder(cartOrder);
+            var orders = await _cartService.AddOrder(cartOrder);
 
             return Ok(orders);
         }
 
-        public ActionResult<IEnumerable<CartOrderRequest>> Remove(int productId)
+        public async Task<ActionResult<IEnumerable<CartOrderRequest>>> Remove(int productId)
         {
-            _cartService.Remove(productId);
+            await _cartService.Remove(productId);
 
             return RedirectToAction("Index");
         }
@@ -61,7 +63,7 @@ namespace client.Controllers
                 return View("OrderResult", false);
             }
 
-            _cartService.Clear();
+            await _cartService.Clear();
 
             return View("OrderResult", true);
         }

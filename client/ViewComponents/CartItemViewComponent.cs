@@ -9,8 +9,7 @@ namespace client.ViewComponents
     {
         public async Task<IViewComponentResult> InvokeAsync(CartOrderRespone cartOrder)
         {
-            await Task.CompletedTask;
-            return View("Default", cartOrder);
+            return await Task.FromResult(View("Default", cartOrder));
         }
     }
 }
