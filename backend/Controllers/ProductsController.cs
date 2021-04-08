@@ -24,7 +24,7 @@ namespace backend.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ProductRespone>> GetProducts(int id)
+        public async Task<ActionResult<ProductRespone>> GetProduct(int id)
         {
             var result = await _productRepository.GetProduct(id);
             return Ok(result);
