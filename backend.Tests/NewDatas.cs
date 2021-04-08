@@ -9,16 +9,24 @@ namespace backend.Tests
     {
         public static ProductRequest NewProductRequest() => new ProductRequest
         {
-            Name = "Test",
-            Price = 100,
-            Image = "IMAGE",
-            Description = "Description"
+            Name = "Test Product Request Name",
+            Price = 200,
+            Image = "Test Product Request Image",
+            Description = "Test Product Request Desc"
         };
 
         public static Category NewCategory() => new Category
         {
-            Name = "Test Category 1",
-            Image = "IMAGE"
+            Name = "Test Category",
+            Image = "Test Image"
+        };
+
+        public static Product NewProduct() => new Product
+        {
+            Name = "Test Product Name",
+            Price = 100,
+            Image = "Test Product Name Image",
+            Description = "Test Product Name Desc"
         };
     }
 }
