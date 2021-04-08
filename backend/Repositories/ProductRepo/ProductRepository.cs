@@ -31,11 +31,11 @@ namespace backend.Repositories.ProductRepo
                 .Include(products => products.Category)
                 .Where(product => product.ProductId.Equals(productId))
                 .AsNoTracking()
-                .SingleAsync();
+                .SingleOrDefaultAsync();
 
             if (product == null)
             {
-                throw new NotFoundException("Not Found");
+                throw new NotFoundException($"{productId} Not Found");
             }
 
             var productRes = _mapper.Map<ProductRespone>(product);
