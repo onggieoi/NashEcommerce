@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 using backend.DbContexts;
+using backend.Configs;
 
 namespace backend.Extensions.ServiceCollection
 {
@@ -59,10 +60,11 @@ namespace backend.Extensions.ServiceCollection
                         b.UseSqlServer(connectionString, sql =>
                             sql.MigrationsAssembly(assembly));
                 })
+                .AddProfileService<ProfileService>()
+                // .AddInMemoryIdentityResources(IdentityServerConfig.Ids)
+                // .AddInMemoryApiResources(IdentityServerConfig.Apis)
+                // .AddInMemoryClients(IdentityServerConfig.Clients(clientUrls))
                 .AddDeveloperSigningCredential();
-            // .AddInMemoryIdentityResources(IdentityServerConfig.Ids)
-            // .AddInMemoryApiResources(IdentityServerConfig.Apis)
-            // .AddInMemoryClients(IdentityServerConfig.Clients(clientUrls))
             // .AddTestUsers(TestUsers.Users)
         }
     }
