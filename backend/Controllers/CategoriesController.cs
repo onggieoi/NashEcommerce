@@ -30,6 +30,13 @@ namespace backend.Controllers
             return Ok(categoryRespone);
         }
 
+        [HttpGet("{id}")]
+        public async Task<ActionResult<CategoryRespone>> GetById(int id)
+        {
+            var categoryRespone = await _categoryRepository.GetById(id);
+            return Ok(categoryRespone);
+        }
+
         [HttpPost]
         public async Task<ActionResult<CategoryRespone>> Create([FromBody] CategoryRequest request)
         {

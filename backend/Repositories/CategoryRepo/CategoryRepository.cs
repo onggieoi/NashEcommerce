@@ -78,5 +78,18 @@ namespace backend.Repositories.CategoryRepo
 
             return categoryRespone;
         }
+
+        public async Task<CategoryRespone> GetById(int id)
+        {
+            var category = await _context.Categories
+                .AsNoTracking()
+                .SingleOrDefaultAsync(c => c.CategoryId.Equals(id));
+
+            if (category is null) throw new NotFoundException($"This {id} is Not Found");
+
+            var categoryResponse = _mapper.Map<CategoryRespone>(category);
+
+            return categoryResponse;
+        }
     }
 }
