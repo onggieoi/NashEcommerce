@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using backend.Controllers;
+using backend.Exceptions;
 using backend.Repositories.ProductRepo;
 using Microsoft.AspNetCore.Mvc;
 using ViewModelShare.Product;
@@ -52,9 +53,13 @@ namespace backend.Tests.ProductController.Tests
             Assert.Equal(product.Description, deletedResultValue.Description);
             Assert.Equal(product.Image, deletedResultValue.Image);
             Assert.Equal(product.Rated, deletedResultValue.Rated);
-
             Assert.Equal(category.CategoryId, deletedResultValue.CategoryId);
             Assert.Equal(category.Name, deletedResultValue.CategoryName);
+
+            await Assert.ThrowsAsync<NotFoundException>(async () =>
+            {
+                await productController.GetProduct(deletedResultValue.ProductId);
+            });
         }
     }
 }
