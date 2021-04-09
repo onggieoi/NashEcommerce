@@ -1,6 +1,7 @@
 using backend.Models;
 using Microsoft.Extensions.Logging;
 using Moq;
+using ViewModelShare.Category;
 using ViewModelShare.Product;
 
 namespace backend.Tests
@@ -27,6 +28,13 @@ namespace backend.Tests
             Price = 100,
             Image = "Test Product Name Image",
             Description = "Test Product Name Desc"
+        };
+
+        public static CategoryRequest NewCategoryRequest() => new CategoryRequest
+        {
+            Name = "Test Category Request",
+            Image = "Test Image Request",
+            Description = " Test Desc Request"
         };
     }
 }
