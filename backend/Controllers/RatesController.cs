@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using backend.Constans;
 using backend.Repositories.RatingRepo;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ViewModelShare.Rate;
 
@@ -17,7 +18,7 @@ namespace backend.Controllers
             _ratingRepository = ratingRepository;
         }
 
-        // [Authorize("Bearer")]
+        [Authorize("Bearer")]
         [HttpPost]
         public async Task<IActionResult> Create(RateRequest rateRequest)
         {

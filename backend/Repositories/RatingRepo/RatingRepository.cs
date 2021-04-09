@@ -29,7 +29,7 @@ namespace backend.Repositories.RatingRepo
 
             var userId = _httpContextAccessor.HttpContext.User.FindFirstValue("sub");
 
-            rate.UserId = "433602c9-0e9a-42e9-a98d-136a9f3ed573";
+            rate.UserId = userId;
 
             await _context.AddAsync(rate);
             await _context.SaveChangesAsync();
