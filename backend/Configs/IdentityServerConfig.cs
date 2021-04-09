@@ -17,6 +17,12 @@ namespace backend.Configs
                     UserClaims = {
                         "testScope"
                     }
+                },
+                new IdentityResource {
+                    Name = "offline_access",
+                    UserClaims = {
+                        "offline_access"
+                    }
                 }
             };
 
@@ -43,10 +49,11 @@ namespace backend.Configs
                     ClientSecrets = { new Secret("secret".Sha256()) },
 
                     AllowedGrantTypes = GrantTypes.Code,
-                    RequirePkce = true,
+                    // RequirePkce = true,
                     RequireConsent = false,
                     AllowOfflineAccess = true,
-                    AlwaysIncludeUserClaimsInIdToken = true,
+                    // AlwaysIncludeUserClaimsInIdToken = true,
+                    // AlwaysSendClientClaims = true,
 
                     RedirectUris = { $"{clientUrls["Mvc"]}/signin-oidc" },
                     PostLogoutRedirectUris = { $"{clientUrls["Mvc"]}/signout-callback-oidc" },
@@ -57,6 +64,9 @@ namespace backend.Configs
                         IdentityServerConstants.StandardScopes.OfflineAccess,
                         "api", "testScope"
                     },
+
+                    RefreshTokenUsage = TokenUsage.ReUse,
+                    RefreshTokenExpiration = TokenExpiration.Sliding
                 }
             };
     }
