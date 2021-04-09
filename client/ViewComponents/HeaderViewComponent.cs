@@ -20,8 +20,9 @@ namespace client.ViewComponents
             var name = "";
             if (User.Identity.IsAuthenticated)
             {
-                var claimsIdentity = User.Identity as ClaimsIdentity;
-                name = claimsIdentity.FindFirst("name").Value.ToString();
+                // var claimsIdentity = User.Identity as ClaimsIdentity;
+                // name = claimsIdentity.FindFirst("name").Value.ToString();
+                name = User.Identity.Name;
             }
 
             var categories = await _client.GetCategories();
