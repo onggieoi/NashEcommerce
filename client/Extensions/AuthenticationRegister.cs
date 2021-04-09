@@ -88,7 +88,7 @@ namespace client.Extensions
 
                     options.Scope.Add("testScope");
                     options.Scope.Add("offline_access");
-                    // options.Scope.Add("api");
+                    options.Scope.Add("api");
 
                     options.ClaimActions.MapUniqueJsonKey("TestedScope", "testScope");
 
