@@ -26,6 +26,13 @@ namespace backend.Configs
                 }
             };
 
+        public static IEnumerable<ApiScope> ApiScopes =>
+            new List<ApiScope> {
+                new ApiScope("api", "api")
+            };
+
+
+
         public static IEnumerable<ApiResource> Apis =>
             new ApiResource[]
             {
@@ -62,12 +69,12 @@ namespace backend.Configs
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
                         IdentityServerConstants.StandardScopes.OfflineAccess,
-                        "api", "testScope"
+                        "api",
                     },
 
                     RefreshTokenUsage = TokenUsage.ReUse,
                     RefreshTokenExpiration = TokenExpiration.Sliding
-                }
+                },
             };
     }
 }
