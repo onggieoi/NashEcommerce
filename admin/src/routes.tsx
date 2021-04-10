@@ -4,6 +4,7 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import { LOGIN, HOME } from "./constants/pages";
 import AuthProvider, { AuthContext } from "./contexts/auth";
 import InLineLoader from "./components/InlineLoader";
+import Auth from "./containers/Auth";
 
 const Layout = lazy(() => import("./containers/Layout"));
 const Home = lazy(() => import("./containers/Home"));
@@ -57,6 +58,10 @@ const Routes = () => {
           <PublicRoute exact={true} path={HOME}>
             <Home />
           </PublicRoute>
+
+          <Route path="/authentication/:action">
+            <Auth />
+          </Route>
 
           <Route path={LOGIN}>
             <Login />
