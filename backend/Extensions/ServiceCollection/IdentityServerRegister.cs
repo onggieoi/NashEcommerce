@@ -17,7 +17,8 @@ namespace backend.Extensions.ServiceCollection
         {
             var clientUrls = new Dictionary<string, string>
             {
-                ["Mvc"] = configuration["ClientUrl:Mvc"]
+                ["Mvc"] = configuration["ClientUrl:Mvc"],
+                ["Admin"] = configuration["ClientUrl:Admin"],
             };
 
             var connectionString = configuration.GetConnectionString("ApplicationConnection");
@@ -49,21 +50,22 @@ namespace backend.Extensions.ServiceCollection
                 options.Events.RaiseSuccessEvents = true;
             })
                 .AddAspNetIdentity<IdentityUser>()
-                .AddConfigurationStore(options =>
-                {
-                    options.ConfigureDbContext = b => b.UseSqlServer(connectionString,
-                        sql => sql.MigrationsAssembly(assembly));
-                })
-                .AddOperationalStore(options =>
-                {
-                    options.ConfigureDbContext = b =>
-                        b.UseSqlServer(connectionString, sql =>
-                            sql.MigrationsAssembly(assembly));
-                })
+                // .AddConfigurationStore(options =>
+                // {
+                //     options.ConfigureDbContext = b => b.UseSqlServer(connectionString,
+                //         sql => sql.MigrationsAssembly(assembly));
+                // })
+                // .AddOperationalStore(options =>
+                // {
+                //     options.ConfigureDbContext = b =>
+                //         b.UseSqlServer(connectionString, sql =>
+                //             sql.MigrationsAssembly(assembly));
+                // })
                 .AddProfileService<ProfileService>()
-                // .AddInMemoryIdentityResources(IdentityServerConfig.Ids)
-                // .AddInMemoryApiResources(IdentityServerConfig.Apis)
-                // .AddInMemoryClients(IdentityServerConfig.Clients(clientUrls))
+                .AddInMemoryIdentityResources(IdentityServerConfig.Ids)
+                .AddInMemoryApiResources(IdentityServerConfig.Apis)
+                .AddInMemoryClients(IdentityServerConfig.Clients(clientUrls))
+                .AddInMemoryApiScopes(IdentityServerConfig.ApiScopes)
                 .AddDeveloperSigningCredential();
             // .AddTestUsers(TestUsers.Users)
         }

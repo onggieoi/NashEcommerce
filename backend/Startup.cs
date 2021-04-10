@@ -109,6 +109,16 @@ namespace backend
 
                     context.SaveChanges();
                 }
+
+                if (!context.ApiScopes.Any())
+                {
+                    foreach (var resource in IdentityServerConfig.ApiScopes)
+                    {
+                        context.ApiScopes.Add(resource.ToEntity());
+                    }
+
+                    context.SaveChanges();
+                }
             }
         }
     }

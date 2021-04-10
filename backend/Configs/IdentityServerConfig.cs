@@ -75,6 +75,40 @@ namespace backend.Configs
                     RefreshTokenUsage = TokenUsage.ReUse,
                     RefreshTokenExpiration = TokenExpiration.Sliding
                 },
+                new Client {
+                    ClientName = "admin",
+                    ClientId = "admin",
+                    AccessTokenType = AccessTokenType.Reference,
+                    AllowedGrantTypes = GrantTypes.Code,
+                    AllowAccessTokensViaBrowser = true,
+
+                    RequireClientSecret = false,
+                    RequireConsent = false,
+                    RequirePkce = true,
+
+                    RedirectUris = new List<string>
+                    {
+                        $"{clientUrls["Admin"]}/authentication/login-callback",
+                        $"{clientUrls["Admin"]}/silent-renew.html",
+                        $"{clientUrls["Admin"]}"
+                    },
+                    PostLogoutRedirectUris = new List<string>
+                    {
+                        $"{clientUrls["Admin"]}/unauthorized",
+                        $"{clientUrls["Admin"]}/authentication/logout-callback",
+                        $"{clientUrls["Admin"]}"
+                    },
+                    AllowedCorsOrigins = new List<string>
+                    {
+                        $"{clientUrls["Admin"]}"
+                    },
+                    AllowedScopes = new List<string>
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        "api"
+                    }
+                }
             };
     }
 }
