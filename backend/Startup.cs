@@ -67,7 +67,8 @@ namespace backend
         {
             var clientUrls = new Dictionary<string, string>
             {
-                ["Mvc"] = Configuration["ClientUrl:Mvc"]
+                ["Mvc"] = Configuration["ClientUrl:Mvc"],
+                ["Admin"] = Configuration["ClientUrl:Admin"],
             };
 
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())

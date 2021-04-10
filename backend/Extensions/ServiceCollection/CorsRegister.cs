@@ -11,7 +11,8 @@ namespace backend.Extensions.ServiceCollection
         {
             var clientUrls = new Dictionary<string, string>
             {
-                ["Mvc"] = configuration["ClientUrl:Mvc"]
+                ["Mvc"] = configuration["ClientUrl:Mvc"],
+                ["Admin"] = configuration["ClientUrl:Admin"],
             };
 
             services.AddCors(options =>
@@ -19,7 +20,7 @@ namespace backend.Extensions.ServiceCollection
                 options.AddPolicy(AllowOrigins.OriginPolicy,
                     builder =>
                     {
-                        builder.WithOrigins(clientUrls["Mvc"])
+                        builder.WithOrigins(clientUrls["Mvc"], clientUrls["Admin"])
                             .AllowAnyHeader()
                             .AllowAnyMethod();
                     });
