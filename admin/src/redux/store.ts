@@ -1,11 +1,22 @@
-import { combineReducers, createStore } from 'redux';
+import { configureStore, getDefaultMiddleware, combineReducers } from '@reduxjs/toolkit';
+import createSagaMiddleware from 'redux-saga';
 
 import counterReducer from './ducks/counter';
+import todoReducer from './ducks/todo';
+import { watcherSaga } from './sagas/rootSaga';
 
-const reducers = combineReducers({
+const reducer = combineReducers({
     counter: counterReducer,
+    todo: todoReducer,
 });
 
-const store = createStore(reducers);
+const sagaMiddleware = createSagaMiddleware();
+
+const store = configureStore({
+    reducer,
+    middleware: [...getDefaultMiddleware({thunk: false}), sagaMiddleware]
+});
+
+sagaMiddleware.run(watcherSaga);
 
 export default store;

@@ -1,27 +1,18 @@
-const INCREMENT = 'INCREMENT';
-const DECREMENT = 'DECREMENT';
-
-export const increment = () => ({
-    type: INCREMENT,
-});
-
-export const decrement = () => ({
-    type: DECREMENT,
-});
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     count: 0,
 };
 
-export default (state = initialState, action) => {
-    switch(action.type) {
-        case INCREMENT:
-            return {...state, count: state.count + 1};
-
-        case DECREMENT:
-            return { ...state, count: state.count - 1 };
-
-        default:
-            return state;
+const counter = createSlice({
+    name: 'counter',
+    initialState,
+    reducers: {
+        increment: state => ({ ...state, count: state.count +1 }),
+        decrement: state => ({ ...state, count: state.count - 1 }),
     }
-}
+});
+
+export const { increment, decrement } = counter.actions;
+
+export default counter.reducer;
