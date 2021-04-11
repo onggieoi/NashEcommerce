@@ -7,7 +7,7 @@ import { Provider } from 'react-redux'
 import store from 'src/redux/store';
 import Routes from './routes';
 
-import './styles/index.css';
+import './styles/index.scss';
 import 'nprogress/nprogress.css';
 
 NProgress.configure({ minimum: 1 });

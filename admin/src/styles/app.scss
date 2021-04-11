@@ -1,0 +1,36 @@
+@import './_breakpoint.scss';
+@import './_side-nav.scss';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+    background: #1C3FAA;
+}
+body {
+    -webkit-font-smoothing: antialiased;
+    @apply overflow-x-hidden py-3 px-8 text-sm text-gray-800;
+    @media (max-width: $sm) {
+        @apply px-3;
+    }
+}
+
+.app {
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    @apply py-5;
+}
+
+.content {
+    border-radius: 30px;
+    padding: 0px 22px;
+    @apply min-h-screen bg-theme-2 flex-1 pb-10;
+    @media (max-width: $md) {
+        @apply px-4 max-w-full;
+    }
+    &:before {
+        content: "";
+        @apply w-full h-px block;
+    }
+}
