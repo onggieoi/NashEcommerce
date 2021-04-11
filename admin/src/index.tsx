@@ -2,7 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import NProgress from 'nprogress';
+import { Provider } from 'react-redux'
 
+import store from 'src/redux/store';
 import Routes from './routes';
 
 import './styles/index.css';
@@ -12,10 +14,13 @@ NProgress.configure({ minimum: 1 });
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes />
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <Routes />
+      </BrowserRouter>
+    </Provider>
   );
 }
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const ROOT = document.getElementById('root');
+ReactDOM.render(<App />, ROOT);
