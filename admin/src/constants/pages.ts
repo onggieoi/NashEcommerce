@@ -1,2 +1,2 @@
-export const HOME = '/';
+export const DASHBOARD = '/';
 export const LOGIN = '/login';

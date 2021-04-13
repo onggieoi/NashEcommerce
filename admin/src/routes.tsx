@@ -1,10 +1,11 @@
 import React, { useContext, lazy, Suspense } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 
-import { LOGIN, HOME } from "./constants/pages";
+import { LOGIN, DASHBOARD } from "./constants/pages";
 import AuthProvider, { AuthContext } from "./contexts/auth";
 import InLineLoader from "./components/InlineLoader";
 import Auth from "./containers/Auth";
+import DashBoard from "./containers/DashBoard";
 
 const Layout = lazy(() => import("./containers/Layout"));
 const Home = lazy(() => import("./containers/Home"));
@@ -55,8 +56,8 @@ const Routes = () => {
       <Suspense fallback={<InLineLoader />}>
         <Switch>
 
-          <PublicRoute exact={true} path={HOME}>
-            <Home />
+          <PublicRoute exact={true} path={DASHBOARD}>
+            <DashBoard />
           </PublicRoute>
 
           <Route path="/authentication/:action">
