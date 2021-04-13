@@ -5,12 +5,12 @@ import { LOGIN, DASHBOARD } from "./constants/pages";
 import AuthProvider, { AuthContext } from "./contexts/auth";
 import InLineLoader from "./components/InlineLoader";
 import Auth from "./containers/Auth";
-import DashBoard from "./containers/DashBoard";
 
 const Layout = lazy(() => import("./containers/Layout"));
 const Home = lazy(() => import("./containers/Home"));
 const Login = lazy(() => import("./containers/Login"));
 const NotFound = lazy(() => import("./containers/NotFound"));
+const DashBoard = lazy(() => import('./containers/DashBoard'));
 
 function PrivateRoute({ children, ...rest }) {
   const { isAuthenticated } = useContext(AuthContext);
