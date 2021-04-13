@@ -33,7 +33,7 @@ const Header = () => {
                         <img alt="Admin Name" src="/images/profile-12.jpg" />
                     </div>
                     <div className={dropDownBoxStyle()} >
-                        <div className="dropdown-box__content box bg-theme-38 text-white">
+                        <div className="dropdown-box__content bg-theme-38 text-white">
                             <div className="p-4 border-b border-theme-40">
                                 <div className="font-medium">Angelina Jolie</div>
                                 <div className="text-xs text-theme-41">Software Engineer</div>
