@@ -13,7 +13,7 @@ const transactions: ITransaction[] = [
 const Transactions = () => {
 
     return (
-        <div className="col-span-12 md:col-span-6 xl:col-span-4 xxl:col-span-12 mt-3 xxl:mt-8" >
+        <div className="col-span-12  mt-3 xxl:mt-8" >
             <div className="intro-x flex items-center h-10">
                 <h2 className="text-lg font-medium truncate mr-5">Transactions</h2>
             </div>

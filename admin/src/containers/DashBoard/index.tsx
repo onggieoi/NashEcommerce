@@ -1,16 +1,16 @@
 import React from 'react';
 import { RefreshCcw, } from 'react-feather';
+import { useSelector } from 'react-redux';
 import Chart from './Chart';
 
 import Reports from './Reports';
 import Transactions from './Transactions';
 
 const DashBoard = () => {
-
     return (
         <div className="grid grid-cols-12 gap-6">
             {/* Left side */}
-            <div className="col-span-12 xl:col-span-9 grid grid-cols-12 gap-6">
+            <div className="col-span-12 xxl:col-span-9 grid grid-cols-12 gap-6">
                 <div className="col-span-12 mt-8">
                     <div className="intro-y flex items-center h-10">
                         <h2 className="text-lg font-medium truncate mr-5">General Report</h2>
@@ -24,7 +24,7 @@ const DashBoard = () => {
             </div>
 
             {/* Right side */}
-            <div className="col-span-12 xl:col-span-3 xl:border-l border-theme-5 -mb-10 pb-10">
+            <div className="col-span-12 xxl:col-span-3 xxl:border-l border-theme-5 -mb-10 pb-10">
                 <div className="xxl:pl-6 grid grid-cols-12 gap-6">
                     <Transactions />
                 </div>
