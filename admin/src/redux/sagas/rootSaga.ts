@@ -1,8 +1,10 @@
-import {takeLatest} from 'redux-saga/effects';
+import {takeEvery, takeLatest} from 'redux-saga/effects';
 
-import { getTodos } from '../ducks/todo';
-import { handleGetUser } from './handlers/todo';
+import { getUser, login, loginCallBack } from '../ducks/auth';
+import { handleCompleteLogin, handleGetUser, handleLogin } from './handlers/auth';
 
 export function* watcherSaga() {
-    yield takeLatest(getTodos.type, handleGetUser)
+    yield takeLatest(getUser.type, handleGetUser);
+    yield takeLatest(loginCallBack.type, handleCompleteLogin);
+    yield takeLatest(login.type, handleLogin);
 }

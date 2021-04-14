@@ -1,33 +1,29 @@
 import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 
 import InlineLoader from "src/components/InlineLoader";
-import authService from "src/services/auth-service";
+import { login, loginCallBack } from "src/redux/ducks/auth";
 
 const Auth = () => {
     const history = useHistory();
     const { action } = useParams<{ action: string }>();
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        (async () => {
-            console.log("isRun?");
+        switch (action) {
+            case "login":
+                dispatch(login());
+                break;
 
-            switch (action) {
-                case "login":
-                    await authService.loginAsync();
-                    break;
+            case "login-callback":
+                dispatch(loginCallBack());
+                history.push("/");
+                break;
 
-                case "login-callback":
-                    await authService.completeLoginAsync(window.location.href);
-                    const user = await authService.getUserAsync();
-                    console.log(user);
-                    history.push("/");
-                    break;
-
-                default:
-                    break;
-            }
-        })();
+            default:
+                break;
+        }
     }, [history, action]);
 
     return <InlineLoader></InlineLoader>;

@@ -1,13 +1,12 @@
 import { configureStore, getDefaultMiddleware, combineReducers } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 
-import counterReducer from './ducks/counter';
-import todoReducer from './ducks/todo';
+import authReducer from './ducks/auth';
+
 import { watcherSaga } from './sagas/rootSaga';
 
 const reducer = combineReducers({
-    counter: counterReducer,
-    todo: todoReducer,
+    auth: authReducer,
 });
 
 const sagaMiddleware = createSagaMiddleware();
