@@ -1,37 +1,37 @@
-import React, { useContext, lazy, Suspense } from "react";
-import { Route, Switch, Redirect } from "react-router-dom";
+import React, { useContext, lazy, Suspense, useEffect } from "react";
+import { Route, Switch, Redirect, useHistory } from "react-router-dom";
 
-import { LOGIN, DASHBOARD } from "./constants/pages";
-import AuthProvider, { AuthContext } from "./contexts/auth";
+import { LOGIN, DASHBOARD, AUTH } from "./constants/pages";
 import InLineLoader from "./components/InlineLoader";
 import Auth from "./containers/Auth";
+import { useDispatch, useSelector } from "react-redux";
+import { getUser } from "./redux/ducks/auth";
 
 const Layout = lazy(() => import("./containers/Layout"));
-const Home = lazy(() => import("./containers/Home"));
-const Login = lazy(() => import("./containers/Login"));
 const NotFound = lazy(() => import("./containers/NotFound"));
 const DashBoard = lazy(() => import('./containers/DashBoard'));
 
 function PrivateRoute({ children, ...rest }) {
-  const { isAuthenticated } = useContext(AuthContext);
+  const history = useHistory();
+  const dispatch = useDispatch();
+
+  const { isAuth } = useSelector((state: any) => state.auth);
+
+  useEffect(() => {
+    dispatch(getUser());
+  }, []);
 
   return (
     <Route
       {...rest}
       render={({ location }) =>
-        isAuthenticated ? (
+        isAuth &&
+        (
           <Layout>
             <Suspense fallback={<InLineLoader />}>
               {children}
             </Suspense>
           </Layout>
-        ) : (
-          <Redirect
-            to={{
-              pathname: "/login",
-              state: { from: location }
-            }}
-          />
         )
       }
     />
@@ -41,38 +41,30 @@ function PrivateRoute({ children, ...rest }) {
 function PublicRoute({ children, ...rest }) {
   return (
     <Route {...rest}>
-      <Layout>
-        <Suspense fallback={<InLineLoader />}>
-          {children}
-        </Suspense>
-      </Layout>
+      <Suspense fallback={<InLineLoader />}>
+        {children}
+      </Suspense>
     </Route>
   );
 }
 
 const Routes = () => {
   return (
-    <AuthProvider>
-      <Suspense fallback={<InLineLoader />}>
-        <Switch>
+    <Suspense fallback={<InLineLoader />}>
+      <Switch>
 
-          <PublicRoute exact={true} path={DASHBOARD}>
-            <DashBoard />
-          </PublicRoute>
+        <PrivateRoute exact={true} path={DASHBOARD} >
+          <DashBoard />
+        </PrivateRoute>
 
-          <Route path="/authentication/:action">
-            <Auth />
-          </Route>
+        <PublicRoute path={AUTH}>
+          <Auth />
+        </PublicRoute>
 
-          <Route path={LOGIN}>
-            <Login />
-          </Route>
+        <Route component={NotFound} />
 
-          <Route component={NotFound} />
-
-        </Switch>
-      </Suspense>
-    </AuthProvider>
+      </Switch>
+    </Suspense>
   );
 };
 

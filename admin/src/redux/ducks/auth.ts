@@ -1,7 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { User } from "oidc-client";
 
-const initialState = {
-    
+type AuthState = {
+    isAuth: boolean,
+    user: User,
+}
+
+const initialState: AuthState = {
+    isAuth: false,
+    user: {} as User,
 };
 
 const auth = createSlice({
@@ -11,9 +18,9 @@ const auth = createSlice({
         setUser: (state, action) => {
             const user = action.payload;
             return { 
-              ...state,
-              user,
-              isAuth: true,
+                ...state,
+                user,
+                isAuth: true,
             };
         },
         setAuthen: (state, action) => {
@@ -24,25 +31,17 @@ const auth = createSlice({
                 isAuth,
             }
         },
-        setLoading: (state) => {
-          return {
-            ...state,
-            isLoad: true,
-        }},
-        getUser: (state) => {
-            console.log('getUser', state);
+        getUser: () => {
         },
-        loginCallBack: (state) => {
-            console.log('loginCallBack', state);
+        loginCallBack: () => {
         },
-        login: (state) => { 
-            console.log('login', state);
+        login: () => { 
         }
     }
 });
 
 export const { 
-  setUser, loginCallBack, getUser, login, setAuthen, setLoading,
+    setUser, loginCallBack, getUser, login, setAuthen,
 } = auth.actions;
 
 export default auth.reducer;

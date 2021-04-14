@@ -5,19 +5,23 @@ import authService from "src/services/auth-service";
 
 export function* handleGetUser(action) {
     try {
-        const user = yield call(requestGetUser);
-        yield put(setUser(user));
-        
+        const userResponse = yield call(requestGetUser);
+
+        if (userResponse) {
+            const user = JSON.stringify(userResponse);
+            yield put(setUser(user));
+        } else {
+            yield call(login);
+        }
+
     } catch (error) {
-        console.log('errr', error);
         yield put(setAuthen({ isAuth: false }));
     }
 }
 
 export function* handleCompleteLogin(action) {
     try {
-        yield call(completeLogin);
-        yield put(setAuthen({ isAuth: true}));
+        const userResponse = yield call(completeLogin);
     } catch (error) {
         console.log(error);
     }
@@ -26,13 +30,14 @@ export function* handleCompleteLogin(action) {
 export function* handleLogin(action) {
     try {
         yield call(login);
+
     } catch (error) {
         console.log(error);
     }
 }
 
 function requestGetUser() {
-    return authService.loginSilent();
+    return authService.getUserAsync();
 }
 
 function completeLogin() {
