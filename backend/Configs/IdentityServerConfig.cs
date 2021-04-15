@@ -28,10 +28,8 @@ namespace backend.Configs
 
         public static IEnumerable<ApiScope> ApiScopes =>
             new List<ApiScope> {
-                new ApiScope("api", "api")
+                new ApiScope("api", "api"),
             };
-
-
 
         public static IEnumerable<ApiResource> Apis =>
             new ApiResource[]
@@ -81,10 +79,12 @@ namespace backend.Configs
                     AccessTokenType = AccessTokenType.Reference,
                     AllowedGrantTypes = GrantTypes.Code,
                     AllowAccessTokensViaBrowser = true,
-
                     RequireClientSecret = false,
                     RequireConsent = false,
                     RequirePkce = true,
+                    AlwaysSendClientClaims = true,
+                    AllowOfflineAccess = true,
+                    AlwaysIncludeUserClaimsInIdToken = true,
 
                     RedirectUris = new List<string>
                     {
@@ -106,7 +106,8 @@ namespace backend.Configs
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
-                        "api"
+                        IdentityServerConstants.StandardScopes.OfflineAccess,
+                        "api",
                     }
                 }
             };
