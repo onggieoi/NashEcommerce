@@ -25,7 +25,7 @@ namespace backend.DbContexts
             CancellationToken cancellationToken = default(CancellationToken))
         {
             var modifiedEntries = ChangeTracker.Entries()
-                    .Where(x => (x.State == EntityState.Added || x.State == EntityState.Modified));
+                    .Where(x => x.Entity is Autiable && (x.State == EntityState.Added || x.State == EntityState.Modified));
 
             foreach (var entry in modifiedEntries)
             {
