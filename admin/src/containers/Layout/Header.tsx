@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { ChevronRight, Edit, HelpCircle, Lock, ToggleRight, User } from 'react-feather';
 import { useDispatch } from 'react-redux';
+import { useLocation } from 'react-router';
+import { CATEGORY, DASHBOARD, PRODUCT } from 'src/constants/pages';
 import { logout } from 'src/redux/ducks/auth';
 
 const Header = () => {
-    const [showDropDown, setShow] = useState(false);
     const dispatch = useDispatch();
+    const { pathname } = useLocation();
+    const [showDropDown, setShow] = useState(false);
 
     const handleLogout = () => {
         dispatch(logout());
@@ -24,14 +27,30 @@ const Header = () => {
         return 'dropdown-box mt-10 absolute w-56 top-0 right-0 z-20';
     };
 
+    const breadcrumbName = () => {
+        switch (pathname) {
+            case DASHBOARD:
+                return 'Dashboard';
+
+            case PRODUCT:
+                return 'Product';
+
+            case CATEGORY:
+                return 'Category';
+
+            default:
+                return;
+        }
+    };
+
     return (
         <>
             <div className="top-bar">
 
                 <div className="-intro-x breadcrumb mr-auto hidden sm:flex">
-                    <a href="" className="">Application</a>
+                    <a className="">Administrator</a>
                     <ChevronRight className="breadcrumb__icon" />
-                    <a href="" className="breadcrumb--active">Dashboard</a>
+                    <a href="" className="breadcrumb--active">{breadcrumbName()}</a>
                 </div>
 
                 <div className="intro-x dropdown w-8 h-8 relative">
@@ -47,25 +66,25 @@ const Header = () => {
                             </div>
                             <div className="p-2">
                                 <a href="" className="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 rounded-md">
-                                    <User className="w-4 h-4 mr-2"></User>
+                                    <User className="w-4 h-4 mr-2" />
                                     Profile
                                 </a>
                                 <a href="" className="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 rounded-md">
-                                    <Edit className="w-4 h-4 mr-2"></Edit>
+                                    <Edit className="w-4 h-4 mr-2" />
                                     Add Account
                                 </a>
                                 <a href="" className="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 rounded-md">
-                                    <Lock className="w-4 h-4 mr-2"></Lock>
+                                    <Lock className="w-4 h-4 mr-2" />
                                     Reset Password
                                 </a>
                                 <a href="" className="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 rounded-md">
-                                    <HelpCircle className="w-4 h-4 mr-2"></HelpCircle>
+                                    <HelpCircle className="w-4 h-4 mr-2" />
                                     Help
                                 </a>
                             </div>
                             <div className="p-2 border-t border-theme-40">
                                 <a onClick={handleLogout} className="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 rounded-md cursor-pointer">
-                                    <ToggleRight className="w-4 h-4 mr-2"></ToggleRight>
+                                    <ToggleRight className="w-4 h-4 mr-2" />
                                     Logout
                                 </a>
                             </div>
