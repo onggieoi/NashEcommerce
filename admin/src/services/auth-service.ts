@@ -6,7 +6,7 @@ const oidcSettings: UserManagerSettings = {
   redirect_uri: "http://localhost:3000/authentication/login-callback",
   post_logout_redirect_uri: "http://localhost:3000/authentication/logout-callback",
   response_type: "code",
-  scope: "api openid profile",
+  scope: "api openid profile offline_access",
   automaticSilentRenew: true,
   includeIdTokenInSilentRenew: true,
 };
