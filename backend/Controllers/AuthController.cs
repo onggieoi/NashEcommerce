@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using backend.Configs;
 using IdentityModel;
 using IdentityServer4.Models;
 using IdentityServer4.Services;
@@ -14,15 +15,18 @@ namespace backend.Controllers
         private IIdentityServerInteractionService _interaction;
         private SignInManager<IdentityUser> _signInManager;
         private UserManager<IdentityUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
         public AuthController(
             IIdentityServerInteractionService interaction,
             UserManager<IdentityUser> userManager,
+            RoleManager<IdentityRole> roleManager,
             SignInManager<IdentityUser> signInManager)
         {
             _interaction = interaction;
             _signInManager = signInManager;
             _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         [HttpGet]
@@ -84,7 +88,12 @@ namespace backend.Controllers
                 return View("Register", RegisterVm);
             }
 
+            var role = new IdentityRole();
+            role.Name = Roles.Admin;
+            await _roleManager.CreateAsync(role);
+
             await _userManager.AddClaimAsync(user, new Claim("testScope", $"{RegisterVm.Username}-testScope"));
+            await _userManager.AddToRoleAsync(user, Roles.Admin);
 
             await _signInManager.SignInAsync(user, false);
 
