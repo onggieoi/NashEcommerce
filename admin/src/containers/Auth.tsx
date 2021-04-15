@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 
 import InlineLoader from "src/components/InlineLoader";
-import { login, loginCallBack } from "src/redux/ducks/auth";
+import { login, loginCallBack, logoutCallBack } from "src/redux/ducks/auth";
 
 const Auth = () => {
     const history = useHistory();
@@ -18,6 +18,11 @@ const Auth = () => {
 
             case "login-callback":
                 dispatch(loginCallBack());
+                history.push("/");
+                break;
+
+            case "logout-callback":
+                dispatch(logoutCallBack());
                 history.push("/");
                 break;
 

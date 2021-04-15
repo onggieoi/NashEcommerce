@@ -36,12 +36,14 @@ const auth = createSlice({
         loginCallBack: () => {
         },
         login: () => { 
-        }
+        },
+        logout: () => {},
+        logoutCallBack: () => { },
     }
 });
 
 export const { 
-    setUser, loginCallBack, getUser, login, setAuthen,
+    setUser, loginCallBack, getUser, login, setAuthen, logout, logoutCallBack,
 } = auth.actions;
 
 export default auth.reducer;

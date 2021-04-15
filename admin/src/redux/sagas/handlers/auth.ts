@@ -21,7 +21,7 @@ export function* handleGetUser(action) {
 
 export function* handleCompleteLogin(action) {
     try {
-        const userResponse = yield call(completeLogin);
+        yield call(completeLogin);
     } catch (error) {
         console.log(error);
     }
@@ -30,6 +30,26 @@ export function* handleCompleteLogin(action) {
 export function* handleLogin(action) {
     try {
         yield call(login);
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export function* handleLogout(action) {
+    try {
+        yield call(logout);
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export function* handleLogoutCallBack(action) {
+    try {
+        yield call(logoutCallBack);
+        
+        yield put(setAuthen({ isAuth: false }));
 
     } catch (error) {
         console.log(error);
@@ -46,4 +66,12 @@ function completeLogin() {
 
 function login() {
     return authService.loginAsync();
+}
+
+function logout() {
+    return authService.logoutAsync();
+}
+
+function logoutCallBack() {
+    return authService.completeLogoutAsync(window.location.href);
 }
