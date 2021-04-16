@@ -3,12 +3,14 @@ import createSagaMiddleware from 'redux-saga';
 
 import authReducer from './ducks/auth';
 import categoryReducer from './ducks/category';
+import productReducer from './ducks/product';
 
 import { watcherSaga } from './sagas/rootSaga';
 
 const reducer = combineReducers({
     auth: authReducer,
     category: categoryReducer,
+    product: productReducer,
 });
 
 const sagaMiddleware = createSagaMiddleware();
