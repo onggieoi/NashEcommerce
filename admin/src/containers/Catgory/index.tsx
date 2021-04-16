@@ -1,8 +1,5 @@
 import React, { useEffect } from 'react';
-import {
-    ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, Search,
-} from 'react-feather';
-import { useDispatch } from 'react-redux';
+import { Search } from 'react-feather';
 
 import { useAppDispatch, useAppSelector } from 'src/hooks/redux';
 import { getCatgories } from 'src/redux/ducks/category';
