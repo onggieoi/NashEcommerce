@@ -10,7 +10,7 @@ const NavItem: React.FC<Props> = ({ path, children }) => {
     const { pathname } = useLocation();
 
     const styleNav = () =>
-        path === pathname ? 'side-menu  side-menu--active' : 'side-menu';
+        path.split('/')[1] === pathname.split('/')[1] ? 'side-menu  side-menu--active' : 'side-menu';
 
     return (
         <li>
