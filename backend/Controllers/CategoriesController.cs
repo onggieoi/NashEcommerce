@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using backend.Constans;
 using backend.Repositories.CategoryRepo;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ViewModelShare.Category;
@@ -38,7 +39,7 @@ namespace backend.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<CategoryRespone>> Create([FromBody] CategoryRequest request)
+        public async Task<ActionResult<CategoryRespone>> Create([FromForm] CategoryRequest request)
         {
             var createdCategory = await _categoryRepository.Create(request);
 

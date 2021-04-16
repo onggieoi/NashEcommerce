@@ -5,6 +5,8 @@ using AutoMapper;
 using backend.DbContexts;
 using backend.Exceptions;
 using backend.Models;
+using backend.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using ViewModelShare.Category;
 
@@ -14,12 +16,15 @@ namespace backend.Repositories.CategoryRepo
     {
         private IMapper _mapper;
         private ApplicationDbContext _context;
+        private readonly IBlobService _blobService;
 
         public CategoryRepository(IMapper mapper,
+            IBlobService blobService,
             ApplicationDbContext context)
         {
             _mapper = mapper;
             _context = context;
+            _blobService = blobService;
         }
 
         public async Task<IEnumerable<CategoryRespone>> GetCategories()
@@ -36,6 +41,14 @@ namespace backend.Repositories.CategoryRepo
 
         public async Task<CategoryRespone> Create(CategoryRequest categoryRequest)
         {
+            var file = categoryRequest.ImageFile;
+            var uploadFileResult = await _blobService.UploadFileBlobAsync("firstcontainer", file.OpenReadStream(),
+                    file.ContentType,
+                    file.FileName);
+
+            var toReturn = uploadFileResult.AbsoluteUri;
+            categoryRequest.Image = toReturn;
+
             var newCategory = _mapper.Map<Category>(categoryRequest);
 
             await _context.Categories.AddAsync(newCategory);
