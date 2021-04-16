@@ -29,9 +29,10 @@ namespace backend
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddContext(Configuration);
-            services.AddCorsOrigins(Configuration);
+            // services.AddCorsOrigins(Configuration);
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddIdentityServerCustom(Configuration);
+            services.AddServices();
             services.AddRepositories();
             services.AddAuthenAuthor();
             services.AddSwagger();
@@ -43,7 +44,7 @@ namespace backend
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            InitializeDatabase(app);
+            // InitializeDatabase(app);
 
             if (env.IsDevelopment())
             {
@@ -52,7 +53,7 @@ namespace backend
             }
             app.UseStaticFiles();
             app.UseHttpsRedirection();
-            app.UseCors(AllowOrigins.OriginPolicy);
+            // app.UseCors(AllowOrigins.OriginPolicy);
             app.UseMiddleware<ErrorHandler>();
             app.UseRouting();
             app.UseIdentityServer();

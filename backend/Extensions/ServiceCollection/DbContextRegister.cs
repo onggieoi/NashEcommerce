@@ -1,3 +1,4 @@
+using Azure.Storage.Blobs;
 using backend.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -11,6 +12,8 @@ namespace backend.Extensions.ServiceCollection
         {
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("ApplicationConnection")));
+
+            services.AddScoped(x => new BlobServiceClient(configuration.GetConnectionString("AccessKey")));
         }
     }
 }
