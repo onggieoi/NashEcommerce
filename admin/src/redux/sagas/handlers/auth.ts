@@ -22,6 +22,7 @@ export function* handleGetUser(action) {
 export function* handleCompleteLogin(action) {
     try {
         yield call(completeLogin);
+        yield put(setAuthen({ isAuth: true }));
     } catch (error) {
         console.log(error);
     }

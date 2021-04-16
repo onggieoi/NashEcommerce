@@ -3,9 +3,11 @@ import {takeLatest} from 'redux-saga/effects';
 import { 
     getUser, login, loginCallBack, logout, logoutCallBack
 } from '../ducks/auth';
+import { getCatgories } from '../ducks/category';
 import { 
     handleCompleteLogin, handleGetUser, handleLogin, handleLogout, handleLogoutCallBack 
 } from './handlers/auth';
+import { handleGetCategory } from './handlers/category';
 
 export function* watcherSaga() {
     yield takeLatest(getUser.type, handleGetUser);
@@ -13,4 +15,6 @@ export function* watcherSaga() {
     yield takeLatest(login.type, handleLogin);
     yield takeLatest(logout.type, handleLogout);
     yield takeLatest(logoutCallBack.type, handleLogoutCallBack);
+
+    yield takeLatest(getCatgories.type, handleGetCategory);
 }
