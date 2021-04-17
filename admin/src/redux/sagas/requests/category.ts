@@ -29,3 +29,7 @@ export function requestUpdateCategory(request: ICategoryRequest): Promise<AxiosR
 
     return axios.put(`https://localhost:5000/api/categories/${request.categoryId}`, formData);
 }
+
+export function requestDeleteCategory(id: string): Promise<AxiosResponse<any>> {
+    return axios.delete(`https://localhost:5000/api/categories/${id}`);
+}

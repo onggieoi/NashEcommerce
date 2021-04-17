@@ -70,12 +70,15 @@ const catgory = createSlice({
             ...state,
             isLoading: true,
         }),
-        
+        deleteCategory: (state, action: PayloadAction<string>) => ({
+            ...state,
+            isLoading: true,
+        }),
     }
 });
 
 export const {
-    setCatgories, getCatgories, createCategory, setCreateResult, cleanUp, getCategory, setCategory, updateCatgegory,
+    setCatgories, getCatgories, createCategory, setCreateResult, cleanUp, getCategory, setCategory, updateCatgegory, deleteCategory,
 } = catgory.actions;
 
 export default catgory.reducer;

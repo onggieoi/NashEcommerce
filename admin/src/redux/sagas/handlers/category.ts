@@ -3,7 +3,7 @@ import { PayloadAction } from "@reduxjs/toolkit";
 
 import ICategoryRequest from "src/interfaces/ICategoryRequest";
 import { setCategory, setCatgories, setCreateResult } from "src/redux/ducks/category";
-import { requestGetCategory, requestCreateCategory, requestGetCategoryById, requestUpdateCategory } from "../requests/category";
+import { requestGetCategory, requestCreateCategory, requestGetCategoryById, requestUpdateCategory, requestDeleteCategory } from "../requests/category";
 
 export function* handleGetCategory(action) {
     try {
@@ -58,6 +58,24 @@ export function* handleUpdateCategory(action: PayloadAction<ICategoryRequest>) {
         }));
     } catch (error) {
         console.log('updated category Error', error);
+        yield put(setCreateResult({
+            isSuccess: false,
+        }));
+    }
+}
+
+export function* handleDeleteCategory(action: PayloadAction<string>) {
+    const id = action.payload;
+
+    try {
+        const respone = yield call(requestDeleteCategory, id);
+
+        yield put(setCreateResult({
+            isSuccess: true,
+            category: respone.data,
+        }));
+    } catch (error) {
+        console.log('delete category Error', error);
         yield put(setCreateResult({
             isSuccess: false,
         }));
