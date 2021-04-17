@@ -9,6 +9,7 @@ import Routes from './routes';
 
 import './styles/index.scss';
 import 'nprogress/nprogress.css';
+import 'react-notifications/lib/notifications.css';
 
 NProgress.configure({ minimum: 1 });
 

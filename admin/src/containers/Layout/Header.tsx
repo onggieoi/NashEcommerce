@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ChevronRight, Edit, HelpCircle, Lock, ToggleRight, User } from 'react-feather';
 import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router';
+
 import { CATEGORY, DASHBOARD, PRODUCT } from 'src/constants/pages';
 import { logout } from 'src/redux/ducks/auth';
 
@@ -50,7 +51,7 @@ const Header = () => {
                 <div className="-intro-x breadcrumb mr-auto hidden sm:flex">
                     <a className="">Administrator</a>
                     <ChevronRight className="breadcrumb__icon" />
-                    <a href="" className="breadcrumb--active">{breadcrumbName()}</a>
+                    <a className="breadcrumb--active">{breadcrumbName()}</a>
                 </div>
 
                 <div className="intro-x dropdown w-8 h-8 relative">
