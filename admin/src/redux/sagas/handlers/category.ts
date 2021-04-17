@@ -3,7 +3,7 @@ import { PayloadAction } from "@reduxjs/toolkit";
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 
 import ICategoryRequest from "src/interfaces/ICategoryRequest";
-import { setCatgories, setCreateResult } from "src/redux/ducks/category";
+import { setCategory, setCatgories, setCreateResult } from "src/redux/ducks/category";
 
 export function* handleGetCategory(action) {
     try {
@@ -33,6 +33,19 @@ export function* handleCreateCategory(action: PayloadAction<ICategoryRequest>) {
     }
 }
 
+export function* handleGetCategoryById(action: PayloadAction<string>) {
+    const id = action.payload;
+
+    try {
+        const respone = yield call(requestGetCategoryById, id);
+
+        yield put(setCategory(respone.data));
+    } catch (error) {
+        console.log('get category byId Error', error);
+
+    }
+}
+
 function requestGetCategory(): Promise<AxiosResponse<any>> {
     return axios.get('https://localhost:5000/api/categories');
 }
@@ -45,4 +58,8 @@ function requestCreateCategory(request: ICategoryRequest): Promise<AxiosResponse
     });
 
     return axios.post('https://localhost:5000/api/categories', formData);
+}
+
+function requestGetCategoryById(id: string): Promise<AxiosResponse<any>> {
+    return axios.get(`https://localhost:5000/api/categories/${id}`);
 }
