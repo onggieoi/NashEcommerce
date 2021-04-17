@@ -1,10 +1,17 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import ICategory from "src/interfaces/ICategory";
+import ICategoryRequest from "src/interfaces/ICategoryRequest";
+
+export type CreateResult = {
+    category?: ICategory,
+    isSuccess: boolean,
+}
 
 export type CategoryState = {
     categories: ICategory[],
-    isLoading: boolean
+    isLoading: boolean,
+    createResult?: CreateResult,
 }
 
 const initialState: CategoryState = {
@@ -29,11 +36,24 @@ const catgory = createSlice({
             ...state,
             isLoading: true,
         }),
+        createCategory: (state, action: PayloadAction<ICategoryRequest>) => ({
+            ...state,
+            isLoading: true,
+        }),
+        setCreateResult: (state, action: PayloadAction<CreateResult>) => {
+            const createResult = action.payload;
+            
+            return {
+                ...state,
+                createResult,
+                isLoading: false,
+            }
+        },
     }
 });
 
 export const {
-    setCatgories, getCatgories,
+    setCatgories, getCatgories, createCategory, setCreateResult,
 } = catgory.actions;
 
 export default catgory.reducer;
