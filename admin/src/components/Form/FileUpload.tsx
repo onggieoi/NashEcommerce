@@ -14,15 +14,15 @@ const FileUpload: React.FC<Props> = (props) => {
     const [value, , { setValue }] = useField(props);
     const [review, setReview] = useState(props.image || '');
 
-    console.log(value);
-
     const handleOnChange = async (e) => {
         e.preventDefault();
-        const image = await resizeFileToBlob(e.target.files[0]);
-        const imageBase64 = await resizeFileToBase64(e.target.files[0]);
+        if (e.target.files.length > 0) {
+            const image = await resizeFileToBlob(e.target.files[0]);
+            const imageBase64 = await resizeFileToBase64(e.target.files[0]);
 
-        setReview(imageBase64);
-        setValue(image);
+            setReview(imageBase64);
+            setValue(image);
+        }
     }
 
     const handleRemove = () => {

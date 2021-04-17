@@ -1,16 +1,50 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { CheckSquare, Trash2 } from 'react-feather';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { NotificationManager } from 'react-notifications';
 
 import Table from 'src/components/Table';
-import { editPage } from 'src/constants/pages';
+import { editPage, LIST_CATEGORY } from 'src/constants/pages';
+import { useAppDispatch, useAppSelector } from 'src/hooks/redux';
 import ICategory from 'src/interfaces/ICategory';
+import { cleanUp, deleteCategory, getCatgories } from 'src/redux/ducks/category';
 
 type Props = {
     categories: ICategory[];
 };
 
 const CategoryTable: React.FC<Props> = ({ categories }) => {
+    const { createResult } = useAppSelector(state => state.category);
+    const dispatch = useAppDispatch();
+
+    const handleDeleteCategory = (e, id: number) => {
+        e.preventDefault();
+        dispatch(deleteCategory(id.toString()));
+    };
+
+    useEffect(() => {
+        if (createResult && createResult.isSuccess) {
+            NotificationManager.success(
+                `Deleted Successful category ${createResult.category?.categoryId}`,
+                'Deleted Successful',
+                2000,
+            );
+        }
+
+        if (createResult && !createResult.isSuccess) {
+            NotificationManager.error(
+                `Something went wrong!!!`,
+                'Delete failed',
+                2000,
+            );
+        }
+
+        return () => {
+            dispatch(cleanUp());
+            dispatch(getCatgories());
+        }
+    }, [createResult]);
+
     return (
         <Table ColumnsName={['IMAGE', 'NAME', 'DESCRIPTION',]} >
             {
@@ -42,13 +76,13 @@ const CategoryTable: React.FC<Props> = ({ categories }) => {
                             <div className="flex justify-center items-center">
                                 <Link to={editPage(category.categoryId)} className="flex items-center mr-3">
                                     <CheckSquare className="w-4 h-4 mr-1" />
-                                Edit
-                            </Link>
+                                    Edit
+                                </Link>
 
-                                <a className="flex items-center text-theme-6">
+                                <a onClick={(e) => handleDeleteCategory(e, category.categoryId)} className="flex items-center text-theme-6 cursor-pointer">
                                     <Trash2 className="w-4 h-4 mr-1" />
-                                Delete
-                            </a>
+                                    Delete
+                                </a>
                             </div>
                         </td>
                     </tr>
