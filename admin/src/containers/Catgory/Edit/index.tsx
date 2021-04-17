@@ -1,10 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from 'src/hooks/redux';
+import { getCategory } from 'src/redux/ducks/category';
 import FormCategory from '../Form';
 
 const EditCategory = () => {
     const { id } = useParams<{ id: string }>();
-    console.log(id);
+    const { category } = useAppSelector(state => state.category);
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        dispatch(getCategory(id));
+    }, [id]);
+
+    console.log(category);
 
     return (
         <>
@@ -15,7 +24,7 @@ const EditCategory = () => {
             </div>
             <div className="grid grid-cols-12 gap-6 mt-5">
                 <div className="intro-y col-span-12">
-                    <FormCategory />
+                    <FormCategory initialForm={category} />
                 </div>
             </div>
         </>
