@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -41,13 +42,22 @@ namespace backend.Repositories.CategoryRepo
 
         public async Task<CategoryRespone> Create(CategoryRequest categoryRequest)
         {
-            var file = categoryRequest.ImageFile;
-            var uploadFileResult = await _blobService.UploadFileBlobAsync("firstcontainer", file.OpenReadStream(),
-                    file.ContentType,
-                    file.FileName);
+            if (categoryRequest is null)
+            {
+                throw new Exception("Null");
+            }
 
-            var toReturn = uploadFileResult.AbsoluteUri;
-            categoryRequest.Image = toReturn;
+            var file = categoryRequest.ImageFile;
+
+            if (file.Length > 0)
+            {
+                var uploadFileResult = await _blobService.UploadFileBlobAsync("firstcontainer", file.OpenReadStream(),
+                        file.ContentType,
+                        $"{Guid.NewGuid()}");
+
+                var toReturn = uploadFileResult.AbsoluteUri;
+                categoryRequest.Image = toReturn;
+            }
 
             var newCategory = _mapper.Map<Category>(categoryRequest);
 
