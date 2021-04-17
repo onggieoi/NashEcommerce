@@ -1,7 +1,7 @@
 import { call, put } from "@redux-saga/core/effects";
 
-import { setAuthen, setUser } from "src/redux/ducks/auth";
-import authService from "src/services/auth-service";
+import { login, logout, logoutCallBack, setAuthen, setUser } from "src/redux/ducks/auth";
+import { requestGetUser, completeLogin } from "../requests/auth";
 
 export function* handleGetUser(action) {
     try {
@@ -55,24 +55,4 @@ export function* handleLogoutCallBack(action) {
     } catch (error) {
         console.log(error);
     }
-}
-
-function requestGetUser() {
-    return authService.getUserAsync();
-}
-
-function completeLogin() {
-    return authService.completeLoginAsync(window.location.href);
-}
-
-function login() {
-    return authService.loginAsync();
-}
-
-function logout() {
-    return authService.logoutAsync();
-}
-
-function logoutCallBack() {
-    return authService.completeLogoutAsync(window.location.href);
 }

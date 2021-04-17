@@ -1,7 +1,7 @@
 import { call, put } from "@redux-saga/core/effects";
-import axios from "axios";
 
 import { setProducts } from "src/redux/ducks/product";
+import { requestGetProduct } from "../requests/product";
 
 export function* handleGetProduct(action) {
     try {
@@ -11,8 +11,4 @@ export function* handleGetProduct(action) {
     } catch (error) {
         console.log('get product Error', error);
     }
-}
-
-function requestGetProduct() {
-    return axios.get('https://localhost:5000/api/products');
 }
