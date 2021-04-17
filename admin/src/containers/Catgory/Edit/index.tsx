@@ -6,16 +6,16 @@ import FormCategory from '../Form';
 
 const EditCategory = () => {
     const { id } = useParams<{ id: string }>();
-    const { category } = useAppSelector(state => state.category);
+    const { category, isLoading } = useAppSelector(state => state.category);
     const dispatch = useAppDispatch();
 
     useEffect(() => {
         dispatch(getCategory(id));
     }, [id]);
 
-    console.log(category);
-
-    return (
+    return isLoading ? (
+        <div>Loading ...</div>
+    ) : (
         <>
             <div className="intro-y flex items-center mt-8">
                 <h2 className="text-lg font-medium mr-auto">

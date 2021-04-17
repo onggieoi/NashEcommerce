@@ -7,7 +7,7 @@ import TextField from 'src/components/Form/TextField';
 import FileUpload from 'src/components/Form/FileUpload';
 import ICategoryRequest from 'src/interfaces/ICategoryRequest';
 import { useDispatch } from 'react-redux';
-import { cleanUp, createCategory } from 'src/redux/ducks/category';
+import { cleanUp, createCategory, updateCatgegory } from 'src/redux/ducks/category';
 import { useAppSelector } from 'src/hooks/redux';
 import { useHistory } from 'react-router';
 import { LIST_CATEGORY } from 'src/constants/pages';
@@ -64,14 +64,18 @@ const FormCategory: React.FC<Props> = ({ initialForm }) => {
         <Formik
             initialValues={initialForm || initialValues}
             onSubmit={(values) => {
-                dispatch(createCategory(values));
+                if (values.categoryId) {
+                    dispatch(updateCatgegory(values));
+                } else {
+                    dispatch(createCategory(values));
+                }
             }}
         >
             {(actions) => (
                 <Form className='intro-y box p-5'>
                     <TextField name='name' label='Name' placeholder='Category Name' />
                     <TextField name='description' label='Description' placeholder='Description' />
-                    <FileUpload label="Image" name="imageFile" />
+                    <FileUpload label="Image" name="imageFile" image={actions.values.image} />
 
                     <div className="text-right mt-5">
                         <button onClick={handleCancle} type="button" className="button w-24 border text-gray-700 mr-1">
