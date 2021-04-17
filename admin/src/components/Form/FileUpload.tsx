@@ -7,11 +7,14 @@ import { resizeFileToBase64, resizeFileToBlob } from 'src/services/resizeImage';
 type Props = InputHTMLAttributes<HTMLInputElement> & {
     label: string;
     name: string;
+    image?: string;
 };
 
 const FileUpload: React.FC<Props> = (props) => {
-    const [, , { setValue }] = useField(props);
-    const [review, setReview] = useState('');
+    const [value, , { setValue }] = useField(props);
+    const [review, setReview] = useState(props.image || '');
+
+    console.log(value);
 
     const handleOnChange = async (e) => {
         e.preventDefault();
