@@ -1,7 +1,9 @@
 import React from 'react';
 import { CheckSquare, Trash2 } from 'react-feather';
+import { Link } from 'react-router-dom';
 
 import Table from 'src/components/Table';
+import { editPage } from 'src/constants/pages';
 import ICategory from 'src/interfaces/ICategory';
 
 type Props = {
@@ -38,10 +40,10 @@ const CategoryTable: React.FC<Props> = ({ categories }) => {
                         </td> */}
                         <td className="table-report__action w-56">
                             <div className="flex justify-center items-center">
-                                <a className="flex items-center mr-3">
+                                <Link to={editPage(category.categoryId)} className="flex items-center mr-3">
                                     <CheckSquare className="w-4 h-4 mr-1" />
                                 Edit
-                            </a>
+                            </Link>
 
                                 <a className="flex items-center text-theme-6">
                                     <Trash2 className="w-4 h-4 mr-1" />

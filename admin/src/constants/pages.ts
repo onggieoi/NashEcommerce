@@ -5,7 +5,8 @@ export const LOGIN = '/authentication/login';
 export const CATEGORY = '/category';
 export const LIST_CATEGORY = '/category/';
 export const CREATE_CATEGORY = '/category/create';
-export const EDIT_CATEGORY = '/category/edit:id';
+export const EDIT_CATEGORY = '/category/edit/:id';
+export const editPage = (id: number): string => `/category/edit/${id}`;
 
 export const PRODUCT = '/product';
 export const LIST_PRODUCT = '/product/';
