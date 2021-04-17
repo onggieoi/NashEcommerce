@@ -28,13 +28,10 @@ function PrivateRoute({ children, ...rest }) {
       render={({ location }) =>
       // isAuth && 
       (
-        <Layout>
-          <Suspense fallback={<InLineLoader />}>
-            {children}
-          </Suspense>
-        </Layout>
-      )
-      }
+        <Suspense fallback={<InLineLoader />}>
+          {children}
+        </Suspense>
+      )}
     />
   );
 }
@@ -55,14 +52,16 @@ const Routes = () => {
       <Switch>
 
         <PrivateRoute exact={true} path={DASHBOARD} >
-          <DashBoard />
+          <Layout>
+            <DashBoard />
+          </Layout>
         </PrivateRoute>
 
-        <PrivateRoute exact={true} path={CATEGORY} >
+        <PrivateRoute path={CATEGORY} >
           <Category />
         </PrivateRoute>
 
-        <PrivateRoute exact={true} path={PRODUCT} >
+        <PrivateRoute path={PRODUCT} >
           <Product />
         </PrivateRoute>
 
