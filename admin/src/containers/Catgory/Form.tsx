@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Form, Formik } from 'formik';
+import { NotificationManager } from 'react-notifications';
+import NProgress from 'nprogress';
+
 import TextField from 'src/components/Form/TextField';
 import FileUpload from 'src/components/Form/FileUpload';
 import ICategoryRequest from 'src/interfaces/ICategoryRequest';
 import { useDispatch } from 'react-redux';
-import { createCategory } from 'src/redux/ducks/category';
+import { cleanUp, createCategory } from 'src/redux/ducks/category';
 import { useAppSelector } from 'src/hooks/redux';
+import { useHistory } from 'react-router';
+import { LIST_CATEGORY } from 'src/constants/pages';
 
 const initialValues: ICategoryRequest = {
     name: '',
@@ -18,8 +23,42 @@ type Props = {
 }
 
 const FormCategory: React.FC<Props> = ({ initialForm }) => {
+    const history = useHistory();
     const dispatch = useDispatch();
     const { createResult, isLoading } = useAppSelector(state => state.category);
+
+    const handleCancle = () => {
+        history.push(LIST_CATEGORY);
+    }
+
+    if (isLoading) {
+        NProgress.start();
+    } else {
+        NProgress.done();
+    }
+
+    useEffect(() => {
+        if (createResult && createResult?.isSuccess) {
+            NotificationManager.success(
+                initialForm ? `Updated Successful category ${createResult.category?.name}` : `Created Successful category ${createResult.category?.name}`,
+                initialForm ? 'Update Successful' : 'Create Successful',
+                2000,
+            );
+
+            history.push(LIST_CATEGORY);
+        }
+        if (createResult && !createResult?.isSuccess) {
+            NotificationManager.error(
+                `Something went wrong!!!`,
+                'Save failed',
+                2000,
+            );
+        }
+
+        return () => {
+            dispatch(cleanUp());
+        }
+    }, [createResult]);
 
     return (
         <Formik
@@ -35,7 +74,7 @@ const FormCategory: React.FC<Props> = ({ initialForm }) => {
                     <FileUpload label="Image" name="imageFile" />
 
                     <div className="text-right mt-5">
-                        <button type="button" className="button w-24 border text-gray-700 mr-1">
+                        <button onClick={handleCancle} type="button" className="button w-24 border text-gray-700 mr-1">
                             Cancel
                         </button>
 
