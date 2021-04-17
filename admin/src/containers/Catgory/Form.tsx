@@ -2,15 +2,16 @@ import React from 'react';
 import { Form, Formik } from 'formik';
 import TextField from 'src/components/Form/TextField';
 import FileUpload from 'src/components/Form/FileUpload';
+import ICategoryRequest from 'src/interfaces/ICategoryRequest';
 
-const initialValues = {
+const initialValues: ICategoryRequest = {
     name: '',
-    quantity: 0,
-    image: '',
+    description: '',
+    imageFile: undefined,
 }
 
 type Props = {
-    initialForm?: {};
+    initialForm?: ICategoryRequest;
 }
 
 const FormCategory: React.FC<Props> = ({ initialForm }) => {
@@ -28,9 +29,9 @@ const FormCategory: React.FC<Props> = ({ initialForm }) => {
         >
             {({ isSubmitting }) => (
                 <Form className='intro-y box p-5'>
-                    <TextField name='name' label='Name' placeholder='Product Name' />
-                    <TextField name='quantity' label='Quantity' type='number' />
-                    <FileUpload label="Image" name="image" />
+                    <TextField name='name' label='Name' placeholder='Category Name' />
+                    <TextField name='description' label='Description' placeholder='Description' />
+                    <FileUpload label="Image" name="imageFile" />
 
                     <div className="text-right mt-5">
                         <button type="button" className="button w-24 border text-gray-700 mr-1">
