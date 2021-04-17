@@ -1,9 +1,9 @@
 import { call, put } from "@redux-saga/core/effects";
 import { PayloadAction } from "@reduxjs/toolkit";
-import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 
 import ICategoryRequest from "src/interfaces/ICategoryRequest";
 import { setCategory, setCatgories, setCreateResult } from "src/redux/ducks/category";
+import { requestGetCategory, requestCreateCategory, requestGetCategoryById, requestUpdateCategory } from "../requests/category";
 
 export function* handleGetCategory(action) {
     try {
@@ -46,20 +46,20 @@ export function* handleGetCategoryById(action: PayloadAction<string>) {
     }
 }
 
-function requestGetCategory(): Promise<AxiosResponse<any>> {
-    return axios.get('https://localhost:5000/api/categories');
-}
+export function* handleUpdateCategory(action: PayloadAction<ICategoryRequest>) {
+    const request = action.payload;
 
-function requestCreateCategory(request: ICategoryRequest): Promise<AxiosResponse<any>> {
-    const formData = new FormData();
-    
-    Object.keys(request).forEach(key => {
-        formData.append(key, request[key]);
-    });
+    try {
+        const respone = yield call(requestUpdateCategory, request);
 
-    return axios.post('https://localhost:5000/api/categories', formData);
-}
-
-function requestGetCategoryById(id: string): Promise<AxiosResponse<any>> {
-    return axios.get(`https://localhost:5000/api/categories/${id}`);
+        yield put(setCreateResult({
+            isSuccess: true,
+            category: respone.data
+        }));
+    } catch (error) {
+        console.log('updated category Error', error);
+        yield put(setCreateResult({
+            isSuccess: false,
+        }));
+    }
 }

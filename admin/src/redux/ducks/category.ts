@@ -65,12 +65,17 @@ const catgory = createSlice({
                 category,
                 isLoading: false,
             }
-        }
+        },
+        updateCatgegory: (state, action: PayloadAction<ICategoryRequest>) => ({
+            ...state,
+            isLoading: true,
+        }),
+        
     }
 });
 
 export const {
-    setCatgories, getCatgories, createCategory, setCreateResult, cleanUp, getCategory, setCategory,
+    setCatgories, getCatgories, createCategory, setCreateResult, cleanUp, getCategory, setCategory, updateCatgegory,
 } = catgory.actions;
 
 export default catgory.reducer;
