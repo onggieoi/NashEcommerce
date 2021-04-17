@@ -47,16 +47,10 @@ namespace backend.Repositories.CategoryRepo
                 throw new Exception("Null");
             }
 
-            var file = categoryRequest.ImageFile;
-
-            if (file.Length > 0)
+            if (categoryRequest.ImageFile is not null)
             {
-                var uploadFileResult = await _blobService.UploadFileBlobAsync("firstcontainer", file.OpenReadStream(),
-                        file.ContentType,
-                        $"{Guid.NewGuid()}");
-
-                var toReturn = uploadFileResult.AbsoluteUri;
-                categoryRequest.Image = toReturn;
+                var imageUri = await UploadImageAsync(categoryRequest.ImageFile);
+                categoryRequest.Image = imageUri;
             }
 
             var newCategory = _mapper.Map<Category>(categoryRequest);
@@ -77,6 +71,13 @@ namespace backend.Repositories.CategoryRepo
             {
                 throw new NotFoundException($"categoryId {categoryId} not found");
             }
+
+            if (categoryRequest.ImageFile is not null)
+            {
+                var imageUri = await UploadImageAsync(categoryRequest.ImageFile);
+                categoryRequest.Image = imageUri;
+            }
+
             _context.Entry<Category>(existCategory).CurrentValues.SetValues(categoryRequest);
             await _context.SaveChangesAsync();
 
@@ -113,6 +114,15 @@ namespace backend.Repositories.CategoryRepo
             var categoryResponse = _mapper.Map<CategoryRespone>(category);
 
             return categoryResponse;
+        }
+
+        private async Task<string> UploadImageAsync(IFormFile file)
+        {
+            var uploadFileResult = await _blobService.UploadFileBlobAsync("firstcontainer", file.OpenReadStream(),
+                        file.ContentType,
+                        $"{Guid.NewGuid()}");
+
+            return uploadFileResult.AbsoluteUri;
         }
     }
 }
