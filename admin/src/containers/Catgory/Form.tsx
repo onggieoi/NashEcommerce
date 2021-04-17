@@ -3,6 +3,9 @@ import { Form, Formik } from 'formik';
 import TextField from 'src/components/Form/TextField';
 import FileUpload from 'src/components/Form/FileUpload';
 import ICategoryRequest from 'src/interfaces/ICategoryRequest';
+import { useDispatch } from 'react-redux';
+import { createCategory } from 'src/redux/ducks/category';
+import { useAppSelector } from 'src/hooks/redux';
 
 const initialValues: ICategoryRequest = {
     name: '',
@@ -15,19 +18,17 @@ type Props = {
 }
 
 const FormCategory: React.FC<Props> = ({ initialForm }) => {
+    const dispatch = useDispatch();
+    const { createResult, isLoading } = useAppSelector(state => state.category);
 
     return (
         <Formik
             initialValues={initialForm || initialValues}
-            onSubmit={(values, actions) => {
-                actions.setSubmitting(true);
-                setTimeout(() => {
-                    console.log(values);
-                    actions.setSubmitting(false);
-                }, 1000);
+            onSubmit={(values) => {
+                dispatch(createCategory(values));
             }}
         >
-            {({ isSubmitting }) => (
+            {(actions) => (
                 <Form className='intro-y box p-5'>
                     <TextField name='name' label='Name' placeholder='Category Name' />
                     <TextField name='description' label='Description' placeholder='Description' />
@@ -39,9 +40,9 @@ const FormCategory: React.FC<Props> = ({ initialForm }) => {
                         </button>
 
                         <button type="submit" className="button w-24 bg-theme-1 text-white"
-                            disabled={isSubmitting}>
+                            disabled={isLoading}>
                             {initialForm ? 'Update' : 'Create'}
-                            {isSubmitting && <img src="/oval.svg" className='w-4 h-4 ml-2 inline-block' />}
+                            {(isLoading) && <img src="/oval.svg" className='w-4 h-4 ml-2 inline-block' />}
                         </button>
                     </div>
                 </Form>
