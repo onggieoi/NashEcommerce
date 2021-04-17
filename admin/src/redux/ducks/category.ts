@@ -49,11 +49,15 @@ const catgory = createSlice({
                 isLoading: false,
             }
         },
+        cleanUp: (state) => ({
+            ...state,
+            createResult: undefined,
+        }),
     }
 });
 
 export const {
-    setCatgories, getCatgories, createCategory, setCreateResult,
+    setCatgories, getCatgories, createCategory, setCreateResult, cleanUp,
 } = catgory.actions;
 
 export default catgory.reducer;
