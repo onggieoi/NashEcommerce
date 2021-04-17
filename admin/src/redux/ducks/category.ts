@@ -12,6 +12,7 @@ export type CategoryState = {
     categories: ICategory[],
     isLoading: boolean,
     createResult?: CreateResult,
+    category?: ICategory,
 }
 
 const initialState: CategoryState = {
@@ -53,11 +54,23 @@ const catgory = createSlice({
             ...state,
             createResult: undefined,
         }),
+        getCategory: (state, action: PayloadAction<string>) => ({
+            ...state,
+            isLoading: true,
+        }),
+        setCategory: (state, action: PayloadAction<ICategory>) => {
+            const category = action.payload;
+            return {
+                ...state,
+                category,
+                isLoading: false,
+            }
+        }
     }
 });
 
 export const {
-    setCatgories, getCatgories, createCategory, setCreateResult, cleanUp,
+    setCatgories, getCatgories, createCategory, setCreateResult, cleanUp, getCategory, setCategory,
 } = catgory.actions;
 
 export default catgory.reducer;
