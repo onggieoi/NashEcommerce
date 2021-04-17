@@ -7,8 +7,8 @@ import {
     handleCompleteLogin, handleGetUser, handleLogin, handleLogout, handleLogoutCallBack 
 } from './handlers/auth';
 
-import { getCatgories } from '../ducks/category';
-import { handleGetCategory } from './handlers/category';
+import { createCategory, getCatgories } from '../ducks/category';
+import { handleCreateCategory, handleGetCategory } from './handlers/category';
 
 import { getProducts } from '../ducks/product';
 import { handleGetProduct } from './handlers/product';
@@ -21,6 +21,7 @@ export function* watcherSaga() {
     yield takeLatest(logoutCallBack.type, handleLogoutCallBack);
 
     yield takeLatest(getCatgories.type, handleGetCategory);
+    yield takeLatest(createCategory.type, handleCreateCategory);
 
     yield takeLatest(getProducts.type, handleGetProduct);
 }
