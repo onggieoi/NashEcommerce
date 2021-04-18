@@ -1,28 +1,32 @@
 import { call, put } from "@redux-saga/core/effects";
 
-import { login, logout, logoutCallBack, setAuthen, setUser } from "src/redux/ducks/auth";
-import { requestGetUser, completeLogin } from "../requests/auth";
+import { setAuthen, setUser } from "src/redux/ducks/auth";
+import { requestGetUser, completeLogin, loginRequest, logoutRequest, logoutCallBack } from "../requests/auth";
 
 export function* handleGetUser(action) {
-    try {
+    try {        
         const userResponse = yield call(requestGetUser);
 
         if (userResponse) {
             const user = JSON.stringify(userResponse);
             yield put(setUser(user));
         } else {
-            yield call(login);
+            yield call(loginRequest);
         }
 
     } catch (error) {
+        console.log('requestGetUser Error', error);
         yield put(setAuthen({ isAuth: false }));
     }
 }
 
 export function* handleCompleteLogin(action) {
     try {
-        yield call(completeLogin);
-        yield put(setAuthen({ isAuth: true }));
+        const userResponse = yield call(completeLogin);
+        const user = JSON.stringify(userResponse);
+        
+        yield put(setUser(user));
+
     } catch (error) {
         console.log(error);
     }
@@ -30,7 +34,7 @@ export function* handleCompleteLogin(action) {
 
 export function* handleLogin(action) {
     try {
-        yield call(login);
+        yield call(loginRequest);
 
     } catch (error) {
         console.log(error);
@@ -39,7 +43,7 @@ export function* handleLogin(action) {
 
 export function* handleLogout(action) {
     try {
-        yield call(logout);
+        yield call(logoutRequest);
 
     } catch (error) {
         console.log(error);

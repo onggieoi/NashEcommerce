@@ -8,11 +8,11 @@ export function completeLogin() {
     return authService.completeLoginAsync(window.location.href);
 }
 
-export function login() {
+export function loginRequest() {
     return authService.loginAsync();
 }
 
-export function logout() {
+export function logoutRequest() {
     return authService.logoutAsync();
 }
 

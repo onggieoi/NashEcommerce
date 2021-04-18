@@ -1,11 +1,11 @@
 import React, { lazy, Suspense, useEffect } from "react";
 import { Route, Switch } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 
 import { DASHBOARD, AUTH, CATEGORY, PRODUCT } from "./constants/pages";
 import InLineLoader from "./components/InlineLoader";
 import Auth from "./containers/Auth";
 import { getUser } from "./redux/ducks/auth";
+import { useAppDispatch, useAppSelector } from "./hooks/redux";
 
 const Layout = lazy(() => import("./containers/Layout"));
 const NotFound = lazy(() => import("./containers/NotFound"));
@@ -14,24 +14,27 @@ const Category = lazy(() => import('./containers/Catgory'));
 const Product = lazy(() => import('./containers/Product'));
 
 function PrivateRoute({ children, ...rest }) {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const { isAuth } = useSelector((state: any) => state.auth);
+  const { isAuth, loading } = useAppSelector((state) => state.auth);
 
   useEffect(() => {
-    // dispatch(getUser());
+    if (!loading) {
+      dispatch(getUser());
+    }
+
   }, []);
 
   return (
     <Route
       {...rest}
       render={({ location }) =>
-      // isAuth && 
-      (
-        <Suspense fallback={<InLineLoader />}>
-          {children}
-        </Suspense>
-      )}
+        isAuth ?
+          (
+            <Suspense fallback={<InLineLoader />}>
+              {children}
+            </Suspense>
+          ) : (<div>Loading</div>)}
     />
   );
 }
