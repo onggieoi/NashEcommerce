@@ -8,6 +8,7 @@ import { toEditProductPage } from 'src/constants/pages';
 import { useAppDispatch, useAppSelector } from 'src/hooks/redux';
 import IProduct from 'src/interfaces/IProduct';
 import { cleanUp, deleteProduct, getProducts } from 'src/redux/ducks/product';
+import formatDateTime from 'src/utils/formatDateTime';
 
 type Props = {
     products: IProduct[];
@@ -48,7 +49,7 @@ const ProductTable: React.FC<Props> = ({ products }) => {
     return isLoading ? (
         <div>Loading...</div>
     ) : (
-        <Table ColumnsName={['IMAGE', 'NAME', 'PRICE', 'RATED', 'DESCRIPTION', 'CATEGORY']} >
+        <Table ColumnsName={['IMAGE', 'NAME', 'PRICE', 'RATED', 'DESCRIPTION', 'CATEGORY', 'UPDATE AT', 'CREATE AT']} >
             {
                 products.map((product) => (
                     <tr className="intro-x" key={product.productId}>
@@ -76,6 +77,12 @@ const ProductTable: React.FC<Props> = ({ products }) => {
                         </td>
                         <td className="text-center">
                             {product.categoryName}
+                        </td>
+                        <td className="text-center">
+                            {formatDateTime(product.updatedAt)}
+                        </td>
+                        <td className="text-center">
+                            {formatDateTime(product.createdAt)}
                         </td>
                         <td className="table-report__action w-56">
                             <div className="flex justify-center items-center">

@@ -7,4 +7,6 @@ export default interface IProduct {
     rated: number;
     categoryId: number;
     categoryName: string;
+    createdAt: string;
+    updatedAt: string;
 }
