@@ -20,6 +20,9 @@ import {
 import { 
     handleCreateProduct, handleDeleteProduct, handleGetProduct, handleGetProductById, handleUpdateProduct
 } from './handlers/product';
+import { getCustomers } from '../ducks/customer';
+
+import { handleGetCustomers } from './handlers/customer';
 
 export function* watcherSaga() {
     yield takeLatest(getUser.type, handleGetUser);
@@ -39,4 +42,6 @@ export function* watcherSaga() {
     yield takeEvery(getProduct.type, handleGetProductById);
     yield takeLatest(updateProduct.type, handleUpdateProduct);
     yield takeLatest(deleteProduct.type, handleDeleteProduct);
+
+    yield takeLatest(getCustomers.type, handleGetCustomers);
 }
