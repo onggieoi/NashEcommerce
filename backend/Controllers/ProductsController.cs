@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using ViewModelShare.Product;
 using backend.Repositories.ProductRepo;
 using backend.Constans;
+using Microsoft.AspNetCore.Http;
 
 namespace backend.Controllers
 {
@@ -46,7 +47,7 @@ namespace backend.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<ProductRespone>> CreateProduct([FromBody] ProductRequest productReq)
+        public async Task<ActionResult<ProductRespone>> CreateProduct([FromForm] ProductRequest productReq)
         {
             var product = await _productRepository.CreateProduct(productReq);
 
@@ -62,7 +63,7 @@ namespace backend.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<ProductRespone>> UpdateProduct(int id, ProductRequest productReq)
+        public async Task<ActionResult<ProductRespone>> UpdateProduct(int id, [FromForm] ProductRequest productReq)
         {
             var productRes = await _productRepository.UpdateProduct(id, productReq);
 

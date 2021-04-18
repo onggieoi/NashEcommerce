@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -5,6 +6,8 @@ using AutoMapper;
 using backend.DbContexts;
 using backend.Exceptions;
 using backend.Models;
+using backend.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using ViewModelShare.Product;
@@ -16,14 +19,17 @@ namespace backend.Repositories.ProductRepo
         private ILogger<ProductRepository> _logger;
         private ApplicationDbContext _context;
         private IMapper _mapper;
+        private readonly IBlobService _blobService;
 
         public ProductRepository(ILogger<ProductRepository> logger,
             IMapper mapper,
+            IBlobService blobService,
             ApplicationDbContext context)
         {
             _logger = logger;
             _context = context;
             _mapper = mapper;
+            _blobService = blobService;
         }
         public async Task<ProductRespone> GetProduct(int productId)
         {
@@ -86,6 +92,17 @@ namespace backend.Repositories.ProductRepo
 
         public async Task<ProductRespone> CreateProduct(ProductRequest productReq)
         {
+            if (productReq is null)
+            {
+                throw new Exception("Null");
+            }
+
+            if (productReq.ImageFile is not null)
+            {
+                var imageUri = await UploadImageAsync(productReq.ImageFile);
+                productReq.Image = imageUri;
+            }
+
             var product = _mapper.Map<Product>(productReq);
 
             await _context.Products.AddAsync(product);
@@ -105,6 +122,12 @@ namespace backend.Repositories.ProductRepo
                 throw new NotFoundException($"Product id {productId} not found");
             }
 
+            if (productReq.ImageFile is not null)
+            {
+                var imageUri = await UploadImageAsync(productReq.ImageFile);
+                productReq.Image = imageUri;
+            }
+
             _context.Entry<Product>(existProduct).CurrentValues.SetValues(productReq);
 
             await _context.SaveChangesAsync();
@@ -112,6 +135,15 @@ namespace backend.Repositories.ProductRepo
             var productRes = _mapper.Map<ProductRespone>(existProduct);
 
             return productRes;
+        }
+
+        private async Task<string> UploadImageAsync(IFormFile file)
+        {
+            var uploadFileResult = await _blobService.UploadFileBlobAsync("firstcontainer", file.OpenReadStream(),
+                        file.ContentType,
+                        $"{Guid.NewGuid()}");
+
+            return uploadFileResult.AbsoluteUri;
         }
     }
 }
