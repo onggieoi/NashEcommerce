@@ -12,4 +12,5 @@ export const EndPoints = {
     Product: (id: number | string): string => `/api/products/${id}`,
     Categories: '/api/categories',
     Category: (id: number | string): string => `/api/categories/${id}`,
+    Customers: '/api/customers'
 };
