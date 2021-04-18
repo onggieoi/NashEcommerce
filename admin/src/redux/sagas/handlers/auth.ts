@@ -8,8 +8,8 @@ export function* handleGetUser(action) {
         const userResponse = yield call(requestGetUser);
 
         if (userResponse) {
-            const user = JSON.stringify(userResponse);
-            yield put(setUser(user));
+            const user = JSON.stringify(userResponse) as any;
+            yield put(setUser(userResponse));
         } else {
             yield call(loginRequest);
         }
@@ -23,9 +23,9 @@ export function* handleGetUser(action) {
 export function* handleCompleteLogin(action) {
     try {
         const userResponse = yield call(completeLogin);
-        const user = JSON.stringify(userResponse);
+        const user = JSON.stringify(userResponse) as any;
         
-        yield put(setUser(user));
+        yield put(setUser(userResponse));
 
     } catch (error) {
         console.log(error);

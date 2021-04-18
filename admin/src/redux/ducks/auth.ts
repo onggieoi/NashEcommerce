@@ -1,5 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { User } from "oidc-client";
+
+import RequestService from 'src/services/request';
 
 type AuthState = {
     loading: boolean;
@@ -17,8 +19,10 @@ const auth = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        setUser: (state, action) => {
+        setUser: (state, action: PayloadAction<User>) => {
             const user = action.payload;
+            
+            RequestService.setAuthentication(user.access_token);
 
             return { 
                 ...state,

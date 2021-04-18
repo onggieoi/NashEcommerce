@@ -1,6 +1,6 @@
 import { AxiosResponse } from "axios";
-import { EndPoints } from "src/constants/configs";
 
+import { EndPoints } from "src/constants/configs";
 import RequestService from 'src/services/request';
 import ICategoryRequest from "src/interfaces/ICategoryRequest";
 
