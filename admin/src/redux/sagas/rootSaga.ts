@@ -1,4 +1,4 @@
-import {takeLatest} from 'redux-saga/effects';
+import {takeEvery, takeLatest} from 'redux-saga/effects';
 
 import { 
     getUser, login, loginCallBack, logout, logoutCallBack
@@ -7,11 +7,19 @@ import {
     handleCompleteLogin, handleGetUser, handleLogin, handleLogout, handleLogoutCallBack 
 } from './handlers/auth';
 
-import { createCategory, deleteCategory, getCategory, getCatgories, updateCatgegory } from '../ducks/category';
-import { handleCreateCategory, handleDeleteCategory, handleGetCategory, handleGetCategoryById, handleUpdateCategory } from './handlers/category';
+import { 
+    createCategory, deleteCategory, getCategory, getCatgories, updateCatgegory,
+} from '../ducks/category';
+import { 
+    handleCreateCategory, handleDeleteCategory, handleGetCategory, handleGetCategoryById, handleUpdateCategory,
+} from './handlers/category';
 
-import { getProducts } from '../ducks/product';
-import { handleGetProduct } from './handlers/product';
+import { 
+    createProduct, deleteProduct, getProduct, getProducts, updateProduct
+} from '../ducks/product';
+import { 
+    handleCreateProduct, handleDeleteProduct, handleGetProduct, handleGetProductById, handleUpdateProduct
+} from './handlers/product';
 
 export function* watcherSaga() {
     yield takeLatest(getUser.type, handleGetUser);
@@ -27,4 +35,8 @@ export function* watcherSaga() {
     yield takeLatest(deleteCategory.type, handleDeleteCategory);
 
     yield takeLatest(getProducts.type, handleGetProduct);
+    yield takeLatest(createProduct.type, handleCreateProduct);
+    yield takeEvery(getProduct.type, handleGetProductById);
+    yield takeLatest(updateProduct.type, handleUpdateProduct);
+    yield takeLatest(deleteProduct.type, handleDeleteProduct);
 }
