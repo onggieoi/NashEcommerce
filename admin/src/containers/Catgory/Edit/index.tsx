@@ -13,9 +13,7 @@ const EditCategory = () => {
         dispatch(getCategory(id));
     }, [id]);
 
-    return isLoading ? (
-        <div>Loading ...</div>
-    ) : (
+    return category ? (
         <>
             <div className="intro-y flex items-center mt-8">
                 <h2 className="text-lg font-medium mr-auto">
@@ -28,7 +26,7 @@ const EditCategory = () => {
                 </div>
             </div>
         </>
-    );
+    ) : (<div>Loading ...</div>);
 };
 
 export default EditCategory;
