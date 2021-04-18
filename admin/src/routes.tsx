@@ -1,7 +1,7 @@
 import React, { lazy, Suspense, useEffect } from "react";
 import { Route, Switch } from "react-router-dom";
 
-import { DASHBOARD, AUTH, CATEGORY, PRODUCT } from "./constants/pages";
+import { DASHBOARD, AUTH, CATEGORY, PRODUCT, CUSTOMER } from "./constants/pages";
 import InLineLoader from "./components/InlineLoader";
 import Auth from "./containers/Auth";
 import { getUser } from "./redux/ducks/auth";
@@ -12,6 +12,7 @@ const NotFound = lazy(() => import("./containers/NotFound"));
 const DashBoard = lazy(() => import('./containers/DashBoard'));
 const Category = lazy(() => import('./containers/Catgory'));
 const Product = lazy(() => import('./containers/Product'));
+const Customer = lazy(() => import('./containers/Customer'));
 
 function PrivateRoute({ children, ...rest }) {
   const dispatch = useAppDispatch();
@@ -66,6 +67,10 @@ const Routes = () => {
 
         <PrivateRoute path={PRODUCT} >
           <Product />
+        </PrivateRoute>
+
+        <PrivateRoute path={CUSTOMER} >
+          <Customer />
         </PrivateRoute>
 
         <PublicRoute path={AUTH}>

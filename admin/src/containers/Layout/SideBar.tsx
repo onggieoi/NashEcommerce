@@ -1,10 +1,10 @@
 import React from 'react';
-import { Activity, Home } from 'react-feather';
+import { Activity, Home, Users } from 'react-feather';
 import { Link } from 'react-router-dom';
 
 import NavItem from 'src/components/NavItem';
 
-import { CATEGORY, DASHBOARD, PRODUCT } from 'src/constants/pages';
+import { CATEGORY, CUSTOMER, DASHBOARD, PRODUCT } from 'src/constants/pages';
 
 const SideBar = () => {
     return (
@@ -28,6 +28,11 @@ const SideBar = () => {
                 <NavItem path={PRODUCT}>
                     <div className="side-menu__icon"> <Activity /> </div>
                     <div className="side-menu__title"> Products </div>
+                </NavItem>
+
+                <NavItem path={CUSTOMER}>
+                    <div className="side-menu__icon"> <Users /> </div>
+                    <div className="side-menu__title"> Customers </div>
                 </NavItem>
 
                 <li className="side-nav__devider my-6"></li>

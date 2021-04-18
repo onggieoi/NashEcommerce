@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ChevronRight, Edit, HelpCircle, Lock, ToggleRight, User } from 'react-feather';
 import { useLocation } from 'react-router';
 
-import { CATEGORY, DASHBOARD, PRODUCT } from 'src/constants/pages';
+import { CATEGORY, CUSTOMER, DASHBOARD, PRODUCT } from 'src/constants/pages';
 import { useAppDispatch } from 'src/hooks/redux';
 import { logout } from 'src/redux/ducks/auth';
 
@@ -40,6 +40,9 @@ const Header = () => {
 
             case CATEGORY:
                 return 'Category';
+
+            case CUSTOMER:
+                return 'Customer';
 
             default:
                 return;
