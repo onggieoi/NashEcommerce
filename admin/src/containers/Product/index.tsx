@@ -2,11 +2,13 @@ import React, { lazy, Suspense } from 'react';
 import { Route, Switch } from 'react-router';
 
 import InLineLoader from "src/components/InlineLoader";
-import { CREATE_PRODUCT, LIST_PRODUCT } from 'src/constants/pages';
+import { CREATE_PRODUCT, EDIT_PRODUCT, LIST_PRODUCT } from 'src/constants/pages';
+import CreateProduct from './Create';
 
 const NotFound = lazy(() => import("../NotFound"));
 const Layout = lazy(() => import("../Layout"));
 const ListProduct = lazy(() => import('./List'));
+const EditProduct = lazy(() => import('./Edit'));
 
 function LayoutRoute({ children, ...rest }) {
     return (
@@ -28,7 +30,11 @@ const Product = () => {
             </LayoutRoute>
 
             <LayoutRoute exact path={CREATE_PRODUCT}>
-                <div>Create Product</div>
+                <CreateProduct />
+            </LayoutRoute>
+
+            <LayoutRoute exact path={EDIT_PRODUCT}>
+                <EditProduct />
             </LayoutRoute>
 
             <Route component={NotFound} />
