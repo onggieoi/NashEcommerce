@@ -8,8 +8,8 @@ export const CallBackEndpoints = {
 };
 
 export const EndPoints = {
-    Products: `${UrlBackEnd}/api/products`,
-    Product: (id: number | string): string => `${UrlBackEnd}/${id}`,
-    Categories: `${UrlBackEnd}/api/categories`,
-    Category: (id: number | string): string => `${UrlBackEnd}/${id}`,
+    Products: '/api/products',
+    Product: (id: number | string): string => `/api/products/${id}`,
+    Categories: '/api/categories',
+    Category: (id: number | string): string => `/api/categories/${id}`,
 };

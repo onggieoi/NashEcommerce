@@ -1,10 +1,11 @@
-import axios, { AxiosResponse } from "axios";
+import { AxiosResponse } from "axios";
 import { EndPoints } from "src/constants/configs";
 
+import RequestService from 'src/services/request';
 import ICategoryRequest from "src/interfaces/ICategoryRequest";
 
 export function requestGetCategory(): Promise<AxiosResponse<any>> {
-    return axios.get(EndPoints.Categories);
+    return RequestService.axios.get(EndPoints.Categories);
 }
 
 export function requestCreateCategory(request: ICategoryRequest): Promise<AxiosResponse<any>> {
@@ -14,11 +15,12 @@ export function requestCreateCategory(request: ICategoryRequest): Promise<AxiosR
         formData.append(key, request[key]);
     });
 
-    return axios.post(EndPoints.Categories, formData);
+
+    return RequestService.axios.post(EndPoints.Categories, formData);
 }
 
 export function requestGetCategoryById(id: string): Promise<AxiosResponse<any>> {
-    return axios.get(EndPoints.Category(id));
+    return RequestService.axios.get(EndPoints.Category(id));
 }
 
 export function requestUpdateCategory(request: ICategoryRequest): Promise<AxiosResponse<any>> {
@@ -28,9 +30,9 @@ export function requestUpdateCategory(request: ICategoryRequest): Promise<AxiosR
         formData.append(key, request[key]);
     });
 
-    return axios.put(EndPoints.Category(request.categoryId!), formData);
+    return RequestService.axios.put(EndPoints.Category(request.categoryId!), formData);
 }
 
 export function requestDeleteCategory(id: string): Promise<AxiosResponse<any>> {
-    return axios.delete(EndPoints.Category(id));
+    return RequestService.axios.delete(EndPoints.Category(id));
 }
