@@ -1,15 +1,53 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { CheckSquare, Trash2 } from 'react-feather';
+import { NotificationManager } from 'react-notifications';
+import { Link } from 'react-router-dom';
 
 import Table from 'src/components/Table';
+import { toEditProductPage } from 'src/constants/pages';
+import { useAppDispatch, useAppSelector } from 'src/hooks/redux';
 import IProduct from 'src/interfaces/IProduct';
+import { cleanUp, deleteProduct, getProducts } from 'src/redux/ducks/product';
 
 type Props = {
     products: IProduct[];
 };
 
 const ProductTable: React.FC<Props> = ({ products }) => {
-    return (
+    const { productResult, isLoading } = useAppSelector(state => state.product);
+    const dispatch = useAppDispatch();
+
+    const handleDeleteProduct = (e, id: number) => {
+        e.preventDefault();
+        dispatch(deleteProduct(id.toString()));
+    };
+
+    useEffect(() => {
+        if (productResult && productResult.isSuccess) {
+            NotificationManager.success(
+                `Deleted Successful product ${productResult.product?.productId}`,
+                'Deleted Successful',
+                2000,
+            );
+        }
+
+        if (productResult && !productResult.isSuccess) {
+            NotificationManager.error(
+                `Something went wrong!!!`,
+                'Delete failed',
+                2000,
+            );
+        }
+
+        return () => {
+            dispatch(cleanUp());
+            dispatch(getProducts());
+        }
+    }, [productResult]);
+
+    return isLoading ? (
+        <div>Loading...</div>
+    ) : (
         <Table ColumnsName={['IMAGE', 'NAME', 'PRICE', 'RATED', 'DESCRIPTION', 'CATEGORY']} >
             {
                 products.map((product) => (
@@ -24,7 +62,7 @@ const ProductTable: React.FC<Props> = ({ products }) => {
                             </div>
                         </td>
                         <td className='text-center'>
-                            <a href="" className="font-medium whitespace-no-wrap">{product.name}</a>
+                            <a className="font-medium whitespace-no-wrap cursor-pointer">{product.name}</a>
                             <div className="text-gray-600 text-xs whitespace-no-wrap">Photography</div>
                         </td>
                         <td className="text-center">
@@ -41,15 +79,17 @@ const ProductTable: React.FC<Props> = ({ products }) => {
                         </td>
                         <td className="table-report__action w-56">
                             <div className="flex justify-center items-center">
-                                <a className="flex items-center mr-3">
+                                <Link to={toEditProductPage(product.productId)}
+                                    className="flex items-center mr-3">
                                     <CheckSquare className="w-4 h-4 mr-1" />
-                                Edit
-                            </a>
+                                    Edit
+                                </Link>
 
-                                <a className="flex items-center text-theme-6">
+                                <a onClick={e => handleDeleteProduct(e, product.productId)}
+                                    className="flex items-center text-theme-6 cursor-pointer">
                                     <Trash2 className="w-4 h-4 mr-1" />
-                                Delete
-                            </a>
+                                    Delete
+                                </a>
                             </div>
                         </td>
                     </tr>
