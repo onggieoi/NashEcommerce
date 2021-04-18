@@ -1,10 +1,12 @@
 import { User, UserManager, UserManagerSettings } from "oidc-client";
 
+import { CallBackEndpoints } from "src/constants/configs";
+
 const oidcSettings: UserManagerSettings = {
   authority: "https://localhost:5000",
   client_id: "admin",
-  redirect_uri: "http://localhost:3000/authentication/login-callback",
-  post_logout_redirect_uri: "http://localhost:3000/authentication/logout-callback",
+  redirect_uri: CallBackEndpoints.redirect_uri,
+  post_logout_redirect_uri: CallBackEndpoints.post_logout_redirect_uri,
   response_type: "code",
   scope: "api openid profile offline_access",
   automaticSilentRenew: true,
