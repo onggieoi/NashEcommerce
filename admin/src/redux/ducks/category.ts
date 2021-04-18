@@ -16,7 +16,7 @@ export type CategoryState = {
 }
 
 const initialState: CategoryState = {
-    categories: [],
+    categories: [] as ICategory[],
     isLoading: false,
 };
 
@@ -53,6 +53,7 @@ const catgory = createSlice({
         cleanUp: (state) => ({
             ...state,
             createResult: undefined,
+            category: undefined,
         }),
         getCategory: (state, action: PayloadAction<string>) => ({
             ...state,
