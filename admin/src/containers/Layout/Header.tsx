@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
 import { ChevronRight, Edit, HelpCircle, Lock, ToggleRight, User } from 'react-feather';
-import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router';
 
 import { CATEGORY, DASHBOARD, PRODUCT } from 'src/constants/pages';
+import { useAppDispatch } from 'src/hooks/redux';
 import { logout } from 'src/redux/ducks/auth';
 
 const Header = () => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const { pathname } = useLocation();
     const [showDropDown, setShow] = useState(false);
 
-    const handleLogout = () => {
+    const handleLogout = (e) => {
+        e.preventDefault();
+
         dispatch(logout());
     }
 
