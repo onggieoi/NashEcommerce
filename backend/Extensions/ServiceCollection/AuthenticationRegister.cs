@@ -1,3 +1,4 @@
+using backend.Configs;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace backend.Exceptions.ServiceCollection
@@ -21,6 +22,13 @@ namespace backend.Exceptions.ServiceCollection
                 {
                     policy.AddAuthenticationSchemes("Bearer");
                     policy.RequireAuthenticatedUser();
+                });
+
+                options.AddPolicy("Admin", policy =>
+                {
+                    policy.AddAuthenticationSchemes("Bearer");
+                    policy.RequireAuthenticatedUser();
+                    policy.RequireRole(Roles.Admin);
                 });
             });
         }

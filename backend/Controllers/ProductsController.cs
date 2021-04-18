@@ -6,6 +6,8 @@ using ViewModelShare.Product;
 using backend.Repositories.ProductRepo;
 using backend.Constans;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
+using backend.Configs;
 
 namespace backend.Controllers
 {
@@ -62,6 +64,7 @@ namespace backend.Controllers
             return Ok(productRes);
         }
 
+        [Authorize("Admin")]
         [HttpPut("{id}")]
         public async Task<ActionResult<ProductRespone>> UpdateProduct(int id, [FromForm] ProductRequest productReq)
         {
