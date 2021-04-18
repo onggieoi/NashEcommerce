@@ -77,7 +77,7 @@ namespace backend.Configs
                     ClientName = "admin",
                     ClientId = "admin",
                     AccessTokenType = AccessTokenType.Reference,
-                    AllowedGrantTypes = GrantTypes.Code,
+                    AllowedGrantTypes = GrantTypes.Implicit,
                     AllowAccessTokensViaBrowser = true,
                     RequireClientSecret = false,
                     RequireConsent = false,
