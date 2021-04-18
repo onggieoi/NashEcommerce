@@ -8,7 +8,7 @@ type InputFieldProps = InputHTMLAttributes<HTMLInputElement> & {
     unit: string;
 };
 
-const TextField: React.FC<InputFieldProps> = (props) => {
+const UnitField: React.FC<InputFieldProps> = (props) => {
     const [field, { error, touched }] = useField(props);
 
     const validateClass = () => {
@@ -35,4 +35,4 @@ const TextField: React.FC<InputFieldProps> = (props) => {
         </div>
     );
 };
-export default TextField;
+export default UnitField;
