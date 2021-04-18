@@ -89,11 +89,10 @@ namespace backend.Controllers
             }
 
             var role = new IdentityRole();
-            role.Name = Roles.Admin;
+            role.Name = Roles.Customer;
             await _roleManager.CreateAsync(role);
 
-            await _userManager.AddClaimAsync(user, new Claim("testScope", $"{RegisterVm.Username}-testScope"));
-            await _userManager.AddToRoleAsync(user, Roles.Admin);
+            await _userManager.AddToRoleAsync(user, Roles.Customer);
 
             await _signInManager.SignInAsync(user, false);
 
