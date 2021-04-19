@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using backend.Constans;
 using backend.Repositories.CategoryRepo;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ViewModelShare.Category;
@@ -38,6 +38,7 @@ namespace backend.Controllers
             return Ok(categoryRespone);
         }
 
+        [Authorize("Admin")]
         [HttpPost]
         public async Task<ActionResult<CategoryRespone>> Create([FromForm] CategoryRequest request)
         {
@@ -46,6 +47,7 @@ namespace backend.Controllers
             return Created(Endpoints.Category, createdCategory);
         }
 
+        [Authorize("Admin")]
         [HttpDelete("{id}")]
         public async Task<ActionResult<CategoryRespone>> Delete(int id)
         {
@@ -54,6 +56,7 @@ namespace backend.Controllers
             return Ok(categoryRespone);
         }
 
+        [Authorize("Admin")]
         [HttpPut("{id}")]
         public async Task<ActionResult<CategoryRespone>> Update(int id, [FromForm] CategoryRequest request)
         {

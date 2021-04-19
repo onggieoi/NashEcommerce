@@ -5,9 +5,7 @@ using System.Collections.Generic;
 using ViewModelShare.Product;
 using backend.Repositories.ProductRepo;
 using backend.Constans;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authorization;
-using backend.Configs;
 
 namespace backend.Controllers
 {
@@ -48,6 +46,7 @@ namespace backend.Controllers
             return Ok(productsByCategory);
         }
 
+        [Authorize("Admin")]
         [HttpPost]
         public async Task<ActionResult<ProductRespone>> CreateProduct([FromForm] ProductRequest productReq)
         {
@@ -56,6 +55,7 @@ namespace backend.Controllers
             return Created(Endpoints.Product, product);
         }
 
+        [Authorize("Admin")]
         [HttpDelete("{id}")]
         public async Task<ActionResult<ProductRespone>> RemoveProduct(int id)
         {

@@ -30,7 +30,7 @@ namespace backend.Controllers
             return Created(Endpoints.Order, cartOrderRespones);
         }
 
-        [Authorize("Bearer")]
+        [Authorize("Admin")]
         [HttpGet("{cartId}")]
         public async Task<ActionResult<IEnumerable<CartOrderRespone>>> GetOrder(int cartId)
         {
