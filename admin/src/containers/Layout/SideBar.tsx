@@ -11,7 +11,7 @@ const SideBar = () => {
         <nav className="side-nav">
             <Link to={DASHBOARD} className="intro-x flex items-center pl-5 pt-4">
                 <img alt="Admin" className="w-6" src="/images/logo.svg" />
-                <span className="hidden xl:block text-white text-lg ml-3"> Mid<span className="font-medium">one</span> </span>
+                <span className="hidden xl:block text-white text-lg ml-3"> Nash<span className="font-medium">onggieoi</span> </span>
             </Link>
             <div className="side-nav__devider my-6"></div>
             <ul>

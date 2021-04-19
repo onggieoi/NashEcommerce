@@ -3,13 +3,14 @@ import { ChevronRight, Edit, HelpCircle, Lock, ToggleRight, User } from 'react-f
 import { useLocation } from 'react-router';
 
 import { CATEGORY, CUSTOMER, DASHBOARD, PRODUCT } from 'src/constants/pages';
-import { useAppDispatch } from 'src/hooks/redux';
+import { useAppDispatch, useAppSelector } from 'src/hooks/redux';
 import { logout } from 'src/redux/ducks/auth';
 
 const Header = () => {
     const dispatch = useAppDispatch();
     const { pathname } = useLocation();
     const [showDropDown, setShow] = useState(false);
+    const name = useAppSelector(state => state.auth.user.profile.name);
 
     const handleLogout = (e) => {
         e.preventDefault();
@@ -61,13 +62,13 @@ const Header = () => {
 
                 <div className="intro-x dropdown w-8 h-8 relative">
                     <div onFocus={dropDown} onBlur={handleBlur} tabIndex={0}
-                        className="dropdown-toggle w-8 h-8 rounded-full overflow-hidden shadow-lg image-fit zoom-in">
-                        <img alt="Admin Name" src="/images/profile-12.jpg" />
+                        className="dropdown-toggle w-8 h-8 rounded-full overflow-hidden shadow-lg image-fit zoom-in focus:outline-none">
+                        <img alt={name} src="/images/profile-12.jpg" />
                     </div>
                     <div className={dropDownBoxStyle()} >
                         <div className="dropdown-box__content bg-theme-38 text-white">
                             <div className="p-4 border-b border-theme-40">
-                                <div className="font-medium">Angelina Jolie</div>
+                                <div className="font-medium">{name}</div>
                                 <div className="text-xs text-theme-41">Software Engineer</div>
                             </div>
                             <div className="p-2">
