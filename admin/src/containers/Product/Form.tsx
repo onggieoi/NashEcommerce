@@ -71,7 +71,6 @@ const FormProduct: React.FC<Props> = ({ initialForm, categoryOptions }) => {
         }
 
         return () => {
-            console.log('cleanup');
             dispatch(cleanUp());
         }
     }, [productResult]);

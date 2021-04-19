@@ -4,7 +4,7 @@ import { setAuthen, setUser } from "src/redux/ducks/auth";
 import { requestGetUser, completeLogin, loginRequest, logoutRequest, logoutCallBack } from "../requests/auth";
 
 export function* handleGetUser(action) {
-    try {        
+    try {
         const userResponse = yield call(requestGetUser);
 
         if (userResponse) {
@@ -34,8 +34,14 @@ export function* handleCompleteLogin(action) {
 
 export function* handleLogin(action) {
     try {
-        yield call(loginRequest);
-
+        const userResponse = yield call(loginRequest);
+        
+        if (userResponse) {
+            const user = JSON.stringify(userResponse) as any;
+            yield put(setUser(userResponse));
+        } else {
+            yield call(loginRequest);
+        }
     } catch (error) {
         console.log(error);
     }
@@ -53,8 +59,6 @@ export function* handleLogout(action) {
 export function* handleLogoutCallBack(action) {
     try {
         yield call(logoutCallBack);
-        
-        yield put(setAuthen({ isAuth: false }));
 
     } catch (error) {
         console.log(error);

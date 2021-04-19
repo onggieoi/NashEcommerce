@@ -24,12 +24,12 @@ class AuthService {
     return this.userManager.getUser();
   }
 
-  public loginAsync(): Promise<void> {
-    return this.userManager.signinRedirect();
+  public loginAsync(): Promise<User> {
+    return this.userManager.signinPopup();
   }
 
-  public completeLoginAsync(url: string): Promise<User> {
-    return this.userManager.signinCallback(url);
+  public completeLoginAsync(url: string): Promise<User | undefined> {
+    return this.userManager.signinPopupCallback(url);
   }
 
   public renewTokenAsync(): Promise<User> {
@@ -37,11 +37,11 @@ class AuthService {
   }
 
   public logoutAsync(): Promise<void> {
-    return this.userManager.signoutRedirect();
+    return this.userManager.signoutPopup();
   }
 
   public async completeLogoutAsync(url: string): Promise<void> {
-    await this.userManager.signoutCallback(url);
+    await this.userManager.signoutPopupCallback(url);
   }
 }
 

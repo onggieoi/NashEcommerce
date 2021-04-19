@@ -6,6 +6,7 @@ import RequestService from 'src/services/request';
 type AuthState = {
     loading: boolean;
     isAuth: boolean,
+    isAuthor: boolean,
     user: User,
 }
 
@@ -13,6 +14,7 @@ const initialState: AuthState = {
     isAuth: false,
     user: {} as User,
     loading: false,
+    isAuthor: false,
 };
 
 const auth = createSlice({
@@ -21,12 +23,22 @@ const auth = createSlice({
     reducers: {
         setUser: (state, action: PayloadAction<User>) => {
             const user = action.payload;
-            
-            RequestService.setAuthentication(user.access_token);
 
-            return { 
+            if (user.profile.role === 'ADMIN') {
+                RequestService.setAuthentication(user.access_token);
+
+                return { 
+                    ...state,
+                    user,
+                    isAuth: true,
+                    loading: false,
+                    isAuthor: true,
+                };
+            }
+
+            return {
                 ...state,
-                user,
+                isAuthor: false,
                 isAuth: true,
                 loading: false,
             };
@@ -54,11 +66,14 @@ const auth = createSlice({
         }),
         logout: (state) => ({
             ...state,
+            isAuth: false,
             loading: true,
         }),
         logoutCallBack: (state) => ({
             ...state,
+            isAuth: false,
             loading: true,
+            isAuthor: false,
         }),
     }
 });

@@ -18,12 +18,10 @@ const Auth = () => {
 
             case "login-callback":
                 dispatch(loginCallBack());
-                history.push("/");
                 break;
 
             case "logout-callback":
                 dispatch(logoutCallBack());
-                history.push("/");
                 break;
 
             default:

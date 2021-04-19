@@ -1,10 +1,10 @@
-import React, { lazy, Suspense, useEffect } from "react";
+import React, { lazy, Suspense, useEffect, useState } from "react";
 import { Route, Switch } from "react-router-dom";
 
 import { DASHBOARD, AUTH, CATEGORY, PRODUCT, CUSTOMER } from "./constants/pages";
 import InLineLoader from "./components/InlineLoader";
 import Auth from "./containers/Auth";
-import { getUser } from "./redux/ducks/auth";
+import { getUser, login, logout } from "./redux/ducks/auth";
 import { useAppDispatch, useAppSelector } from "./hooks/redux";
 
 const Layout = lazy(() => import("./containers/Layout"));
@@ -17,14 +17,21 @@ const Customer = lazy(() => import('./containers/Customer'));
 function PrivateRoute({ children, ...rest }) {
   const dispatch = useAppDispatch();
 
-  const { isAuth, loading } = useAppSelector((state) => state.auth);
+  const { isAuth, loading, isAuthor } = useAppSelector((state) => state.auth);
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+
+    if (isAuth && !isAuthor) dispatch(logout());
+    if (!isAuth) dispatch(login());
+  };
 
   useEffect(() => {
-    if (!loading) {
-      dispatch(getUser());
+    if (!isAuth && !loading) {
+      dispatch(login());
     }
 
-  }, []);
+  }, [isAuth]);
 
   return (
     <Route
@@ -35,7 +42,14 @@ function PrivateRoute({ children, ...rest }) {
             <Suspense fallback={<InLineLoader />}>
               {children}
             </Suspense>
-          ) : (<div>Loading</div>)}
+          ) : (
+            <div className='text-white'>
+              <div>UnAuthorization</div>
+              <button onClick={handleLogin} className='button'>
+                login
+              </button>
+            </div>
+          )}
     />
   );
 }
