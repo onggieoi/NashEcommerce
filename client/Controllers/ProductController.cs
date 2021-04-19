@@ -27,12 +27,17 @@ namespace client.Controllers
 
         public async Task<ActionResult<IEnumerable<ProductRespone>>> Index(int? categoryId)
         {
+            IEnumerable<ProductRespone> products;
+
             if (categoryId is null)
             {
-                throw new NotImplementedException();
+                products = await _client.GetProducts();
+            }
+            else
+            {
+                products = await _client.GetProductsByCategory(categoryId.Value);
             }
 
-            var products = await _client.GetProductsByCategory(categoryId.Value);
 
             return View(products);
         }

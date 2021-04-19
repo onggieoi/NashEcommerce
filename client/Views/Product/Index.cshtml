@@ -5,7 +5,7 @@
 }
 
 <section id="portfolio" class="portfolio wow fadeInUp" style="min-height: 80vh;">
-    <div class="container-fluid">
+    <div class="container">
         <div class="container section-header">
             <h2>Our Portfolio</h2>
             <p>Sed tamen tempor magna labore dolore dolor sint tempor duis magna elit veniam aliqua esse amet
@@ -17,7 +17,7 @@
 
             @foreach (var product in Model)
             {
-                <div class="col-lg-3 col-md-4 portfolio-item">
+                <div class="col-lg-4 col-md-6 portfolio-item">
                     @await Component.InvokeAsync("Product", product)
                 </div>
             }

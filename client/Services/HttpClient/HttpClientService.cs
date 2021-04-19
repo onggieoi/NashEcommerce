@@ -66,6 +66,17 @@ namespace client.Services
             return product;
         }
 
+        public async Task<IEnumerable<ProductRespone>> GetProducts()
+        {
+            var res = await _client.GetAsync(EndPoints.Product);
+
+            res.EnsureSuccessStatusCode();
+
+            var products = await res.Content.ReadAsAsync<IEnumerable<ProductRespone>>();
+
+            return products;
+        }
+
         public async Task<IEnumerable<ProductRespone>> GetProductsByCategory(int categoryId)
         {
             var res = await _client.GetAsync(EndPoints.GetProductByCategory(categoryId));

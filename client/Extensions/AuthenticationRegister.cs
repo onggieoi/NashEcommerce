@@ -86,7 +86,6 @@ namespace client.Extensions
                     options.GetClaimsFromUserInfoEndpoint = true;
                     options.UseTokenLifetime = false;
 
-                    options.Scope.Add("testScope");
                     options.Scope.Add("offline_access");
                     options.Scope.Add("api");
 

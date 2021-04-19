@@ -11,6 +11,7 @@ namespace client.Services
         Task<IEnumerable<CategoryRespone>> GetCategories();
 
         Task<IEnumerable<ProductRespone>> GetProductsByCategory(int categoryId);
+        Task<IEnumerable<ProductRespone>> GetProducts();
 
         Task<ProductRespone> GetProductById(int id);
 
