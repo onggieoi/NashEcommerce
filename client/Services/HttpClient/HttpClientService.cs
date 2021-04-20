@@ -35,24 +35,24 @@ namespace client.Services
 
         public async Task<IEnumerable<CategoryRespone>> GetCategories()
         {
-            var categories = await _memoryCache
-                .GetOrCreateAsync(CacheKeys.CacheCategoriesWithProduct, async entry =>
-                {
-                    _logger.LogInformation("create CategoriesWithProducts Cached!");
+            var res = await _client.GetAsync(EndPoints.Category);
 
-                    var res = await _client.GetAsync(EndPoints.Category);
+            res.EnsureSuccessStatusCode();
 
-                    res.EnsureSuccessStatusCode();
+            var categoryRespones = await res.Content.ReadAsAsync<IEnumerable<CategoryRespone>>();
+            // var categories = await _memoryCache
+            //     .GetOrCreateAsync(CacheKeys.CacheCategoriesWithProduct, async entry =>
+            //     {
+            //         _logger.LogInformation("create CategoriesWithProducts Cached!");
 
-                    var categoryRespones = await res.Content.ReadAsAsync<IEnumerable<CategoryRespone>>();
 
-                    entry.SlidingExpiration = TimeSpan.FromHours(1);
-                    entry.SetValue(categoryRespones);
+            //         entry.SlidingExpiration = TimeSpan.FromHours(1);
+            //         entry.SetValue(categoryRespones);
 
-                    return categoryRespones;
-                });
+            //         return categoryRespones;
+            //     });
 
-            return categories;
+            return categoryRespones;
         }
 
         public async Task<ProductRespone> GetProductById(int productId)
