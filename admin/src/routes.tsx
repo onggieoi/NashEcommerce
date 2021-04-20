@@ -1,10 +1,10 @@
-import React, { lazy, Suspense, useEffect, useState } from "react";
+import React, { lazy, Suspense, useEffect } from "react";
 import { Route, Switch } from "react-router-dom";
 
 import { DASHBOARD, AUTH, CATEGORY, PRODUCT, CUSTOMER } from "./constants/pages";
 import InLineLoader from "./components/InlineLoader";
 import Auth from "./containers/Auth";
-import { getUser, login, logout } from "./redux/ducks/auth";
+import { login } from "./redux/ducks/auth";
 import { useAppDispatch, useAppSelector } from "./hooks/redux";
 
 const Layout = lazy(() => import("./containers/Layout"));
@@ -13,6 +13,7 @@ const DashBoard = lazy(() => import('./containers/DashBoard'));
 const Category = lazy(() => import('./containers/Catgory'));
 const Product = lazy(() => import('./containers/Product'));
 const Customer = lazy(() => import('./containers/Customer'));
+const UnAuthorization = lazy(() => import('./containers/UnAuthorization'));
 
 function PrivateRoute({ children, ...rest }) {
   const dispatch = useAppDispatch();
@@ -21,9 +22,7 @@ function PrivateRoute({ children, ...rest }) {
 
   const handleLogin = (e) => {
     e.preventDefault();
-
-    if (isAuth && !isAuthor) dispatch(logout());
-    if (!isAuth) dispatch(login());
+    dispatch(login());
   };
 
   useEffect(() => {
@@ -33,23 +32,27 @@ function PrivateRoute({ children, ...rest }) {
 
   }, [isAuth]);
 
+  if (isAuth && !isAuthor) return <UnAuthorization />
+
+  if (!isAuth) return (
+    <div className='text-white'>
+      <div>UnAuthorization</div>
+      <button onClick={handleLogin} className='button'>
+        login
+      </button>
+    </div>
+  )
+
   return (
     <Route
       {...rest}
       render={({ location }) =>
-        (isAuth && isAuthor) ?
-          (
-            <Suspense fallback={<InLineLoader />}>
-              {children}
-            </Suspense>
-          ) : (
-            <div className='text-white'>
-              <div>UnAuthorization</div>
-              <button onClick={handleLogin} className='button'>
-                login
-              </button>
-            </div>
-          )}
+        (isAuth && isAuthor) &&
+        (
+          <Suspense fallback={<InLineLoader />}>
+            {children}
+          </Suspense>
+        )}
     />
   );
 }
