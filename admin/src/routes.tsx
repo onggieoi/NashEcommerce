@@ -37,7 +37,7 @@ function PrivateRoute({ children, ...rest }) {
     <Route
       {...rest}
       render={({ location }) =>
-        isAuth ?
+        (isAuth && isAuthor) ?
           (
             <Suspense fallback={<InLineLoader />}>
               {children}

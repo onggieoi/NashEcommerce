@@ -51,6 +51,7 @@ namespace backend.Extensions.ServiceCollection
                 options.Events.RaiseSuccessEvents = true;
             })
                 .AddAspNetIdentity<IdentityUser>()
+                .AddProfileService<ProfileService>()
                 // .AddConfigurationStore(options =>
                 // {
                 //     options.ConfigureDbContext = b => b.UseSqlServer(connectionString,
@@ -62,7 +63,6 @@ namespace backend.Extensions.ServiceCollection
                 //         b.UseSqlServer(connectionString, sql =>
                 //             sql.MigrationsAssembly(assembly));
                 // })
-                .AddProfileService<ProfileService>()
                 .AddInMemoryIdentityResources(IdentityServerConfig.Ids)
                 .AddInMemoryApiResources(IdentityServerConfig.Apis)
                 .AddInMemoryClients(IdentityServerConfig.Clients(clientUrls))
