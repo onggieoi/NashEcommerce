@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
+import Loading from 'src/components/Loading';
 import { useAppDispatch, useAppSelector } from 'src/hooks/redux';
 import { getCategory } from 'src/redux/ducks/category';
 import FormCategory from '../Form';
@@ -26,7 +27,7 @@ const EditCategory = () => {
                 </div>
             </div>
         </>
-    ) : (<div>Loading ...</div>);
+    ) : (<Loading />);
 };
 
 export default EditCategory;

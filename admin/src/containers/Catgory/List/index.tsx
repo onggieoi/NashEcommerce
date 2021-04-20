@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Search } from 'react-feather';
 import { Link } from 'react-router-dom';
+import Loading from 'src/components/Loading';
 import { CREATE_CATEGORY } from 'src/constants/pages';
 
 import { useAppDispatch, useAppSelector } from 'src/hooks/redux';
@@ -15,7 +16,7 @@ const ListCategory = () => {
         dispatch(getCatgories());
     }, []);
 
-    return isLoading ? (<div>Loading...</div>) : (
+    return isLoading ? (<Loading />) : (
         <>
             <h2 className="intro-y text-lg font-medium mt-10">
                 Categories

@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import Loading from 'src/components/Loading';
 
 import { useAppDispatch, useAppSelector } from 'src/hooks/redux';
 import ISelectOption from 'src/interfaces/ISelectOption';
@@ -39,7 +40,7 @@ const EditProduct = () => {
                 </div>
             </div>
         </>
-    ) : <div>Loading...</div>;
+    ) : (<Loading />);
 };
 
 export default EditProduct;

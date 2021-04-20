@@ -2,9 +2,8 @@ import React, { useEffect } from 'react';
 import { Search } from 'react-feather';
 import { Link } from 'react-router-dom';
 
-
 import { CREATE_PRODUCT } from 'src/constants/pages';
-
+import Loading from 'src/components/Loading';
 import { useAppDispatch, useAppSelector } from 'src/hooks/redux';
 import { getProducts } from 'src/redux/ducks/product';
 import ProductTable from './ProductTable';
@@ -17,7 +16,7 @@ const Catgories = () => {
         dispatch(getProducts());
     }, []);
 
-    return isLoading ? (<div>Loading...</div>) : (
+    return isLoading ? (<Loading />) : (
         <>
             <h2 className="intro-y text-lg font-medium mt-10">
                 Products

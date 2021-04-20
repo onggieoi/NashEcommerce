@@ -6,6 +6,7 @@ import InLineLoader from "./components/InlineLoader";
 import Auth from "./containers/Auth";
 import { login } from "./redux/ducks/auth";
 import { useAppDispatch, useAppSelector } from "./hooks/redux";
+import Loading from "./components/Loading";
 
 const Layout = lazy(() => import("./containers/Layout"));
 const NotFound = lazy(() => import("./containers/NotFound"));
