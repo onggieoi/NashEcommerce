@@ -22,3 +22,23 @@
       height: 100px; }
   .grants-page .card label {
     font-weight: bold; }
+
+#logo h1 {
+  font-size: 42px;
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+}
+
+#logo h1 a {
+  text-decoration: none;
+  color: #fff;
+  line-height: 1;
+  display: inline-block;
+}
+
+#logo h1 a span {
+  color: #50d8af;
+}
