@@ -24,6 +24,7 @@ namespace backend.Tests.CategoryController.Tests
         {
             // Arrange
             var loggerController = Loggers.CategoryController();
+            var blobService = BlobService.BlobServiceUpload();
 
             var mapper = Mapper.Get();
 
@@ -34,7 +35,7 @@ namespace backend.Tests.CategoryController.Tests
             await dbContext.AddRangeAsync(category);
             await dbContext.SaveChangesAsync();
 
-            var categoryRepository = new CategoryRepository(mapper, dbContext);
+            var categoryRepository = new CategoryRepository(mapper, blobService, dbContext);
             var catgoriesController = new CategoriesController(loggerController, categoryRepository);
 
             // Act

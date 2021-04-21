@@ -26,6 +26,7 @@ namespace backend.Tests.ProductController.Tests
             // Arrange
             var loggerController = Loggers.ProductControllerLogger();
             var loggerRepository = Loggers.ProductRepositoryLogger();
+            var blobService = BlobService.BlobServiceUpload();
 
             var mapper = Mapper.Get();
 
@@ -43,7 +44,7 @@ namespace backend.Tests.ProductController.Tests
             product2.CategoryId = category.CategoryId;
             await dbContext.SaveChangesAsync();
 
-            var productRepository = new ProductRepository(loggerRepository, mapper, dbContext);
+            var productRepository = new ProductRepository(loggerRepository, mapper, blobService, dbContext);
             var productController = new ProductsController(loggerController, productRepository);
 
             // Act
@@ -64,12 +65,13 @@ namespace backend.Tests.ProductController.Tests
             // Arrange
             var loggerController = Loggers.ProductControllerLogger();
             var loggerRepository = Loggers.ProductRepositoryLogger();
+            var blobService = BlobService.BlobServiceUpload();
 
             var mapper = Mapper.Get();
 
             var dbContext = _fixture.Context;
 
-            var productRepository = new ProductRepository(loggerRepository, mapper, dbContext);
+            var productRepository = new ProductRepository(loggerRepository, mapper, blobService, dbContext);
 
             var productController = new ProductsController(loggerController, productRepository);
 
@@ -86,6 +88,7 @@ namespace backend.Tests.ProductController.Tests
             // Arrange
             var loggerController = Loggers.ProductControllerLogger();
             var loggerRepository = Loggers.ProductRepositoryLogger();
+            var blobService = BlobService.BlobServiceUpload();
 
             var mapper = Mapper.Get();
 
@@ -103,7 +106,7 @@ namespace backend.Tests.ProductController.Tests
             product2.CategoryId = category.CategoryId;
             await dbContext.SaveChangesAsync();
 
-            var productRepository = new ProductRepository(loggerRepository, mapper, dbContext);
+            var productRepository = new ProductRepository(loggerRepository, mapper, blobService, dbContext);
 
             var productController = new ProductsController(loggerController, productRepository);
 

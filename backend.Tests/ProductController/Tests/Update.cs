@@ -23,6 +23,7 @@ namespace backend.Tests.ProductController.Tests
             // Arrange
             var loggerController = Loggers.ProductControllerLogger();
             var loggerRepository = Loggers.ProductRepositoryLogger();
+            var blobService = BlobService.BlobServiceUpload();
 
             var mapper = Mapper.Get();
 
@@ -38,7 +39,7 @@ namespace backend.Tests.ProductController.Tests
             await dbContext.Products.AddAsync(product);
             await dbContext.SaveChangesAsync();
 
-            var productRepository = new ProductRepository(loggerRepository, mapper, dbContext);
+            var productRepository = new ProductRepository(loggerRepository, mapper, blobService, dbContext);
 
             var productRequest = NewDatas.NewProductRequest();
             productRequest.CategoryId = newCategory.CategoryId;
