@@ -1,6 +1,8 @@
 using backend.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using Moq;
+using ViewModelShare.CartOrder;
 using ViewModelShare.Category;
 using ViewModelShare.Product;
 
@@ -35,6 +37,11 @@ namespace backend.Tests
             Name = "Test Category Request",
             Image = "Test Image Request",
             Description = " Test Desc Request"
+        };
+
+        public static IdentityUser NewUser() => new IdentityUser
+        {
+            UserName = "Test User",
         };
     }
 }
