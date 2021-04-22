@@ -19,12 +19,8 @@ const Header = () => {
     }
 
     const dropDown = (e) => {
-        setShow(true);
+        setShow(!showDropDown);
     };
-
-    const handleBlur = (e) => {
-        setShow(false);
-    }
 
     const dropDownBoxStyle = () => {
         if (showDropDown) return 'dropdown-box mt-10 absolute w-56 top-0 right-0 z-20 show';
@@ -61,7 +57,7 @@ const Header = () => {
                 </div>
 
                 <div className="intro-x dropdown w-8 h-8 relative">
-                    <div onFocus={dropDown} onBlur={handleBlur} tabIndex={0}
+                    <div onClick={dropDown}
                         className="dropdown-toggle w-8 h-8 rounded-full overflow-hidden shadow-lg image-fit zoom-in focus:outline-none">
                         <img alt={name} src="/images/profile-12.jpg" />
                     </div>
