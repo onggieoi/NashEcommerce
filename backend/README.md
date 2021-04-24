@@ -28,10 +28,10 @@ Returns json data about `product`:
 </pre>
 
 * **URL**
-    `GET` */api/products* - **Allow anonymous**.
-    `GET` */api/products/:id*  - **Allow anonymous**.
-    `POST` */api/products* - **Require Authenticated** by `ADMIN` role.
-    `PUT` */api/products/:id* - **Require Authenticated** by `ADMIN` role.
+    `GET` */api/products* - **Allow anonymous**. \
+    `GET` */api/products/:id*  - **Allow anonymous**. \
+    `POST` */api/products* - **Require Authenticated** by `ADMIN` role. \
+    `PUT` */api/products/:id* - **Require Authenticated** by `ADMIN` role. \
     `DELETE` */api/products/:id*  - **Require Authenticated** by `ADMIN` role.
 
     *  **URL Params**
@@ -73,10 +73,10 @@ Returns json data about `category`:
 }</code></pre>
 
 * **URL**
-    `GET` */api/categories* - **Allow anonymous**
-    `GET` */api/categories/:id* - **Allow anonymous**
-    `POST` */api/categories* - **Require Authenticated** by `ADMIN` role.
-    `PUT` */api/categories/:id*  - **Require Authenticated** by `ADMIN` role.
+    `GET` */api/categories* - **Allow anonymous** \
+    `GET` */api/categories/:id* - **Allow anonymous** \
+    `POST` */api/categories* - **Require Authenticated** by `ADMIN` role. \
+    `PUT` */api/categories/:id*  - **Require Authenticated** by `ADMIN` role. \
     `DELETE` */api/category/:id*  - **Require Authenticated** by `ADMIN` role.
 
     *  **URL Params**
