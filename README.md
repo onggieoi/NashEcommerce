@@ -6,7 +6,10 @@ live preview - azure
 - [client](https://nashonggieoi-client.azurewebsites.net)
 - [backend](http://nashoggieoi.azurewebsites.net) *api*
 ---
-
+## Docs
+- [admin](https://github.com/onggieoi/NashEcommerce/tree/master/admin)
+- [client](https://github.com/onggieoi/NashEcommerce/tree/master/client)
+- [backend](https://github.com/onggieoi/NashEcommerce/tree/master/backend)
 ## Architecture
 
 - backend: **api** dotnet5 - **oauth** identity server - **ORM** EF core
