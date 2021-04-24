@@ -4,12 +4,11 @@
     ViewData["Title"] = Model.Name;
 }
 
-<!-- ======= Breadcrumbs Section ======= -->
 <section class="breadcrumbs">
     <div class="container">
 
         <div class="d-flex justify-content-between align-items-center">
-            <h2>Product Details</h2>
+            <h2>@Model.Name</h2>
             <ol>
                 <li>
                     <a href="~/#">Home</a>
@@ -22,9 +21,8 @@
         </div>
 
     </div>
-</section><!-- Breadcrumbs Section -->
+</section>
 
-<!-- ======= Portfolio Details Section ======= -->
 <section class="portfolio-details">
     <div class="container">
 
@@ -35,7 +33,7 @@
             </div>
 
             <div class="portfolio-info">
-                <h3>Product information</h3>
+                <h3>@Model.Name</h3>
                 <ul>
                     <li><strong>Category</strong>: @Model.CategoryName</li>
                     <li><strong>Price</strong>: $ @Model.Price</li>
@@ -108,7 +106,7 @@
         </div>
 
         <div class="portfolio-description">
-            <h2>This is an example of portfolio detail</h2>
+            <h2>@Model.Name</h2>
             <p>@Model.Description</p>
         </div>
     </div>
