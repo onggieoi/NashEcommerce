@@ -9,6 +9,17 @@
 - run backend \
   `dotnet run`
 ----
+
+## Features
+- Upload Image to cloud (Blob Storage)
+- Identity Server
+- Global exceptions - Middleware to handler exceptions
+- Mapping - AutoMapper
+- Authorization
+- Global filter
+- Auto update CreateAt UpdateAt onSave
+
+---
 ## **RESTful API**
 ### **Products**
 Returns json data about `product`:
