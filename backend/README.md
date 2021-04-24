@@ -27,7 +27,7 @@ Returns json data about `product`:
 }</code>
 </pre>
 
-* **URL**
+* **URL** \
     `GET` */api/products* - **Allow anonymous**. \
     `GET` */api/products/:id*  - **Allow anonymous**. \
     `POST` */api/products* - **Require Authenticated** by `ADMIN` role. \
@@ -72,7 +72,7 @@ Returns json data about `category`:
     products?: [product]
 }</code></pre>
 
-* **URL**
+* **URL** \
     `GET` */api/categories* - **Allow anonymous** \
     `GET` */api/categories/:id* - **Allow anonymous** \
     `POST` */api/categories* - **Require Authenticated** by `ADMIN` role. \
@@ -117,7 +117,7 @@ Returns json data about `order`:
     product?: {product}
 }]</code></pre>
 
-* **URL**
+* **URL** \
     `POST` */api/orders* - **Require Authenticated** by `CUSTOMER` role.
 
     *  **URL Params**
@@ -142,7 +142,7 @@ Returns json data about `order`:
 ### **Rating**
 Returns json data about rating result: `result: bool`
 
-* **URL**
+* **URL** \
     `POST` */api/rates* - **Require Authenticated** by `CUSTOMER` role.
 
     *  **URL Params**
