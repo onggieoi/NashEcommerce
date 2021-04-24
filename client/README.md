@@ -12,6 +12,8 @@ bootstrap
 - Products By category: `/product/?categoryId`
 - Checkout to payment: `/order`
 - Order Result: `/order/result`
+- Login: `/login`
+- Logout: `/logout`
 
 ### api
 - endpoint rating: `/product/:id`
