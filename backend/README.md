@@ -4,26 +4,28 @@
 - cd to `NashEcommerce/backend`
 - Create appsettings.json and fill all nessesarry key value pair follow by `appsettings.example.json`
 - run migrations and update database all contexts (`ApplicationDbContext`, `ConfigurationDb`, `PersistedGrantDb`)
-  `dotnet ef migrations add init -c [context]`
-  `dotnet ef database update -c [context]`
-- run backend
+  - `dotnet ef migrations add init -c [context]`
+  - `dotnet ef database update -c [context]`
+- run backend \
   `dotnet run`
 ----
 ## **RESTful API**
 ### **Products**
 Returns json data about `product`:
+<pre>
 <code>{
-productId: number,
-name: string, 
-price: number, 
-image: string,
-description: string,
-rated: number,
-categoryId: number 
-categoryName: string, 
-createdAt: string,
-updatedAt: string
+    productId: number,
+    name: string, 
+    price: number, 
+    image: string,
+    description: string,
+    rated: number,
+    categoryId: number 
+    categoryName: string, 
+    createdAt: string,
+    updatedAt: string
 }</code>
+</pre>
 
 * **URL**
     `GET` */api/products* - **Allow anonymous**.
@@ -37,22 +39,23 @@ updatedAt: string
 
     * **Data Params** (`POST`, `PUT`)
     *form data*
+    <pre>
     <code>{
         name: string,
         price: number,
-        imageFile?: file, **//require for POST**
+        imageFile?: file, //require for POST
         image?: string,
         description: string,
         categoryId: number
-    }</code>
+    }</code></pre>
 
     * **Success Response:**
     * **Code:** 200
-        **Content:** `[product]`
+        **Content:** `[product]` \
     OR
     * **Error Response:**
     * **Code:** 404
-      **Content:** `{ error : "true", message: "product :id not found" }`
+      **Content:** `{ error : "true", message: "product :id not found" }` \
     OR
     * **Error Response:**
     * **Code:** 500
@@ -61,13 +64,13 @@ updatedAt: string
 
 ### **Category**
 Returns json data about `category`:
-<code>{
+<pre><code>{
     categoryId: number,
     name: string,
     image: string,
     description: string,
     products?: [product]
-}</code>
+}</code></pre>
 
 * **URL**
     `GET` */api/categories* - **Allow anonymous**
@@ -81,26 +84,27 @@ Returns json data about `category`:
 
     * **Data Params**
      *form data*
+    <pre>
     <code>{
         name: string,
         description: string,
         imageFile?: file, **// require for POST**
         image?: string
-    }</code>
+    }</code></pre>
 
     * **Success Response:**
     * **Code:** 200
-        **Content:** `[category]`
+        **Content:** `[category]` \
     OR
     * **Code:** 200
-        **Content:** `category`
+        **Content:** `category` \
     OR
      * **Code:** 201
-        **Content:** `category`
+        **Content:** `category` \
     OR
     * **Error Response:**
     * **Code:** 404
-      **Content:** `{ error : "true", message: "category :id not found" }`
+      **Content:** `{ error : "true", message: "category :id not found" }` \
     OR
     * **Error Response:**
     * **Code:** 500
@@ -108,10 +112,10 @@ Returns json data about `category`:
 
 ### **Order**
 Returns json data about `order`:
-<code>[{
+<pre><code>[{
     quantity: number,
-    product?: [product]
-}]</code>
+    product?: {product}
+}]</code></pre>
 
 * **URL**
     `POST` */api/orders* - **Require Authenticated** by `CUSTOMER` role.
@@ -121,10 +125,11 @@ Returns json data about `order`:
 
     * **Data Params**
      *json data*
+    <pre>
     <code>{
         productId: number,
         quantity: number,
-    }</code>
+    }</code></pre>
 
     * **Success Response:**
     * **Code:** 201
@@ -145,10 +150,11 @@ Returns json data about rating result: `result: bool`
 
     * **Data Params**
      *json data*
+    <pre>
     <code>{
         productId: number,
         value: number,
-    }</code>
+    }</code></pre>
 
     * **Success Response:**
     * **Code:** 201
