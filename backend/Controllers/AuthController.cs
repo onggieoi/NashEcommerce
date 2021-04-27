@@ -88,10 +88,6 @@ namespace backend.Controllers
                 return View("Register", RegisterVm);
             }
 
-            var role = new IdentityRole();
-            role.Name = Roles.Customer;
-            await _roleManager.CreateAsync(role);
-
             await _userManager.AddToRoleAsync(user, Roles.Customer);
 
             await _signInManager.SignInAsync(user, false);
