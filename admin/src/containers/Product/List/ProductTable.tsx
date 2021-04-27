@@ -72,7 +72,7 @@ const ProductTable: React.FC<Props> = ({ products }) => {
                         <td className="text-center">
                             {product.rated}
                         </td>
-                        <td className="text-center">
+                        <td className="text-center truncate" style={{ maxWidth: '2rem' }}>
                             {product.description}
                         </td>
                         <td className="text-center">

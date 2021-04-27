@@ -63,7 +63,7 @@ const CategoryTable: React.FC<Props> = ({ categories }) => {
                             <a href="" className="font-medium whitespace-no-wrap">{category.name}</a>
                             <div className="text-gray-600 text-xs whitespace-no-wrap">Photography</div>
                         </td>
-                        <td className="text-center">
+                        <td className="text-center truncate" style={{ maxWidth: '2rem' }}>
                             {category.description}
                         </td>
                         {/* <td className="">
