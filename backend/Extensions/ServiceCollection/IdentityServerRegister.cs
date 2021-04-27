@@ -52,21 +52,21 @@ namespace backend.Extensions.ServiceCollection
             })
                 .AddAspNetIdentity<IdentityUser>()
                 .AddProfileService<ProfileService>()
-                // .AddConfigurationStore(options =>
-                // {
-                //     options.ConfigureDbContext = b => b.UseSqlServer(connectionString,
-                //         sql => sql.MigrationsAssembly(assembly));
-                // })
-                // .AddOperationalStore(options =>
-                // {
-                //     options.ConfigureDbContext = b =>
-                //         b.UseSqlServer(connectionString, sql =>
-                //             sql.MigrationsAssembly(assembly));
-                // })
-                .AddInMemoryIdentityResources(IdentityServerConfig.Ids)
-                .AddInMemoryApiResources(IdentityServerConfig.Apis)
-                .AddInMemoryClients(IdentityServerConfig.Clients(clientUrls))
-                .AddInMemoryApiScopes(IdentityServerConfig.ApiScopes)
+                .AddConfigurationStore(options =>
+                {
+                    options.ConfigureDbContext = b => b.UseSqlServer(connectionString,
+                        sql => sql.MigrationsAssembly(assembly));
+                })
+                .AddOperationalStore(options =>
+                {
+                    options.ConfigureDbContext = b =>
+                        b.UseSqlServer(connectionString, sql =>
+                            sql.MigrationsAssembly(assembly));
+                })
+                // .AddInMemoryIdentityResources(IdentityServerConfig.Ids)
+                // .AddInMemoryApiResources(IdentityServerConfig.Apis)
+                // .AddInMemoryClients(IdentityServerConfig.Clients(clientUrls))
+                // .AddInMemoryApiScopes(IdentityServerConfig.ApiScopes)
                 .AddDeveloperSigningCredential();
             // .AddTestUsers(TestUsers.Users)
         }

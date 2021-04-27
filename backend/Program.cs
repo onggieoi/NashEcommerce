@@ -1,5 +1,13 @@
 using System;
+using System.Linq;
+using System.Threading.Tasks;
+using backend.DbContexts;
+using backend.DbContexts.Seeds;
+using IdentityServer4.EntityFramework.DbContexts;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Serilog;
@@ -10,7 +18,7 @@ namespace backend
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
@@ -34,7 +42,44 @@ namespace backend
             try
             {
                 Log.Information("Starting host...");
-                CreateHostBuilder(args).Build().Run();
+                var host = CreateHostBuilder(args).Build();
+
+                using (var scope = host.Services.CreateScope())
+                {
+                    var services = scope.ServiceProvider;
+                    var dbContext = services.GetRequiredService<ApplicationDbContext>();
+                    var idenityServerContext = services.GetRequiredService<ConfigurationDbContext>();
+                    var config = services.GetRequiredService<IConfiguration>();
+
+                    if (!dbContext.Roles.Any())
+                    {
+                        Log.Information("Started Seeding Default Roles and Users");
+
+                        var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
+                        var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+
+                        await DefaultRoles.SeedAsync(userManager, roleManager);
+                        await DefaultAdminUser.SeedAsync(userManager, roleManager);
+                    }
+
+                    if (!idenityServerContext.Clients.Any())
+                    {
+                        Log.Information("Started Seeding Default Identity Server");
+
+                        await DefaultIdentityConfig.SeedAsync(idenityServerContext, config);
+                    }
+
+                    if (!dbContext.Categories.Any())
+                    {
+                        Log.Information("Started Seeding Default Data");
+
+                        await DefaultData.SeedAsync(dbContext);
+                    }
+
+                    Log.Information("Application Starting");
+                }
+
+                await host.RunAsync();
             }
             catch (Exception ex)
             {
