@@ -33,10 +33,12 @@ namespace backend.DbContexts
 
                 if (entry.State == EntityState.Added)
                 {
-                    entity.CreatedAt = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("S.E. Asia Standard Time"));
+                    // entity.CreatedAt = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("S.E. Asia Standard Time"));
+                    entity.CreatedAt = DateTime.UtcNow;
                 }
 
-                entity.UpdatedAt = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("S.E. Asia Standard Time"));
+                // entity.UpdatedAt = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("S.E. Asia Standard Time"));
+                entity.UpdatedAt = DateTime.UtcNow;
             }
 
             return (await base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken));
