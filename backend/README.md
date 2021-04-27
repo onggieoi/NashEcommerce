@@ -3,7 +3,7 @@
 **Quick start**:
 - cd to `NashEcommerce/backend`
 - Create appsettings.json and fill all nessesarry key value pair follow by `appsettings.example.json`
-- run migrations and update database all contexts (`ApplicationDbContext`, `ConfigurationDb`, `PersistedGrantDb`)
+- run migrations and update database all contexts (`ApplicationDbContext`, `ConfigurationDbContext`, `PersistedGrantDbContext`)
   - `dotnet ef migrations add init -c [context]`
   - `dotnet ef database update -c [context]`
 - run backend \
