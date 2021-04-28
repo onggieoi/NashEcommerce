@@ -1,4 +1,4 @@
-namespace backend.Configs
+namespace backend.Constans
 {
     public static class Roles
     {

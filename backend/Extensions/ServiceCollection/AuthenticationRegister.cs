@@ -1,4 +1,4 @@
-using backend.Configs;
+using backend.Constans;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace backend.Exceptions.ServiceCollection

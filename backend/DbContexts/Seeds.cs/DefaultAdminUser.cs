@@ -1,6 +1,6 @@
 using System.Linq;
 using System.Threading.Tasks;
-using backend.Configs;
+using backend.Constans;
 using Microsoft.AspNetCore.Identity;
 
 namespace backend.DbContexts.Seeds

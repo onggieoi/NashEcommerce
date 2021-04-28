@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Reflection;
 using backend.Extensions;
 using backend.Extensions.ServiceCollection;
@@ -7,11 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.Collections.Generic;
-using backend.Configs;
-using Microsoft.EntityFrameworkCore;
-using IdentityServer4.EntityFramework.DbContexts;
-using IdentityServer4.EntityFramework.Mappers;
+using backend.Constans;
 using backend.Middlewares;
 using backend.Exceptions.ServiceCollection;
 

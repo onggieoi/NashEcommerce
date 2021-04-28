@@ -1,8 +1,6 @@
 using System.ComponentModel.DataAnnotations;
-using System.Security.Claims;
 using System.Threading.Tasks;
-using backend.Configs;
-using IdentityModel;
+using backend.Constans;
 using IdentityServer4.Models;
 using IdentityServer4.Services;
 using Microsoft.AspNetCore.Identity;

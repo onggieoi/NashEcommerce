@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Microsoft.Extensions.DependencyInjection;
-using backend.Configs;
+using backend.Constans;
 using Microsoft.Extensions.Configuration;
 
 namespace backend.Extensions.ServiceCollection
