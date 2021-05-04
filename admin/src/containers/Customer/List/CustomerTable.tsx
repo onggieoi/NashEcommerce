@@ -28,10 +28,10 @@ const CustomerTable: React.FC<Props> = ({ customers }) => {
                             <div className="text-gray-600 text-xs whitespace-no-wrap">Photography</div>
                         </td>
                         <td className="text-center">
-                            {customer.email}
+                            {customer.email || 'unknown'}
                         </td>
                         <td className="text-center">
-                            {customer.phoneNumber}
+                            {customer.phoneNumber || 'unknown'}
                         </td>
                         <td className="table-report__action w-56">
                             <div className="flex justify-center items-center">
