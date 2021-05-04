@@ -2,9 +2,9 @@
 Stage 1 Challenge
 
 live preview - azure 
-- [admin](https://nashonggieoi.z23.web.core.windows.net) *enable popup window to authentication*
-- [client](https://nashonggieoi-client.azurewebsites.net)
-- [backend](http://nashoggieoi.azurewebsites.net) *api*
+- [admin](https://saonggieoi.z23.web.core.windows.net) *enable popup window to authentication*
+- [client](https://customersite-onggieoi.azurewebsites.net)
+- [backend](https://backend-onggieoi.azurewebsites.net/api) *api*
 ---
 ## Docs
 - [admin](https://github.com/onggieoi/NashEcommerce/tree/master/admin)
